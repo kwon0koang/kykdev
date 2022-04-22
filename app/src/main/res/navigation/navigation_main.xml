@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/mainFragment">
+
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.glorykwon.kykdev.ui.main.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_rxJavaTestFragment"
+            app:destination="@id/rxJavaTestFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_flowTestFragment"
+            app:destination="@id/flowTestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rxJavaTestFragment"
+        android:name="com.glorykwon.kykdev.ui.rxjavatest.RxJavaTestFragment"
+        android:label="RxJavaTestFragment" />
+    <fragment
+        android:id="@+id/flowTestFragment"
+        android:name="com.glorykwon.kykdev.ui.flowtest.FlowTestFragment"
+        android:label="FlowTestFragment" />
+
+
+</navigation>

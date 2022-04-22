@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "902633249905",
+    "project_id": "kykdev-ffcc7",
+    "storage_bucket": "kykdev-ffcc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902633249905:android:02b7add1eed0bdc22ccfd0",
+        "android_client_info": {
+          "package_name": "com.glorykwon.kykdev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902633249905-icls68j17iua5orubtbgqmur5cs61a49.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.glorykwon.kykdev",
+            "certificate_hash": "2836e364f793d872ee0e63d6ddcd445c2bdc107c"
+          }
+        },
+        {
+          "client_id": "902633249905-c0u1ogc6fs30ofke722h8ml89e7gp8ji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWpeV7zf_rgcnsTIyfysjOZ0AYOvQ5Y_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902633249905-c0u1ogc6fs30ofke722h8ml89e7gp8ji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
