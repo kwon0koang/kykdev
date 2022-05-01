@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.ui.main
+package com.glorykwon.kykdev.ui
 
 import android.Manifest
 import androidx.lifecycle.*

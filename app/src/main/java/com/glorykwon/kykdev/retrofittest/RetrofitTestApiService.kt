@@ -8,19 +8,19 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface DeepSearchApiService {
+interface RetrofitTestApiService {
     companion object {
-        private const val BASE_URL = "https://api.ddi.deepsearch.com/"
-        private const val AUTO_TOKEN = "MGQ1NzdiN2U0YmRmNGE2ZWE0ZWMxZGIxNmE0NDM4Y2M6ZTgzYTAzZGVhMmNlZmUzNzA4MjExMTZmMGRjNzkxMzg1NDU5YWNhZTIyNzQzNTUxNWUzNDY0NTFhZTViYjdiMQ=="
+        private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
+//        private const val TOKEN = "SDFJAEOICJXVAUIFHJWENILKVJDVASDUOJFELJFNKLDNVZKLDGJSIDROLGKXFNGJKLFGSRKLSRLEIGN"       //헤더 토큰
 
         @Volatile
-        private var _INSTANCE: DeepSearchApiService? = null
+        private var _INSTANCE: RetrofitTestApiService? = null
         fun getInstance() = _INSTANCE ?: synchronized(this) {
             val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(logger)
-                .addInterceptor(DeepSearchAuthenticationInterceptor(AUTO_TOKEN))
+//                .addInterceptor(RetrofitTestInterceptor(TOKEN))
                 .build()
 
             Retrofit.Builder()
@@ -29,18 +29,17 @@ interface DeepSearchApiService {
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(DeepSearchApiService::class.java)
+                .create(RetrofitTestApiService::class.java)
                 .apply { _INSTANCE = this }
         }
     }
 
     /**
-     * 뉴스 키워드 검색
-     * api.ddi.deepsearch.com/haystack/v1/news/_search?query=삼성전자
+     * 검색
+     * https://jsonplaceholder.typicode.com/todos?id=1
      */
-    @GET("haystack/v1/news/_search")
-    suspend fun searchNewsByKeywordToJson(
-        @Query("query") query: String,
-        @Query("page") page: Int
-    ): NewsResp
+    @GET("todos")
+    suspend fun searchById(
+        @Query("id") id: Int
+    ): List<RetrofitTestDto>
 }

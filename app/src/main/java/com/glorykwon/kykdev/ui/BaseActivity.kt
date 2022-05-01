@@ -7,7 +7,6 @@ import timber.log.Timber
 
 abstract class BaseActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MainApplication.setActivityContext(this)
@@ -30,27 +29,5 @@ abstract class BaseActivity : AppCompatActivity() {
             Timber.d("BaseActivity / onRestoreInstanceState / ${it.getString("test")}")
         }
     }
-
-
-    open class Animal
-    class Dog: Animal() {
-        val leg = 4
-    }
-    class Bird: Animal() {
-        val leg = 2
-    }
-
-    fun testFunc(animalParam: Animal){
-//        val animal = when(animalParam){
-//            is Dog      -> { animalParam as Dog }
-//            is Bird     -> { animalParam as Bird }
-//            else        -> { null }
-//        }
-//
-//        //animal이란 변수가 상황에 따라 Dog도 되었다가 Bird도 되었다가
-//        //가능할까요 ?
-//        print(animal.leg)
-    }
-
 
 }

@@ -28,24 +28,24 @@
             android:textSize="20dp"
             tools:text="RxJava test" />
 
-        <Button
-            android:id="@+id/btn_on_network_subject01"
+        <CheckBox
+            android:id="@+id/cb_on_network_subject01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Toggle NetworkSubject01"
+            android:text="NetworkSubject01"
             android:layout_marginTop="30dp"/>
 
-        <Button
-            android:id="@+id/btn_on_network_subject02"
+        <CheckBox
+            android:id="@+id/cb_on_network_subject02"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Toggle NetworkSubject02" />
+            android:text="NetworkSubject02" />
 
-        <Button
-            android:id="@+id/btn_on_network_subject03"
+        <CheckBox
+            android:id="@+id/cb_on_network_subject03"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Toggle NetworkSubject03" />
+            android:text="NetworkSubject03" />
 
         <TextView
             android:id="@+id/txt_combine_latest_test"

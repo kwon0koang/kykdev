@@ -35,24 +35,7 @@ class RxJavaTestFragment : Fragment() {
 
         initView()      //뷰 초기화
 
-        return mBinding.apply{
-
-            etRxjavaTest.addTextChangedListener {
-                val str = it.toString()
-                mTextSubject.onNext(str)
-            }
-
-            btnOnNetworkSubject01.setOnClickListener {
-                mNetworkSubject01.onNext(!mNetworkSubject01.value)
-            }
-            btnOnNetworkSubject02.setOnClickListener {
-                mNetworkSubject02.onNext(!mNetworkSubject02.value)
-            }
-            btnOnNetworkSubject03.setOnClickListener {
-                mNetworkSubject03.onNext(!mNetworkSubject03.value)
-            }
-
-        }.root
+        return mBinding.root
     }
 
     override fun onResume() {
@@ -65,21 +48,33 @@ class RxJavaTestFragment : Fragment() {
      */
     private fun initView() {
 
+        mBinding.etRxjavaTest.addTextChangedListener {
+            val str = it.toString()
+            mTextSubject.onNext(str)
+        }
+
+        mBinding.cbOnNetworkSubject01.setOnCheckedChangeListener { _, isChecked ->
+            mNetworkSubject01.onNext(isChecked)
+        }
+
+        mBinding.cbOnNetworkSubject02.setOnCheckedChangeListener { _, isChecked ->
+            mNetworkSubject02.onNext(isChecked)
+        }
+
+        mBinding.cbOnNetworkSubject03.setOnCheckedChangeListener { _, isChecked ->
+            mNetworkSubject03.onNext(isChecked)
+        }
+
         mTextSubject
-            .doOnNext { mBinding.txtRxjavaTest.text = "$it" }
+            .doOnNext { mBinding.txtRxjavaTest.text = "$it #1" }
             .debounce(200, TimeUnit.MILLISECONDS)
-            .doOnNext { mBinding.txtRxjavaTest.text = "$it $it" }
-            .debounce(200, TimeUnit.MILLISECONDS)
-            .doOnNext { mBinding.txtRxjavaTest.text = "$it $it $it" }
+            .doOnNext { mBinding.txtRxjavaTest.text = "$it #2" }
             .debounce(200, TimeUnit.MILLISECONDS)
             .doOnError { Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show() }
             .subscribeBy {
-                mBinding.txtRxjavaTest.text = "$it $it $it $it"
+                mBinding.txtRxjavaTest.text = "$it #3"
             }
 
-        /**
-         * CombineLatest test
-         */
         Observable.combineLatest(
             mNetworkSubject01.doOnNext { Timber.d("combineLatest test / mNetworkSubject01:${mNetworkSubject01.value}") }
             , mNetworkSubject02.doOnNext { Timber.d("combineLatest test / mNetworkSubject02:${mNetworkSubject02.value}") }
@@ -87,7 +82,7 @@ class RxJavaTestFragment : Fragment() {
         ){ result1, result2, result3 ->
             result1 && result2 && result3
         }.subscribeBy { isAllTrue ->
-            mBinding.txtCombineLatestTest.text = "${mNetworkSubject01.value} / ${mNetworkSubject02.value} / ${mNetworkSubject03.value}  >>  isAllTrue:${isAllTrue}"
+            mBinding.txtCombineLatestTest.text = "is all check ? ${isAllTrue}"
         }
 
     }
@@ -96,10 +91,6 @@ class RxJavaTestFragment : Fragment() {
      * 데이터 초기화
      */
     private fun initData() {
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 
 }

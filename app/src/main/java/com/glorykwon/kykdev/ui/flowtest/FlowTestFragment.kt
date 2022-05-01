@@ -24,16 +24,12 @@ class FlowTestFragment : Fragment() {
 
     private lateinit var mAdapter: FlowTestAdapter
 
-    private var mNextKey = 1
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
         initView()      //뷰 초기화
 
-        return mBinding.apply{
-
-        }.root
+        return mBinding.root
     }
 
     override fun onResume() {
@@ -76,10 +72,6 @@ class FlowTestFragment : Fragment() {
                 mAdapter?.submitData(pagingDataList)
             }
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 
 }

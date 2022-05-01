@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.glorykwon.kykdev.ui.main.MainFragment"
+        android:name="com.glorykwon.kykdev.ui.MainFragment"
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" >
         <action

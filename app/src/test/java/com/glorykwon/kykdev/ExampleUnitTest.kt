@@ -32,20 +32,20 @@ class ExampleUnitTest {
         return block(this)
     }
 
-    public inline fun <T> T.also(block: (T) -> Unit): T {
+    public inline fun <T> T.also2(block: (T) -> Unit): T {
 //        contract {
 //            callsInPlace(block, InvocationKind.EXACTLY_ONCE)
 //        }
         block(this)
         return this
     }
-    public inline fun <T, R> T.run(block: T.() -> R): R {
+    public inline fun <T, R> T.run2(block: T.() -> R): R {
 //        contract {
 //            callsInPlace(block, InvocationKind.EXACTLY_ONCE)
 //        }
         return block()
     }
-    public inline fun <T, R> with(receiver: T, block: T.() -> R): R {
+    public inline fun <T, R> with2(receiver: T, block: T.() -> R): R {
 //        contract {
 //            callsInPlace(block, InvocationKind.EXACTLY_ONCE)
 //        }
