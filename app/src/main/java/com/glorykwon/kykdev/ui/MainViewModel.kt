@@ -5,13 +5,8 @@ import androidx.lifecycle.*
 import com.glorykwon.kykdev.MainApplication
 import com.glorykwon.kykdev.common.Event
 import com.glorykwon.kykdev.common.NetworkResult
-import com.glorykwon.kykdev.retrofittest.DeepSearchApiService
+import com.glorykwon.kykdev.retrofittest.RetrofitTestApiService
 import com.tbruyelle.rxpermissions3.RxPermissions
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.subjects.BehaviorSubject
-import kotlinx.coroutines.delay
-import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 class MainViewModel : ViewModel() {
 
@@ -25,10 +20,11 @@ class MainViewModel : ViewModel() {
             emit(Event(NetworkResult.Loading()))
             try {
 
-                val result = DeepSearchApiService.getInstance().searchNewsByKeywordToJson("삼성전자", 800)
-                emit(Event(NetworkResult.Success(result)))
+                val dtoList = RetrofitTestApiService.getInstance().searchById(1)
+                emit(Event(NetworkResult.Success(dtoList)))
 
             } catch (e: Exception) {
+                e.printStackTrace()
                 emit(Event(NetworkResult.Error(e)))
             }
         }
@@ -53,25 +49,7 @@ class MainViewModel : ViewModel() {
                 emit(Event(NetworkResult.Success(result)))
 
             } catch (e: Exception) {
-                emit(Event(NetworkResult.Error(e)))
-            }
-        }
-    }
-
-    /**
-     * Push test
-     */
-    private val _pushTest = MutableLiveData<Event<Any>>()
-    fun pushTest(){ _pushTest.value = Event(Any()) }
-    val pushTest = _pushTest.switchMap {
-        liveData {
-            emit(Event(NetworkResult.Loading()))
-            try {
-
-                val result = DeepSearchApiService.getInstance().searchNewsByKeywordToJson("삼성전자", 800)
-                emit(Event(NetworkResult.Success(result)))
-
-            } catch (e: Exception) {
+                e.printStackTrace()
                 emit(Event(NetworkResult.Error(e)))
             }
         }

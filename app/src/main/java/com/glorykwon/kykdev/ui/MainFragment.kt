@@ -9,11 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.glorykwon.kykdev.R
-import com.glorykwon.kykdev.common.MyFirebaseMessagingService
 import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
+import com.glorykwon.kykdev.retrofittest.RetrofitTestDto
 import com.google.firebase.messaging.FirebaseMessaging
-import timber.log.Timber
 
 class MainFragment : Fragment() {
 
@@ -28,30 +27,9 @@ class MainFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
 
         initView()      //뷰 초기화
+        initObserver()  //옵저버 초기화
 
-        return mBinding.apply{
-            //Retrofit test
-            btnRetrofitTest.setOnClickListener {
-                mViewModel.retrofitTest()
-            }
-            //RxPermission test
-            btnRxpermissionTest.setOnClickListener {
-                mViewModel.rxPermissionTest()
-            }
-            //RxJava test
-            btnRxjavaTest.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_rxJavaTestFragment)
-            }
-            //Flow test
-            btnFlowTest.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_flowTestFragment)
-            }
-            //Push test
-            btnPushTest.setOnClickListener {
-                val myToken = FirebaseMessaging.getInstance().getToken().getResult()
-                Toast.makeText(context, "myToken\n\n$myToken", Toast.LENGTH_SHORT).show()
-            }
-        }.root
+        return mBinding.root
     }
 
     override fun onResume() {
@@ -65,18 +43,54 @@ class MainFragment : Fragment() {
     private fun initView() {
 
         //Retrofit test
+        mBinding.btnRetrofitTest.setOnClickListener {
+            mViewModel.retrofitTest()
+        }
+
+        //RxPermission test
+        mBinding.btnRxpermissionTest.setOnClickListener {
+            mViewModel.rxPermissionTest()
+        }
+
+        //RxJava test
+        mBinding.btnRxjavaTest.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_rxJavaTestFragment)
+        }
+
+        //Flow test
+        mBinding.btnFlowTest.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_flowTestFragment)
+        }
+
+        //Push test
+        mBinding.btnPushTest.setOnClickListener {
+            val myToken = FirebaseMessaging.getInstance().getToken().getResult()
+            Toast.makeText(context, myToken, Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    /**
+     * 옵저버 초기화
+     */
+    private fun initObserver() {
+
+        //Retrofit test
         mViewModel.retrofitTest.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let{
                 when(it) {
                     is NetworkResult.Loading -> {}
                     is NetworkResult.Success -> {
-                        val result = it.data
-                        Toast.makeText(context, result.toString(), Toast.LENGTH_SHORT).show()
+                        val dtoList = it.data as List<RetrofitTestDto>
+                        Toast.makeText(context, dtoList.toString(), Toast.LENGTH_SHORT).show()
                     }
-                    is NetworkResult.Error -> {}
+                    is NetworkResult.Error -> {
+                        Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
+
         //RxPermission test
         mViewModel.rxPermissionTest.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let{
@@ -86,20 +100,9 @@ class MainFragment : Fragment() {
                         val result = it.data
                         Toast.makeText(context, result.toString(), Toast.LENGTH_SHORT).show()
                     }
-                    is NetworkResult.Error -> {}
-                }
-            }
-        }
-        //Push test
-        mViewModel.pushTest.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let{
-                when(it) {
-                    is NetworkResult.Loading -> {}
-                    is NetworkResult.Success -> {
-                        val result = it.data
-                        Toast.makeText(context, result.toString(), Toast.LENGTH_SHORT).show()
+                    is NetworkResult.Error -> {
+                        Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                     }
-                    is NetworkResult.Error -> {}
                 }
             }
         }
@@ -110,10 +113,6 @@ class MainFragment : Fragment() {
      * 데이터 초기화
      */
     private fun initData() {
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 
 }
