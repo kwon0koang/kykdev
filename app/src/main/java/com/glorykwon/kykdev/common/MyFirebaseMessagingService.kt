@@ -26,7 +26,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
     }
 
     /**
-     * 수신한 메시지를 처리
+     * 수신한 메시지 처리
      */
     override fun onMessageReceived(@NonNull remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)

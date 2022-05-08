@@ -9,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.glorykwon.kykdev.databinding.RxjavaTestFragmentBinding
+import com.glorykwon.kykdev.ui.BaseFragment
 import com.glorykwon.kykdev.ui.main.RxJavaTestViewModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
@@ -16,11 +17,7 @@ import io.reactivex.rxjava3.subjects.BehaviorSubject
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class RxJavaTestFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = RxJavaTestFragment()
-    }
+class RxJavaTestFragment : BaseFragment() {
 
     private val mBinding by lazy { RxjavaTestFragmentBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<RxJavaTestViewModel>()

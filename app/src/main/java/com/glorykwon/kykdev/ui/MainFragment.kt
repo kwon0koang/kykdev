@@ -9,16 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.glorykwon.kykdev.R
+import com.glorykwon.kykdev.api.RetrofitTestDto
 import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
-import com.glorykwon.kykdev.retrofittest.RetrofitTestDto
 import com.google.firebase.messaging.FirebaseMessaging
+import timber.log.Timber
 
 class MainFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
     private val mBinding by lazy { MainFragmentBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<MainViewModel>()
@@ -83,6 +80,7 @@ class MainFragment : Fragment() {
                     is NetworkResult.Success -> {
                         val dtoList = it.data as List<RetrofitTestDto>
                         Toast.makeText(context, dtoList.toString(), Toast.LENGTH_SHORT).show()
+                        Timber.d("retrofitTest / dtoList:$dtoList")
                     }
                     is NetworkResult.Error -> {
                         Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()

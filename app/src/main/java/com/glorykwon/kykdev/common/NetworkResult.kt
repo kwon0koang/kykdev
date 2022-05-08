@@ -6,7 +6,7 @@ sealed class NetworkResult {
                        , val data3: Any? = null
                        , val data4: Any? = null
                        , val data5: Any? = null): NetworkResult()
-    data class Error(val throwable: Throwable, val messageTitle: String? = ""): NetworkResult()
+    data class Error(val throwable: Throwable, val message: String? = ""): NetworkResult()
     data class Loading(val message: String = "Loading"): NetworkResult()
 }
 

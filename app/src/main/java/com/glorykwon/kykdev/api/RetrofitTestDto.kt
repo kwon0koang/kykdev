@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.retrofittest
+package com.glorykwon.kykdev.api
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.retrofittest
+package com.glorykwon.kykdev.api
 
 import okhttp3.Interceptor
 import okhttp3.Response

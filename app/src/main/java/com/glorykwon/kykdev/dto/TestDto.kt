@@ -6,7 +6,6 @@ class TestDto {
     var value02: String = ""
     var value03: String = ""
 
-
 }
 
 

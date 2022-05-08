@@ -10,14 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.glorykwon.kykdev.databinding.FlowTestFragmentBinding
+import com.glorykwon.kykdev.ui.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
-class FlowTestFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = FlowTestFragment()
-    }
+class FlowTestFragment : BaseFragment() {
 
     private val mBinding by lazy { FlowTestFragmentBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<FlowTestViewModel>()
@@ -42,8 +40,8 @@ class FlowTestFragment : Fragment() {
      */
     private fun initView() {
         //어댑터 셋팅
-        mAdapter = FlowTestAdapter{ testDto ->
-            Toast.makeText(activity, testDto.value01, Toast.LENGTH_SHORT).show()
+        mAdapter = FlowTestAdapter{
+            Toast.makeText(context, it.title, Toast.LENGTH_SHORT).show()
         }
         mBinding.rvFlowTest.adapter = mAdapter
 
@@ -55,7 +53,7 @@ class FlowTestFragment : Fragment() {
 //                    is LoadState.NotLoading, is LoadState.Error -> mProgress.hide()
 //                }
                 if (refresh is LoadState.NotLoading) {
-//                    Toast.makeText(activity, "itemCount:${mAdapter.itemCount}", Toast.LENGTH_SHORT).show()
+                    Timber.d("itemCount: ${mAdapter.itemCount}")
                 }
             }
         }
@@ -66,9 +64,9 @@ class FlowTestFragment : Fragment() {
      * 데이터 초기화
      */
     private fun initData() {
-        //더미 데이터 조회
+        //데이터 조회
         lifecycleScope.launch {
-            mViewModel.fetchDummyData()?.collectLatest { pagingDataList ->
+            mViewModel.fetchTestData()?.collectLatest { pagingDataList ->
                 mAdapter?.submitData(pagingDataList)
             }
         }

@@ -1,12 +1,8 @@
 package com.glorykwon.kykdev
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
-import timber.log.Timber
-import java.io.File
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
+import java.util.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -22,7 +18,6 @@ class ExampleUnitTest {
 
     @Test
     fun test() {
-
     }
 
     public inline fun <T, R> T.let2(block: (T) -> R): R {

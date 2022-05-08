@@ -16,14 +16,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-<!--        <EditText-->
-<!--            android:id="@+id/et_flow_test"-->
+<!--        <TextView-->
+<!--            android:id="@+id/txt_flow_test"-->
 <!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"/>-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="TEST" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_flow_test"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

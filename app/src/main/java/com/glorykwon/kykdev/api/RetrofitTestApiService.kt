@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.retrofittest
+package com.glorykwon.kykdev.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,6 +33,15 @@ interface RetrofitTestApiService {
                 .apply { _INSTANCE = this }
         }
     }
+
+    /**
+     * 검색
+     * https://jsonplaceholder.typicode.com/todos?userId=1
+     */
+    @GET("todos")
+    suspend fun searchByUserId(
+        @Query("userId") id: Int
+    ): List<RetrofitTestDto>
 
     /**
      * 검색

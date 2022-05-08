@@ -3,10 +3,16 @@ package com.glorykwon.kykdev.ui
 import android.Manifest
 import androidx.lifecycle.*
 import com.glorykwon.kykdev.MainApplication
-import com.glorykwon.kykdev.common.Event
+import com.glorykwon.kykdev.util.kt.Event
 import com.glorykwon.kykdev.common.NetworkResult
-import com.glorykwon.kykdev.retrofittest.RetrofitTestApiService
+import com.glorykwon.kykdev.api.RetrofitTestApiService
+import com.glorykwon.kykdev.api.RetrofitTestDto
 import com.tbruyelle.rxpermissions3.RxPermissions
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import timber.log.Timber
+import kotlin.system.measureTimeMillis
 
 class MainViewModel : ViewModel() {
 
@@ -20,8 +26,20 @@ class MainViewModel : ViewModel() {
             emit(Event(NetworkResult.Loading()))
             try {
 
-                val dtoList = RetrofitTestApiService.getInstance().searchById(1)
-                emit(Event(NetworkResult.Success(dtoList)))
+                val dataList = mutableListOf<RetrofitTestDto>()
+                measureTimeMillis {
+                    coroutineScope {
+                        listOf(async {
+                            dataList.addAll(RetrofitTestApiService.getInstance().searchByUserId(1))
+                        }, async {
+                            dataList.addAll(RetrofitTestApiService.getInstance().searchByUserId(2))
+                        }, async {
+                            dataList.addAll(RetrofitTestApiService.getInstance().searchByUserId(3))
+                        }).awaitAll()
+                    }
+                }.run { Timber.d("TestDataPagingSource / load / time:${this} / dataSize:${dataList.size}") }
+
+                emit(Event(NetworkResult.Success(dataList)))
 
             } catch (e: Exception) {
                 e.printStackTrace()
