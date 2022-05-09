@@ -2,7 +2,6 @@ package com.glorykwon.kykdev
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.util.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -12,7 +11,7 @@ import java.util.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        System.out.println("kyk test")
+        println("kyk test")
         assertEquals(4, 2 + 2)
     }
 

@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import com.glorykwon.kykdev.databinding.RxjavaTestFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 import com.glorykwon.kykdev.ui.main.RxJavaTestViewModel
@@ -21,11 +23,6 @@ class RxJavaTestFragment : BaseFragment() {
 
     private val mBinding by lazy { RxjavaTestFragmentBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<RxJavaTestViewModel>()
-
-    private val mTextSubject = BehaviorSubject.createDefault("")
-    private val mNetworkSubject01 = BehaviorSubject.createDefault(false)
-    private val mNetworkSubject02 = BehaviorSubject.createDefault(false)
-    private val mNetworkSubject03 = BehaviorSubject.createDefault(false)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -47,22 +44,22 @@ class RxJavaTestFragment : BaseFragment() {
 
         mBinding.etRxjavaTest.addTextChangedListener {
             val str = it.toString()
-            mTextSubject.onNext(str)
+            mViewModel.mTextSubject.onNext(str)
         }
 
         mBinding.cbOnNetworkSubject01.setOnCheckedChangeListener { _, isChecked ->
-            mNetworkSubject01.onNext(isChecked)
+            mViewModel.mNetworkSubject01.onNext(isChecked)
         }
 
         mBinding.cbOnNetworkSubject02.setOnCheckedChangeListener { _, isChecked ->
-            mNetworkSubject02.onNext(isChecked)
+            mViewModel.mNetworkSubject02.onNext(isChecked)
         }
 
         mBinding.cbOnNetworkSubject03.setOnCheckedChangeListener { _, isChecked ->
-            mNetworkSubject03.onNext(isChecked)
+            mViewModel.mNetworkSubject03.onNext(isChecked)
         }
 
-        mTextSubject
+        mViewModel.mTextSubject
             .doOnNext { mBinding.txtRxjavaTest.text = "$it #1" }
             .debounce(200, TimeUnit.MILLISECONDS)
             .doOnNext { mBinding.txtRxjavaTest.text = "$it #2" }
@@ -73,9 +70,9 @@ class RxJavaTestFragment : BaseFragment() {
             }
 
         Observable.combineLatest(
-            mNetworkSubject01.doOnNext { Timber.d("combineLatest test / mNetworkSubject01:${mNetworkSubject01.value}") }
-            , mNetworkSubject02.doOnNext { Timber.d("combineLatest test / mNetworkSubject02:${mNetworkSubject02.value}") }
-            , mNetworkSubject03.doOnNext { Timber.d("combineLatest test / mNetworkSubject03:${mNetworkSubject03.value}") }
+            mViewModel.mNetworkSubject01.doOnNext { Timber.d("combineLatest test / mNetworkSubject01:${it}") }
+            , mViewModel.mNetworkSubject02.doOnNext { Timber.d("combineLatest test / mNetworkSubject02:${it}") }
+            , mViewModel.mNetworkSubject03.doOnNext { Timber.d("combineLatest test / mNetworkSubject03:${it}") }
         ){ result1, result2, result3 ->
             result1 && result2 && result3
         }.subscribeBy { isAllTrue ->
@@ -89,5 +86,6 @@ class RxJavaTestFragment : BaseFragment() {
      */
     private fun initData() {
     }
+
 
 }
