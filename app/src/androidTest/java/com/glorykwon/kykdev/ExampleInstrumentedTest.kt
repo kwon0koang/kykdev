@@ -1,17 +1,12 @@
 package com.glorykwon.kykdev
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.delay
+import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.runBlocking
-
+import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-import org.junit.Before
 import timber.log.Timber
 
 /**
@@ -36,34 +31,6 @@ class ExampleInstrumentedTest {
 
     @Test
     fun test() = runBlocking {
-        listOf(async {
-            for(i in 1..10){
-                Timber.d("kyk / a / $i")
-                delay(100)
-            }
-        }, async {
-            for(i in 1..10){
-                Timber.d("kyk / b / $i")
-                delay(100)
-            }
-        }, async {
-            for(i in 1..10){
-                Timber.d("kyk / c / $i")
-                delay(100)
-            }
-        }).awaitAll()
-
-        for(i in 1..10){
-            Timber.d("kyk / d / $i")
-            delay(100)
-        }
-
-        Timber.d("kyk / 555555555555555555555555555")
-    }
-
-    @Test
-    fun asdf(){
-        Timber.d("asdfasdfasdfasdfasdf")
     }
 
 }
