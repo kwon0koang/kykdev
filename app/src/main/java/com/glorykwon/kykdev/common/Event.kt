@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.util.kt
+package com.glorykwon.kykdev.common
 
 /**
  * SingleLiveEvent 와 동일한 역할을 하지만 observer 여러개 등록 가능

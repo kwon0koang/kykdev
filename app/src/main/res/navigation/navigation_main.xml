@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_mainFragment_to_flowTestFragment"
             app:destination="@id/flowTestFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_workManagerTestFragment"
+            app:destination="@id/workManagerTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/rxJavaTestFragment"
@@ -26,6 +29,10 @@
         android:id="@+id/flowTestFragment"
         android:name="com.glorykwon.kykdev.ui.flowtest.FlowTestFragment"
         android:label="FlowTestFragment" />
+    <fragment
+        android:id="@+id/workManagerTestFragment"
+        android:name="com.glorykwon.kykdev.ui.workmanagertest.WorkManagerTestFragment"
+        android:label="WorkManagerTestFragment" />
 
 
 </navigation>

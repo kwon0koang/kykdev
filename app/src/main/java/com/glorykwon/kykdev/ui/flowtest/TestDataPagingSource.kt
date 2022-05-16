@@ -21,11 +21,11 @@ class TestDataPagingSource(): PagingSource<String, RetrofitTestDto>() {
             val dataList = mutableListOf<RetrofitTestDto>()
             measureTimeMillis {
                 coroutineScope {
-                    listOf(async {
+                    listOf(async(Dispatchers.IO) {
                         dataList.addAll(RetrofitTestApiService.getInstance().searchByUserId(1))
-                    }, async {
+                    }, async(Dispatchers.IO) {
                         dataList.addAll(RetrofitTestApiService.getInstance().searchByUserId(2))
-                    }, async {
+                    }, async(Dispatchers.IO) {
                         dataList.addAll(RetrofitTestApiService.getInstance().searchByUserId(3))
                     }).awaitAll()
                 }

@@ -65,6 +65,11 @@ class MainFragment : Fragment() {
             Toast.makeText(context, myToken, Toast.LENGTH_SHORT).show()
         }
 
+        //WorkManager test
+        mBinding.btnWorkManagerTest.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_workManagerTestFragment)
+        }
+
     }
 
     /**

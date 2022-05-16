@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/kwon0koang/.gradle/caches/transforms-2/files-2.1/a8853c79a147db2fa763cf5d57d6fb65/jetified-appcompat-resources-1.2.0/res/drawable/abc_vector_test.xml" value="0.2455" />
+        <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2455" />
         <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/flow_test_fragment.xml" value="0.266304347826087" />
-        <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/main_fragment.xml" value="0.1" />
+        <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/item_flow_test.xml" value="0.23958333333333334" />
+        <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/main_activity.xml" value="0.23958333333333334" />
+        <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/main_fragment.xml" value="0.2988679352838745" />
         <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/rxjava_test_fragment.xml" value="0.5189982728842832" />
+        <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/workmanager_test_fragment.xml" value="0.23958333333333334" />
       </map>
     </option>
   </component>

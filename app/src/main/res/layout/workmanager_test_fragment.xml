@@ -17,42 +17,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/btn_retrofit_test"
+            android:id="@+id/btn_worker_test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Retrofit test" />
+            android:text="worker test" />
 
         <Button
-            android:id="@+id/btn_rxpermission_test"
+            android:id="@+id/btn_coroutine_worker_test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RxPermission test" />
-
-        <Button
-            android:id="@+id/btn_rxjava_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RxJava test" />
-
-        <Button
-            android:id="@+id/btn_flow_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Flow test" />
-
-        <Button
-            android:id="@+id/btn_push_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Push test" />
-
-        <Button
-            android:id="@+id/btn_work_manager_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="WorkManager test" />
+            android:text="coroutine worker test (20초 후 noti)" />
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

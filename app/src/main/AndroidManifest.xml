@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kykdev">
 
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,8 +23,8 @@
             </intent-filter>
         </activity>
 
-        <!--   서비스를 추가하고 인텐트 필터를 설정한다.   -->
-        <service android:name=".common.MyFirebaseMessagingService">
+        <service android:name=".common.MyFirebaseMessagingService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>

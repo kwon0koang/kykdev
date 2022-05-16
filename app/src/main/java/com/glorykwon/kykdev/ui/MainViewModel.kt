@@ -1,13 +1,18 @@
 package com.glorykwon.kykdev.ui
 
 import android.Manifest
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import androidx.lifecycle.switchMap
 import com.glorykwon.kykdev.MainApplication
-import com.glorykwon.kykdev.util.kt.Event
-import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.api.RetrofitTestApiService
 import com.glorykwon.kykdev.api.RetrofitTestDto
+import com.glorykwon.kykdev.common.Event
+import com.glorykwon.kykdev.common.NetworkResult
 import com.tbruyelle.rxpermissions3.RxPermissions
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -29,11 +34,11 @@ class MainViewModel : ViewModel() {
                 val dataList = mutableListOf<RetrofitTestDto>()
                 measureTimeMillis {
                     coroutineScope {
-                        listOf(async {
+                        listOf(async(Dispatchers.IO) {
                             dataList.addAll(RetrofitTestApiService.getInstance().searchByUserId(1))
-                        }, async {
+                        }, async(Dispatchers.IO) {
                             dataList.addAll(RetrofitTestApiService.getInstance().searchByUserId(2))
-                        }, async {
+                        }, async(Dispatchers.IO) {
                             dataList.addAll(RetrofitTestApiService.getInstance().searchByUserId(3))
                         }).awaitAll()
                     }
@@ -59,11 +64,13 @@ class MainViewModel : ViewModel() {
             try {
 
                 var result = false
+
                 MainApplication.getActivityContext()?.let { context ->
-                    RxPermissions(context).request(Manifest.permission.CAMERA)
-                }?.subscribe { granted: Boolean ->
-                    result = granted
+                    RxPermissions(context).request(Manifest.permission.CAMERA)?.subscribeBy { granted: Boolean ->
+                        result = granted
+                    }
                 }
+
                 emit(Event(NetworkResult.Success(result)))
 
             } catch (e: Exception) {

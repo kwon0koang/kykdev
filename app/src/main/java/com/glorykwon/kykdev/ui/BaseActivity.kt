@@ -7,19 +7,17 @@ import timber.log.Timber
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    private val TAG = "BaseActivity"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MainApplication.setActivityContext(this)
 
         savedInstanceState?.let {
-            Timber.tag(TAG).d("onCreate / ${it.getString("test")}")
+            Timber.d("onCreate / ${it.getString("test")}")
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        Timber.tag(TAG).d("onSaveInstanceState")
+        Timber.d("onSaveInstanceState")
         outState.putString("test", System.currentTimeMillis().toString())
         super.onSaveInstanceState(outState)
     }
@@ -28,7 +26,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
 
         savedInstanceState?.let {
-            Timber.tag(TAG).d("onRestoreInstanceState / ${it.getString("test")}")
+            Timber.d("onRestoreInstanceState / ${it.getString("test")}")
         }
     }
 
