@@ -26,7 +26,7 @@
             android:id="@+id/btn_coroutine_worker_test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="coroutine worker test (20초 후 noti)" />
+            android:text="coroutine worker test (10초 후 noti)" />
 
     </LinearLayout>
 

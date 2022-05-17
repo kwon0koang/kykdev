@@ -3,7 +3,7 @@ package com.glorykwon.kykdev.common
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.glorykwon.kykdev.util.kt.showTestNoti
+import com.glorykwon.kykdev.util.kt.showNoti
 import kotlinx.coroutines.*
 import timber.log.Timber
 
@@ -20,7 +20,7 @@ class TestCoroutineWorker(val context: Context, params: WorkerParameters) : Coro
             Timber.d("코루틴 워커 테스트")
 
             val deferred = async {
-                for (i in 0..20) {
+                for (i in 0..10) {
                     delay(1000)
                     Timber.d("i:$i")
                 }
@@ -29,7 +29,7 @@ class TestCoroutineWorker(val context: Context, params: WorkerParameters) : Coro
             val value = deferred.await()
             Timber.d(value)
 
-            showTestNoti("코루틴 워커 테스트", "완료")
+            showNoti("코루틴 워커 테스트", "완료")
 
             Result.success()
         } catch (throwable: Throwable) {

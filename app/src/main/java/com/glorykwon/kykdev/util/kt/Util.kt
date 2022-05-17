@@ -3,14 +3,18 @@ package com.glorykwon.kykdev.util.kt
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
+import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.glorykwon.kykdev.MainApplication
+import com.glorykwon.kykdev.ui.MainActivity
 
 val NOTI_CHANNEL_ID = "kykdev_NOTI_CHANNEL_ID"          //알림받을 채널 ID
 val NOTI_CHANNEL_NAME = "kykdev_NOTI_CHANNEL_NAME"      //채널 이름
-fun showTestNoti(title: String, content: String) {
+fun showNoti(title: String, content: String) {
     try {
         MainApplication.getActivityContext()?.let { context ->
             val notificationManager = NotificationManagerCompat.from(
@@ -32,8 +36,17 @@ fun showTestNoti(title: String, content: String) {
                 builder = NotificationCompat.Builder(context)
             }
 
+            val notiSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) // 소리
+
+            val intent = Intent(context, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            val pendingIntent = PendingIntent.getActivity(context, 0 , intent, PendingIntent.FLAG_IMMUTABLE)
+
             builder!!.setContentTitle(title)
                 .setContentText(content)
+                .setAutoCancel(true)
+                .setSound(notiSoundUri)
+                .setContentIntent(pendingIntent)
                 .setSmallIcon(android.R.drawable.checkbox_on_background)
 
             val notification: Notification = builder!!.build()
