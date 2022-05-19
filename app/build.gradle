@@ -4,6 +4,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
+    id 'realm-android'      //가장 하단에 위치
 }
 
 android {

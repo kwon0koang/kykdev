@@ -16,55 +16,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btn_retrofit_test"
+        <EditText
+            android:id="@+id/et_test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Retrofit test" />
+            android:hint="id" />
 
         <Button
-            android:id="@+id/btn_rxpermission_test"
+            android:id="@+id/btn_fetch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RxPermission test" />
+            android:text="fetch" />
 
         <Button
-            android:id="@+id/btn_rxjava_test"
+            android:id="@+id/btn_insert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RxJava test" />
+            android:text="insert" />
 
         <Button
-            android:id="@+id/btn_flow_test"
+            android:id="@+id/btn_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Flow test" />
-
-        <Button
-            android:id="@+id/btn_push_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Push test" />
-
-        <Button
-            android:id="@+id/btn_work_manager_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="WorkManager test" />
-
-        <Button
-            android:id="@+id/btn_realm_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Realm test" />
-
-        <Button
-            android:id="@+id/btn_room_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Room test" />
+            android:text="delete" />
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

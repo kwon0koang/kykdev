@@ -70,6 +70,16 @@ class MainFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFragment_to_workManagerTestFragment)
         }
 
+        //Realm test
+        mBinding.btnRealmTest.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_realmTestFragment)
+        }
+
+        //Room test
+        mBinding.btnRoomTest.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_roomTestFragment)
+        }
+
     }
 
     /**

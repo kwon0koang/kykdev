@@ -20,6 +20,12 @@
         <action
             android:id="@+id/action_mainFragment_to_workManagerTestFragment"
             app:destination="@id/workManagerTestFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_roomTestFragment"
+            app:destination="@id/roomTestFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_realmTestFragment"
+            app:destination="@id/realmTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/rxJavaTestFragment"
@@ -33,6 +39,14 @@
         android:id="@+id/workManagerTestFragment"
         android:name="com.glorykwon.kykdev.ui.workmanagertest.WorkManagerTestFragment"
         android:label="WorkManagerTestFragment" />
+    <fragment
+        android:id="@+id/realmTestFragment"
+        android:name="com.glorykwon.kykdev.ui.realmtest.RealmTestFragment"
+        android:label="RealmTestFragment" />
+    <fragment
+        android:id="@+id/roomTestFragment"
+        android:name="com.glorykwon.kykdev.ui.roomtest.RoomTestFragment"
+        android:label="RoomTestFragment" />
 
 
 </navigation>

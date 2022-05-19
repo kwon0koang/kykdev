@@ -4,6 +4,8 @@ import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import com.glorykwon.kykdev.database.realm.RealmDbHelper
+import com.glorykwon.kykdev.database.room.RoomDbHelper
 import com.glorykwon.kykdev.ui.BaseActivity
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException
 import io.reactivex.rxjava3.exceptions.UndeliverableException
@@ -23,6 +25,12 @@ class MainApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        //realm db 초기화
+        RealmDbHelper.init(this)
+
+        //room db 초기화
+        RoomDbHelper.init(this)
 
         //RxJava error handler 초기화
         initRxJavaErrorHandler()
