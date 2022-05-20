@@ -40,8 +40,10 @@ class FlowTestFragment : BaseFragment() {
      */
     private fun initView() {
         //어댑터 셋팅
-        mAdapter = FlowTestAdapter{
-            Toast.makeText(context, it.title, Toast.LENGTH_SHORT).show()
+        context?.let { context ->
+            mAdapter = FlowTestAdapter(context, mViewModel) { dto ->
+                Toast.makeText(context, dto.title, Toast.LENGTH_SHORT).show()
+            }
         }
         mBinding.rvFlowTest.adapter = mAdapter
 

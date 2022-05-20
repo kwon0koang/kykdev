@@ -23,22 +23,16 @@
             android:hint="id" />
 
         <Button
-            android:id="@+id/btn_fetch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="fetch" />
-
-        <Button
             android:id="@+id/btn_insert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="insert" />
 
-        <Button
-            android:id="@+id/btn_delete"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_todo"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="delete" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

@@ -42,7 +42,9 @@ class MainViewModel : ViewModel() {
                             dataList.addAll(RetrofitTestApiService.getInstance().searchByUserId(3))
                         }).awaitAll()
                     }
-                }.run { Timber.d("TestDataPagingSource / load / time:${this} / dataSize:${dataList.size}") }
+                }.also {
+                    Timber.d("TestDataPagingSource / load / time:${it} / dataSize:${dataList.size}")
+                }
 
                 emit(Event(NetworkResult.Success(dataList)))
 

@@ -29,7 +29,9 @@ class TestDataPagingSource(): PagingSource<String, RetrofitTestDto>() {
                         dataList.addAll(RetrofitTestApiService.getInstance().searchByUserId(3))
                     }).awaitAll()
                 }
-            }.run { Timber.d("load / time:${this} / dataSize:${dataList.size}") }
+            }.also {
+                Timber.d("load / time:${it} / dataSize:${dataList.size}")
+            }
 
             val nextKey = (currentKey.toKykInt()+1).toString()
 

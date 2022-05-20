@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.database.realm.RealmDbHelper
 import com.glorykwon.kykdev.database.realm.dao.TodoRealmObject
 import com.glorykwon.kykdev.databinding.RealmTestFragmentBinding
@@ -16,10 +17,13 @@ class RealmTestFragment : BaseFragment() {
     private val mBinding by lazy { RealmTestFragmentBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<RealmTestViewModel>()
 
+    private lateinit var mAdapter: RealmTestListAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
         initView()      //뷰 초기화
+        initObserver()  //옵저버 초기화
 
         return mBinding.root
     }
@@ -34,23 +38,58 @@ class RealmTestFragment : BaseFragment() {
      */
     private fun initView() {
 
-        mBinding.btnFetch.setOnClickListener {
-            var allTodo = ""
-            RealmDbHelper.getAllTodo().forEach {
-                allTodo += "${it.id} / ${it.content}\n"
+        //어댑터 셋팅
+        context?.let { context ->
+            mAdapter = RealmTestListAdapter(context, mViewModel) { dto ->
+                dto.id?.let { id -> mViewModel.deleteItem(id) }
             }
-            Toast.makeText(context, allTodo, Toast.LENGTH_SHORT).show()
         }
+        mBinding.rvTodo.adapter = mAdapter
 
         mBinding.btnInsert.setOnClickListener {
             val id = mBinding.etTest.text.toString()
-            val content = "$id content"
-            RealmDbHelper.insert(TodoRealmObject(id, content))
+            val content = "id:$id"
+            mViewModel.insertItem(TodoRealmObject(id, content))
         }
 
-        mBinding.btnDelete.setOnClickListener {
-            val id = mBinding.etTest.text.toString()
-            RealmDbHelper.deleteTodo(id)
+    }
+
+    /**
+     * 옵저버 초기화
+     */
+    private fun initObserver() {
+
+        mViewModel.fetchAllItems.observe(viewLifecycleOwner) {
+            when(it) {
+                is NetworkResult.Loading -> {}
+                is NetworkResult.Success -> {
+                    val list = it.data as List<TodoRealmObject>?
+                    list?.let {
+                        mAdapter.submitList(it)
+                    }
+                }
+                is NetworkResult.Error -> {}
+            }
+        }
+
+        mViewModel.insertItem.observe(viewLifecycleOwner) {
+            when(it) {
+                is NetworkResult.Loading -> {}
+                is NetworkResult.Success -> {
+                    mViewModel.fetchAllItems()
+                }
+                is NetworkResult.Error -> {}
+            }
+        }
+
+        mViewModel.deleteItem.observe(viewLifecycleOwner) {
+            when(it) {
+                is NetworkResult.Loading -> {}
+                is NetworkResult.Success -> {
+                    mViewModel.fetchAllItems()
+                }
+                is NetworkResult.Error -> {}
+            }
         }
 
     }
@@ -59,6 +98,7 @@ class RealmTestFragment : BaseFragment() {
      * 데이터 초기화
      */
     private fun initData() {
+        mViewModel.fetchAllItems()
     }
 
 }

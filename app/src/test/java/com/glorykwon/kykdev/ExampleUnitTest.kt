@@ -38,7 +38,7 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun retrofitTestApiServiceTest() = runBlocking {
+    fun retrofitTestApiServiceTest(): Unit = runBlocking {
         measureTimeMillis {
             listOf(async(Dispatchers.IO) {
                 RetrofitTestApiService.getInstance().searchByUserId(1)
@@ -47,7 +47,7 @@ class ExampleUnitTest {
             }, async(Dispatchers.IO) {
                 RetrofitTestApiService.getInstance().searchByUserId(3)
             }).awaitAll()
-        }.let {
+        }.also {
             println("total time : $it")
         }
     }

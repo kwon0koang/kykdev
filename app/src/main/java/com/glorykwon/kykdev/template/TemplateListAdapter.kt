@@ -1,17 +1,16 @@
-package com.glorykwon.kykdev.ui.flowtest
+package com.glorykwon.kykdev.template
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.glorykwon.kykdev.api.RetrofitTestDto
 import com.glorykwon.kykdev.databinding.ItemSimpleBinding
 
-class FlowTestAdapter(val context: Context, val viewModel: FlowTestViewModel, val itemClickListener: ((RetrofitTestDto) -> Unit)? = null)
-    : PagingDataAdapter<RetrofitTestDto, FlowTestAdapter.FlowTestViewHolder>(diffCallback) {
+class TemplateListAdapter(val context: Context, val viewModel: TemplateViewModel, val itemClickListener: ((RetrofitTestDto) -> Unit)? = null)
+    : ListAdapter<RetrofitTestDto, TemplateListAdapter.TestViewHolder>(diffCallback) {
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<RetrofitTestDto>() {
@@ -21,19 +20,18 @@ class FlowTestAdapter(val context: Context, val viewModel: FlowTestViewModel, va
             override fun areContentsTheSame(oldItem: RetrofitTestDto, newItem: RetrofitTestDto): Boolean {
                 return oldItem.equals(newItem)//oldItem == newItem
             }
-
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlowTestViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestViewHolder {
         val binding = ItemSimpleBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
 
-        return FlowTestViewHolder(binding).apply {
-            binding.layoutItemSelectDefaultList.setOnClickListener {
+        return TestViewHolder(binding).apply {
+            binding.btnCancel.setOnClickListener {
                 val item = getItem(absoluteAdapterPosition)
                 if (item != null) {
                     itemClickListener?.invoke(item)
@@ -42,16 +40,15 @@ class FlowTestAdapter(val context: Context, val viewModel: FlowTestViewModel, va
         }
     }
 
-    override fun onBindViewHolder(holder: FlowTestViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TestViewHolder, position: Int) {
         getItem(position)?.let {
             holder.bind(it)
         }
     }
 
-    class FlowTestViewHolder(val binding: ItemSimpleBinding): RecyclerView.ViewHolder(binding.root) {
+    class TestViewHolder(val binding: ItemSimpleBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: RetrofitTestDto) {
             binding.txtTest.text = data.title
-            binding.btnCancel.isVisible = false
         }
     }
 }
