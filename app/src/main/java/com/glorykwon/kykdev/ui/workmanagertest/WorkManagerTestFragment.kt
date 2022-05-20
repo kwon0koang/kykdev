@@ -14,6 +14,9 @@ import com.glorykwon.kykdev.common.TestWorker
 import com.glorykwon.kykdev.databinding.WorkmanagerTestFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 
+/**
+ * https://developer.android.com/topic/libraries/architecture/workmanager/how-to/define-work?hl=ko
+ */
 class WorkManagerTestFragment : BaseFragment() {
 
     private val mBinding by lazy { WorkmanagerTestFragmentBinding.inflate(layoutInflater) }
@@ -38,23 +41,15 @@ class WorkManagerTestFragment : BaseFragment() {
     private fun initView() {
 
         mBinding.btnWorkerTest.setOnClickListener {
-            //create WorkRequest
-            val workRequest: WorkRequest = OneTimeWorkRequestBuilder<TestWorker>().build()
-
-            //enqueue WorkRequest
             activity?.applicationContext?.let { context ->
+                val workRequest: WorkRequest = OneTimeWorkRequestBuilder<TestWorker>().build()
                 WorkManager.getInstance(context).enqueue(workRequest)
             }
         }
 
         mBinding.btnCoroutineWorkerTest.setOnClickListener {
-            //create WorkRequest
-            val workRequest: WorkRequest = OneTimeWorkRequestBuilder<TestCoroutineWorker>()
-                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)       //신속 처리 작업. 할당량이 허용되면 신속 처리 작업이 즉시 백그라운드에서 실행
-                .build()
-
-            //enqueue WorkRequest
             activity?.applicationContext?.let { context ->
+                val workRequest: WorkRequest = OneTimeWorkRequestBuilder<TestCoroutineWorker>().build()
                 WorkManager.getInstance(context).enqueue(workRequest)
             }
         }

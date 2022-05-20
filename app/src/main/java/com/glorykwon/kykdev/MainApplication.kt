@@ -4,6 +4,8 @@ import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import androidx.work.Configuration
+import androidx.work.WorkManager
 import com.glorykwon.kykdev.database.realm.RealmDbHelper
 import com.glorykwon.kykdev.database.room.RoomDbHelper
 import com.glorykwon.kykdev.ui.BaseActivity
@@ -14,7 +16,7 @@ import rxdogtag2.RxDogTag
 import timber.log.Timber
 
 
-class MainApplication: Application() {
+class MainApplication: Application(), Configuration.Provider {
 
     companion object {
         private var mActivityContext: BaseActivity? = null
@@ -26,19 +28,23 @@ class MainApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        //realm db 초기화
-        RealmDbHelper.init(this)
-
-        //room db 초기화
-        RoomDbHelper.init(this)
-
-        //RxJava error handler 초기화
-        initRxJavaErrorHandler()
-
-        //팀버 셋팅
+        //init timber
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+
+        //init realm db
+        RealmDbHelper.init(this)
+
+        //init room db
+        RoomDbHelper.init(this)
+
+        //init RxJava error handler
+        initRxJavaErrorHandler()
+
+        //init WorkManager
+        WorkManager.initialize(this, getWorkManagerConfiguration())
+
     }
 
     /**
@@ -63,6 +69,12 @@ class MainApplication: Application() {
                 //nothing
             }
         }
+    }
+
+    override fun getWorkManagerConfiguration(): Configuration {
+        return Configuration.Builder()
+            .setMinimumLoggingLevel(android.util.Log.INFO)
+            .build()
     }
 
 }
