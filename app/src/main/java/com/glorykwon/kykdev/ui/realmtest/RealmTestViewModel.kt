@@ -13,9 +13,9 @@ class RealmTestViewModel() : ViewModel() {
     /**
      * 전체 조회
      */
-    private val _fetchAllItems = MutableLiveData<Any>()
-    fun fetchAllItems(){ _fetchAllItems.value = Any() }
-    val fetchAllItems = _fetchAllItems.switchMap {
+    private val _getAllItems = MutableLiveData<Any>()
+    fun getAllItems(){ _getAllItems.value = Any() }
+    val getAllItems = _getAllItems.switchMap {
         liveData {
             emit(NetworkResult.Loading())
             try {

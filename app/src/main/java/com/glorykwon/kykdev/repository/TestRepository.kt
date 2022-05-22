@@ -12,7 +12,7 @@ object TestRepository {
     /**
      * 더미 데이터 조회 (페이징)
      */
-    fun fetchPagingData(): Flow<PagingData<RetrofitTestDto>> {
+    fun getPagingData(): Flow<PagingData<RetrofitTestDto>> {
         return Pager(
             config = PagingConfig(pageSize = 100, enablePlaceholders = false)
             , pagingSourceFactory = { TestDataPagingSource() }

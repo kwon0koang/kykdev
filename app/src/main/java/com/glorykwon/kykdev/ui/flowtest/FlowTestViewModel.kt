@@ -14,9 +14,9 @@ class FlowTestViewModel : ViewModel() {
     /**
      * 데이터 조회
      */
-    fun fetchTestData(): Flow<PagingData<RetrofitTestDto>>? {
+    fun getTestData(): Flow<PagingData<RetrofitTestDto>>? {
         try {
-            val result = TestRepository.fetchPagingData().cachedIn(viewModelScope)
+            val result = TestRepository.getPagingData().cachedIn(viewModelScope)
             return result
         } catch (e: Exception) {
             e.printStackTrace()
