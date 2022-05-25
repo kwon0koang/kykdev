@@ -4,7 +4,6 @@ import android.content.Context
 import com.glorykwon.kykdev.database.realm.dao.TodoRealmObject
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import io.realm.RealmResults
 import io.realm.Sort
 import io.realm.kotlin.executeTransactionAwait
 import io.realm.kotlin.where
@@ -12,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 
 object RealmDbHelper {
 
-    private val TODO_REALM_NAME = "todo.realm"
+    private val TODO_REALM_NAME = "todo_realm_test.realm"
     private lateinit var mTodoRealmConfig: RealmConfiguration
 
     fun init(context: Context) {
@@ -37,7 +36,7 @@ object RealmDbHelper {
         realm.executeTransactionAwait(Dispatchers.IO) { realm ->
             val realmResults = realm.where<TodoRealmObject>()
                 .findAll()
-                .sort("id", Sort.ASCENDING)
+                .sort("id", Sort.DESCENDING)
             result = realm.copyFromRealm(realmResults)
         }
         return result
@@ -58,7 +57,6 @@ object RealmDbHelper {
 
         return result
     }
-
 
     /**
      * 데이터 추가 or 갱신

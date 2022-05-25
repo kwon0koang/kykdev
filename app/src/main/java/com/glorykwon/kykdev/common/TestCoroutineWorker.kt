@@ -1,22 +1,9 @@
 package com.glorykwon.kykdev.common
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.media.RingtoneManager
-import android.os.Build
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import com.glorykwon.kykdev.MainApplication
-import com.glorykwon.kykdev.ui.MainActivity
-import com.glorykwon.kykdev.util.kt.NOTI_CHANNEL_ID
-import com.glorykwon.kykdev.util.kt.NOTI_CHANNEL_NAME
 import com.glorykwon.kykdev.util.kt.showNoti
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

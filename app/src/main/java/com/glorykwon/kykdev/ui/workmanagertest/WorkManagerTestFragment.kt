@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import com.glorykwon.kykdev.common.TestCoroutineWorker
@@ -41,15 +40,19 @@ class WorkManagerTestFragment : BaseFragment() {
     private fun initView() {
 
         mBinding.btnWorkerTest.setOnClickListener {
-            activity?.applicationContext?.let { context ->
-                val workRequest: WorkRequest = OneTimeWorkRequestBuilder<TestWorker>().build()
+            context?.applicationContext?.let { context ->
+                val workRequest: WorkRequest = OneTimeWorkRequestBuilder<TestWorker>()
+                    .build()
+
                 WorkManager.getInstance(context).enqueue(workRequest)
             }
         }
 
         mBinding.btnCoroutineWorkerTest.setOnClickListener {
-            activity?.applicationContext?.let { context ->
-                val workRequest: WorkRequest = OneTimeWorkRequestBuilder<TestCoroutineWorker>().build()
+            context?.applicationContext?.let { context ->
+                val workRequest: WorkRequest = OneTimeWorkRequestBuilder<TestCoroutineWorker>()
+                    .build()
+
                 WorkManager.getInstance(context).enqueue(workRequest)
             }
         }

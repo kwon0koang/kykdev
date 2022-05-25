@@ -1,13 +1,13 @@
 package com.glorykwon.kykdev
 
 import android.app.Application
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.glorykwon.kykdev.database.realm.RealmDbHelper
-import com.glorykwon.kykdev.database.room.RoomDbHelper
 import com.glorykwon.kykdev.ui.BaseActivity
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException
 import io.reactivex.rxjava3.exceptions.UndeliverableException
@@ -19,8 +19,10 @@ import timber.log.Timber
 class MainApplication: Application(), Configuration.Provider {
 
     companion object {
-        private var mActivityContext: BaseActivity? = null
+        private var mApplicationContext: Context? = null
+        fun getApplicationContext() = mApplicationContext
 
+        private var mActivityContext: BaseActivity? = null
         fun getActivityContext() = mActivityContext
         fun setActivityContext(context: BaseActivity) { mActivityContext = context }
     }
@@ -33,17 +35,13 @@ class MainApplication: Application(), Configuration.Provider {
             Timber.plant(Timber.DebugTree())
         }
 
+        mApplicationContext = applicationContext
+
         //init realm db
         RealmDbHelper.init(this)
 
-        //init room db
-        RoomDbHelper.init(this)
-
         //init RxJava error handler
         initRxJavaErrorHandler()
-
-        //init WorkManager
-        WorkManager.initialize(this, getWorkManagerConfiguration())
 
     }
 
@@ -59,11 +57,11 @@ class MainApplication: Application(), Configuration.Provider {
             || error is OnErrorNotImplementedException      //onError 누락
             ){
                 //에러 처리
-                Handler(Looper.getMainLooper()).post{
-                    mActivityContext?.let{ context ->
-                        Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
+//                Handler(Looper.getMainLooper()).post{
+//                    mActivityContext?.let{ context ->
+//                        Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+//                    }
+//                }
             }
             else{
                 //nothing
@@ -71,6 +69,9 @@ class MainApplication: Application(), Configuration.Provider {
         }
     }
 
+    /**
+     * WorkManager 주문형 초기화 위한 Configuration.Provider 구현
+     */
     override fun getWorkManagerConfiguration(): Configuration {
         return Configuration.Builder()
             .setMinimumLoggingLevel(android.util.Log.INFO)
