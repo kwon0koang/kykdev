@@ -59,7 +59,7 @@ class RealmTestFragment : BaseFragment() {
      */
     private fun initObserver() {
 
-        mViewModel.fetchAllItems.observe(viewLifecycleOwner) {
+        mViewModel.getAllItems.observe(viewLifecycleOwner) {
             when(it) {
                 is NetworkResult.Loading -> {}
                 is NetworkResult.Success -> {
@@ -76,7 +76,7 @@ class RealmTestFragment : BaseFragment() {
             when(it) {
                 is NetworkResult.Loading -> {}
                 is NetworkResult.Success -> {
-                    mViewModel.fetchAllItems()
+                    mViewModel.getAllItems()
                 }
                 is NetworkResult.Error -> {}
             }
@@ -86,7 +86,7 @@ class RealmTestFragment : BaseFragment() {
             when(it) {
                 is NetworkResult.Loading -> {}
                 is NetworkResult.Success -> {
-                    mViewModel.fetchAllItems()
+                    mViewModel.getAllItems()
                 }
                 is NetworkResult.Error -> {}
             }
@@ -98,7 +98,7 @@ class RealmTestFragment : BaseFragment() {
      * 데이터 초기화
      */
     private fun initData() {
-        mViewModel.fetchAllItems()
+        mViewModel.getAllItems()
     }
 
 }

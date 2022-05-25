@@ -68,7 +68,7 @@ class FlowTestFragment : BaseFragment() {
     private fun initData() {
         //데이터 조회
         lifecycleScope.launch {
-            mViewModel.fetchTestData()?.collectLatest { pagingDataList ->
+            mViewModel.getTestData()?.collectLatest { pagingDataList ->
                 mAdapter?.submitData(pagingDataList)
             }
         }
