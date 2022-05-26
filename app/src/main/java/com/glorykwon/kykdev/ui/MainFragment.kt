@@ -1,21 +1,22 @@
 package com.glorykwon.kykdev.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.glorykwon.kykdev.R
 import com.glorykwon.kykdev.api.RetrofitTestDto
 import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
+import com.glorykwon.kykdev.ui.designpatterntest.DesignPatternTestActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment() {
 
     private val mBinding by lazy { MainFragmentBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<MainViewModel>()
@@ -39,45 +40,42 @@ class MainFragment : Fragment() {
      */
     private fun initView() {
 
-        //Retrofit test
         mBinding.btnRetrofitTest.setOnClickListener {
             mViewModel.retrofitTest()
         }
 
-        //RxPermission test
         mBinding.btnRxpermissionTest.setOnClickListener {
             mViewModel.rxPermissionTest()
         }
 
-        //RxJava test
         mBinding.btnRxjavaTest.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_rxJavaTestFragment)
         }
 
-        //Flow test
         mBinding.btnFlowTest.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_flowTestFragment)
         }
 
-        //Push test
         mBinding.btnPushTest.setOnClickListener {
             val myToken = FirebaseMessaging.getInstance().getToken().getResult()
             Toast.makeText(context, myToken, Toast.LENGTH_SHORT).show()
         }
 
-        //WorkManager test
         mBinding.btnWorkManagerTest.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_workManagerTestFragment)
         }
 
-        //Realm test
         mBinding.btnRealmTest.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_realmTestFragment)
         }
 
-        //Room test
         mBinding.btnRoomTest.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_roomTestFragment)
+        }
+
+        mBinding.btnDesignPatternTest.setOnClickListener {
+            val intent = Intent(activity, DesignPatternTestActivity::class.java)
+            startActivity(intent)
         }
 
     }
