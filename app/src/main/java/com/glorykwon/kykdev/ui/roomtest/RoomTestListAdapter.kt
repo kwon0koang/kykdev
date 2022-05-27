@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.glorykwon.kykdev.database.room.entity.TodoRoomEntity
+import com.glorykwon.kykdev.common.database.room.entity.TodoRoomEntity
 import com.glorykwon.kykdev.databinding.ItemSimpleBinding
 
 class RoomTestListAdapter(val context: Context, val viewModel: RoomTestViewModel, val itemClickListener: ((TodoRoomEntity) -> Unit)? = null)

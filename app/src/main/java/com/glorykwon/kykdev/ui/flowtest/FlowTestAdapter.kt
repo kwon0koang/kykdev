@@ -7,7 +7,7 @@ import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.glorykwon.kykdev.api.RetrofitTestDto
+import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.glorykwon.kykdev.databinding.ItemSimpleBinding
 
 class FlowTestAdapter(val context: Context, val viewModel: FlowTestViewModel, val itemClickListener: ((RetrofitTestDto) -> Unit)? = null)

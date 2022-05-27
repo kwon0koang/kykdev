@@ -64,6 +64,12 @@
             android:layout_height="wrap_content"
             android:text="Room test" />
 
+        <Button
+            android:id="@+id/btn_dynamic_link_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dynamic link test" />
+
     </LinearLayout>
 
 

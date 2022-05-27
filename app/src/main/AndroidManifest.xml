@@ -31,6 +31,21 @@
             </intent-filter>
         </service>
 
+        <activity
+            android:name=".common.dynamiclink.DynamicLinkActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" android:host="kykdevapp.page.link" />
+                <data android:scheme="https" android:host="kykdevapp.page.link" />
+                <data android:scheme="kykdevapp" android:host="action" />
+            </intent-filter>
+        </activity>
+
         <!-- WorkManager 주문형 초기화 위해 기본 초기화 삭제 -->
         <provider
             android:name="androidx.startup.InitializationProvider"

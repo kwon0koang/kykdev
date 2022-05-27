@@ -1,9 +1,9 @@
 package com.glorykwon.kykdev.ui.flowtest
 
 import androidx.paging.PagingSource
-import com.glorykwon.kykdev.api.RetrofitTestApiService
-import com.glorykwon.kykdev.api.RetrofitTestDto
-import com.glorykwon.kykdev.util.kt.toKykInt
+import com.glorykwon.kykdev.common.api.RetrofitTestApiService
+import com.glorykwon.kykdev.common.api.RetrofitTestDto
+import com.glorykwon.kykdev.util.kt.toSafeInt
 import kotlinx.coroutines.*
 import timber.log.Timber
 import kotlin.system.measureTimeMillis
@@ -33,7 +33,7 @@ class TestDataPagingSource(): PagingSource<String, RetrofitTestDto>() {
                 Timber.d("load / time:${it} / dataSize:${dataList.size}")
             }
 
-            val nextKey = (currentKey.toKykInt()+1).toString()
+            val nextKey = (currentKey.toSafeInt()+1).toString()
 
             return LoadResult.Page(
                 data = dataList,

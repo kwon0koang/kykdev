@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.database.room.entity
+package com.glorykwon.kykdev.common.database.room.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

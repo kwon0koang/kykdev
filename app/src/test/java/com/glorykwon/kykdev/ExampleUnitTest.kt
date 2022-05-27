@@ -1,7 +1,7 @@
 package com.glorykwon.kykdev
 
-import com.glorykwon.kykdev.api.RetrofitTestApiService
-import com.glorykwon.kykdev.dto.TestDto
+import com.glorykwon.kykdev.common.api.RetrofitTestApiService
+import com.glorykwon.kykdev.common.dto.TestDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -67,7 +67,6 @@ class ExampleUnitTest {
         //Error
 //        assertEquals("value 03", testDto.value01)
     }
-
 
     public inline fun <T, R> T.let2(block: (T) -> R): R {
 //        contract {

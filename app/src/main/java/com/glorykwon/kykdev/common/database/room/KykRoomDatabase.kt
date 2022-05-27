@@ -1,11 +1,11 @@
-package com.glorykwon.kykdev.database.room
+package com.glorykwon.kykdev.common.database.room
 
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.glorykwon.kykdev.MainApplication
-import com.glorykwon.kykdev.database.room.dao.TodoRoomDao
-import com.glorykwon.kykdev.database.room.entity.TodoRoomEntity
+import com.glorykwon.kykdev.common.database.room.dao.TodoRoomDao
+import com.glorykwon.kykdev.common.database.room.entity.TodoRoomEntity
 
 @Database(entities = [TodoRoomEntity::class]
     , version = 1

@@ -1,7 +1,7 @@
-package com.glorykwon.kykdev.database.realm
+package com.glorykwon.kykdev.common.database.realm
 
 import android.content.Context
-import com.glorykwon.kykdev.database.realm.dao.TodoRealmObject
+import com.glorykwon.kykdev.common.database.realm.dao.TodoRealmObject
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.Sort

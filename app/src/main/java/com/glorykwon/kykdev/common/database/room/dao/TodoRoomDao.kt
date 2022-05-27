@@ -1,7 +1,7 @@
-package com.glorykwon.kykdev.database.room.dao
+package com.glorykwon.kykdev.common.database.room.dao
 
 import androidx.room.*
-import com.glorykwon.kykdev.database.room.entity.TodoRoomEntity
+import com.glorykwon.kykdev.common.database.room.entity.TodoRoomEntity
 
 /**
  * 테이블의 데이터와 상호작용하는 데에 사용하는 메서드를 제공

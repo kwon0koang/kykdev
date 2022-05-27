@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.api
+package com.glorykwon.kykdev.common.api
 
 import okhttp3.Interceptor
 import okhttp3.Response

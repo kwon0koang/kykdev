@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.glorykwon.kykdev.database.realm.dao.TodoRealmObject
+import com.glorykwon.kykdev.common.database.realm.dao.TodoRealmObject
 import com.glorykwon.kykdev.databinding.ItemSimpleBinding
 
 class RealmTestListAdapter(val context: Context, val viewModel: RealmTestViewModel, val itemClickListener: ((TodoRealmObject) -> Unit)? = null)

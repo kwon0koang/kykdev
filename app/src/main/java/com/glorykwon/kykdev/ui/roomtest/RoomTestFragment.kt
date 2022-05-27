@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.glorykwon.kykdev.common.NetworkResult
-import com.glorykwon.kykdev.database.realm.dao.TodoRealmObject
-import com.glorykwon.kykdev.database.room.entity.TodoRoomEntity
+import com.glorykwon.kykdev.common.database.room.entity.TodoRoomEntity
 import com.glorykwon.kykdev.databinding.RoomTestFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 

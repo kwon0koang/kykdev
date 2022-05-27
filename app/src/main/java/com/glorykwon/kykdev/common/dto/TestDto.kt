@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.dto
+package com.glorykwon.kykdev.common.dto
 
 class TestDto {
 

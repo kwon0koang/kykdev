@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.api
+package com.glorykwon.kykdev.common.api
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,5 +1,7 @@
 package com.glorykwon.kykdev.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.glorykwon.kykdev.R
-import com.glorykwon.kykdev.api.RetrofitTestDto
+import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.glorykwon.kykdev.common.NetworkResult
+import com.glorykwon.kykdev.common.dynamiclink.DynamicLinkActivity
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.firebase.dynamiclinks.ktx.*
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
 
@@ -39,45 +46,41 @@ class MainFragment : Fragment() {
      */
     private fun initView() {
 
-        //Retrofit test
         mBinding.btnRetrofitTest.setOnClickListener {
             mViewModel.retrofitTest()
         }
 
-        //RxPermission test
         mBinding.btnRxpermissionTest.setOnClickListener {
             mViewModel.rxPermissionTest()
         }
 
-        //RxJava test
         mBinding.btnRxjavaTest.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_rxJavaTestFragment)
         }
 
-        //Flow test
         mBinding.btnFlowTest.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_flowTestFragment)
         }
 
-        //Push test
         mBinding.btnPushTest.setOnClickListener {
             val myToken = FirebaseMessaging.getInstance().getToken().getResult()
             Toast.makeText(context, myToken, Toast.LENGTH_SHORT).show()
         }
 
-        //WorkManager test
         mBinding.btnWorkManagerTest.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_workManagerTestFragment)
         }
 
-        //Realm test
         mBinding.btnRealmTest.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_realmTestFragment)
         }
 
-        //Room test
         mBinding.btnRoomTest.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_roomTestFragment)
+        }
+
+        mBinding.btnDynamicLinkTest.setOnClickListener {
+            DynamicLinkActivity.shareDynamicLink()
         }
 
     }
@@ -126,6 +129,10 @@ class MainFragment : Fragment() {
      * 데이터 초기화
      */
     private fun initData() {
+    }
+
+    private fun processShortLink(shortLink: Uri?, flowchartLink: Uri?){
+        Timber.d("$shortLink / $flowchartLink")
     }
 
 }

@@ -3,7 +3,7 @@ package com.glorykwon.kykdev.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.glorykwon.kykdev.api.RetrofitTestDto
+import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.glorykwon.kykdev.ui.flowtest.TestDataPagingSource
 import kotlinx.coroutines.flow.Flow
 

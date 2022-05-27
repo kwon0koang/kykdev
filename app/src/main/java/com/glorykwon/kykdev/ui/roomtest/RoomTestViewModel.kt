@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.glorykwon.kykdev.common.NetworkResult
-import com.glorykwon.kykdev.database.room.KykRoomDatabase
-import com.glorykwon.kykdev.database.room.entity.TodoRoomEntity
+import com.glorykwon.kykdev.common.database.room.KykRoomDatabase
+import com.glorykwon.kykdev.common.database.room.entity.TodoRoomEntity
 
 class RoomTestViewModel() : ViewModel() {
 

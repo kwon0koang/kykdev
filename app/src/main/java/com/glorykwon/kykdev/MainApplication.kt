@@ -2,12 +2,8 @@ package com.glorykwon.kykdev
 
 import android.app.Application
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
-import android.widget.Toast
 import androidx.work.Configuration
-import androidx.work.WorkManager
-import com.glorykwon.kykdev.database.realm.RealmDbHelper
+import com.glorykwon.kykdev.common.database.realm.RealmDbHelper
 import com.glorykwon.kykdev.ui.BaseActivity
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException
 import io.reactivex.rxjava3.exceptions.UndeliverableException

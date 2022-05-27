@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.glorykwon.kykdev.common.NetworkResult
-import com.glorykwon.kykdev.database.realm.RealmDbHelper
-import com.glorykwon.kykdev.database.realm.dao.TodoRealmObject
+import com.glorykwon.kykdev.common.database.realm.RealmDbHelper
+import com.glorykwon.kykdev.common.database.realm.dao.TodoRealmObject
 
 class RealmTestViewModel() : ViewModel() {
 
