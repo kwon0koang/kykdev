@@ -68,9 +68,6 @@ class DynamicLinkActivity : Activity() {
         }
     }
 
-    /**
-     * onCreate
-     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.tag(TAG).d("intent : ${intent}")

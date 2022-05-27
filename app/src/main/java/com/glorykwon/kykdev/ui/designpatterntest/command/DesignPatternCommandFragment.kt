@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.glorykwon.kykdev.databinding.DesignPatternCommandFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
-import com.glorykwon.kykdev.ui.designpatterntest.command.commands.AirCleanerOnCommand
-import com.glorykwon.kykdev.ui.designpatterntest.command.commands.AirConditionerOnCommand
-import com.glorykwon.kykdev.ui.designpatterntest.command.commands.TvOnCommand
+import com.glorykwon.kykdev.ui.designpatterntest.command.devices.AirCleaner
+import com.glorykwon.kykdev.ui.designpatterntest.command.devices.AirConditioner
+import com.glorykwon.kykdev.ui.designpatterntest.command.devices.Tv
+import com.glorykwon.kykdev.util.kt.safeLet
 
 class DesignPatternCommandFragment : BaseFragment() {
 
@@ -37,20 +38,48 @@ class DesignPatternCommandFragment : BaseFragment() {
 
         mViewModel.mRemoteController = RemoteController()
 
-        mBinding.btnTv.setOnClickListener {
-            mViewModel.mRemoteController.setCommand(TvOnCommand())
+        mViewModel.mTv = Tv()
+        mViewModel.mAirConditioner = AirConditioner()
+        mViewModel.mAirCleaner = AirCleaner()
+
+        mBinding.btnTvOn.setOnClickListener {
+            safeLet(mViewModel.mRemoteController, mViewModel.mTv) { remoteController, device ->
+                remoteController.setCommand(Tv.OnCommand(device))
+            }
         }
 
-        mBinding.btnAirconditioner.setOnClickListener {
-            mViewModel.mRemoteController.setCommand(AirConditionerOnCommand())
+        mBinding.btnTvChangeChannel.setOnClickListener {
+            safeLet(mViewModel.mRemoteController, mViewModel.mTv) { remoteController, device ->
+                remoteController.setCommand(Tv.ChangeChannelCommand(device))
+            }
         }
 
-        mBinding.btnAircleaner.setOnClickListener {
-            mViewModel.mRemoteController.setCommand(AirCleanerOnCommand())
+        mBinding.btnAirconditionerOn.setOnClickListener {
+            safeLet(mViewModel.mRemoteController, mViewModel.mAirConditioner) { remoteController, device ->
+                remoteController.setCommand(AirConditioner.OnCommand(device))
+            }
+        }
+
+        mBinding.btnAirconditionerTurboAir.setOnClickListener {
+            safeLet(mViewModel.mRemoteController, mViewModel.mAirConditioner) { remoteController, device ->
+                remoteController.setCommand(AirConditioner.TurboAirCommand(device))
+            }
+        }
+
+        mBinding.btnAircleanerOn.setOnClickListener {
+            safeLet(mViewModel.mRemoteController, mViewModel.mAirCleaner) { remoteController, device ->
+                remoteController.setCommand(AirCleaner.OnCommand(device))
+            }
+        }
+
+        mBinding.btnAircleanerTurboClean.setOnClickListener {
+            safeLet(mViewModel.mRemoteController, mViewModel.mAirCleaner) { remoteController, device ->
+                remoteController.setCommand(AirCleaner.TurboCleanCommand(device))
+            }
         }
 
         mBinding.btnExecute.setOnClickListener {
-            mViewModel.mRemoteController.execute()
+            mViewModel.mRemoteController?.execute()
         }
 
     }
@@ -59,15 +88,6 @@ class DesignPatternCommandFragment : BaseFragment() {
      * 옵저버 초기화
      */
     private fun initObserver() {
-
-//        mViewModel.todo.observe(viewLifecycleOwner) {
-//            when(it) {
-//                is NetworkResult.Loading -> {}
-//                is NetworkResult.Success -> {}
-//                is NetworkResult.Error -> {}
-//            }
-//        }
-
     }
 
     /**
