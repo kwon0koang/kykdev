@@ -70,6 +70,12 @@
             android:layout_height="wrap_content"
             android:text="Dynamic link test" />
 
+        <Button
+            android:id="@+id/btn_design_pattern_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Design pattern test" />
+
     </LinearLayout>
 
 

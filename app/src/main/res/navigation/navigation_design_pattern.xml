@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_design_pattern"
+    app:startDestination="@id/designPatternTestFragment">
+
+    <fragment
+        android:id="@+id/designPatternTestFragment"
+        android:name="com.glorykwon.kykdev.ui.designpatterntest.DesignPatternTestFragment"
+        android:label="DesignPatternTestFragment"
+        tools:layout="@layout/design_pattern_test_fragment" >
+        <action
+            android:id="@+id/action_designPatternTestFragment_to_designPatternCommandFragment"
+            app:destination="@id/designPatternCommandFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/designPatternCommandFragment"
+        android:name="com.glorykwon.kykdev.ui.designpatterntest.command.DesignPatternCommandFragment"
+        android:label="DesignPatternCommandFragment" />
+
+</navigation>

@@ -24,6 +24,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.designpatterntest.DesignPatternTestActivity" />
+
         <service android:name=".common.MyFirebaseMessagingService"
             android:exported="true">
             <intent-filter>

@@ -1,18 +1,20 @@
-package com.glorykwon.kykdev.template
+package com.glorykwon.kykdev.ui.designpatterntest
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.glorykwon.kykdev.R
 import com.glorykwon.kykdev.common.NetworkResult
+import com.glorykwon.kykdev.databinding.DesignPatternTestFragmentBinding
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 
-class TemplateFragment : BaseFragment() {
+class DesignPatternTestFragment : BaseFragment() {
 
-    private val mBinding by lazy { MainFragmentBinding.inflate(layoutInflater) }
-    private val mViewModel by viewModels<TemplateViewModel>()
+    private val mBinding by lazy { DesignPatternTestFragmentBinding.inflate(layoutInflater) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -32,21 +34,17 @@ class TemplateFragment : BaseFragment() {
      * 뷰 초기화
      */
     private fun initView() {
+
+        mBinding.btnCommand.setOnClickListener {
+            findNavController().navigate(R.id.action_designPatternTestFragment_to_designPatternCommandFragment)
+        }
+
     }
 
     /**
      * 옵저버 초기화
      */
     private fun initObserver() {
-
-        mViewModel.todo.observe(viewLifecycleOwner) {
-            when(it) {
-                is NetworkResult.Loading -> {}
-                is NetworkResult.Success -> {}
-                is NetworkResult.Error -> {}
-            }
-        }
-
     }
 
     /**

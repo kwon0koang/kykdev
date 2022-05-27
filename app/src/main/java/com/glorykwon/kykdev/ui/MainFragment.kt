@@ -1,28 +1,23 @@
 package com.glorykwon.kykdev.ui
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.glorykwon.kykdev.R
-import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.glorykwon.kykdev.common.NetworkResult
+import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.glorykwon.kykdev.common.dynamiclink.DynamicLinkActivity
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
-import com.google.firebase.dynamiclinks.DynamicLink
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
-import com.google.firebase.dynamiclinks.ktx.*
-import com.google.firebase.ktx.Firebase
+import com.glorykwon.kykdev.ui.designpatterntest.DesignPatternTestActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment() {
 
     private val mBinding by lazy { MainFragmentBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<MainViewModel>()
@@ -83,6 +78,11 @@ class MainFragment : Fragment() {
             DynamicLinkActivity.shareDynamicLink()
         }
 
+        mBinding.btnDesignPatternTest.setOnClickListener {
+            val intent = Intent(activity, DesignPatternTestActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     /**
@@ -129,10 +129,6 @@ class MainFragment : Fragment() {
      * 데이터 초기화
      */
     private fun initData() {
-    }
-
-    private fun processShortLink(shortLink: Uri?, flowchartLink: Uri?){
-        Timber.d("$shortLink / $flowchartLink")
     }
 
 }
