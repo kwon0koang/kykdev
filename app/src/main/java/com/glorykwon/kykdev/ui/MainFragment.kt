@@ -77,6 +77,10 @@ class MainFragment : BaseFragment() {
             startActivity(intent)
         }
 
+        mBinding.btnThemeTest.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_themeTestFragment)
+        }
+
     }
 
     /**

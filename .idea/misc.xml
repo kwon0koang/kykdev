@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.3015625" />
+        <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/common_dialog_fragment.xml" value="0.2988679352838745" />
         <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/design_pattern_command_fragment.xml" value="0.2264151024877837" />
         <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/design_pattern_fragment.xml" value="0.2671875" />
         <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/design_pattern_test_activity.xml" value="0.24635416666666668" />
@@ -14,6 +15,7 @@
         <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/room_test_fragment.xml" value="0.2671875" />
         <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/rxjava_test_fragment.xml" value="0.5189982728842832" />
         <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/socket_test_fragment.xml" value="0.1953125" />
+        <entry key="..\:/kykdev/AndroidStudioProjects/kykdev/app/src/main/res/layout/theme_test_fragment.xml" value="0.234375" />
         <entry key="app/src/main/res/drawable/ic_cancel.xml" value="0.1675" />
         <entry key="app/src/main/res/layout/common_tab_item.xml" value="0.67" />
         <entry key="app/src/main/res/layout/common_tab_layout.xml" value="0.22" />

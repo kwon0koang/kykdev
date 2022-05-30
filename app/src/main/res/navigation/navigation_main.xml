@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_mainFragment_to_realmTestFragment"
             app:destination="@id/realmTestFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_themeTestFragment"
+            app:destination="@id/themeTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/rxJavaTestFragment"
@@ -47,6 +50,10 @@
         android:id="@+id/roomTestFragment"
         android:name="com.glorykwon.kykdev.ui.roomtest.RoomTestFragment"
         android:label="RoomTestFragment" />
+    <fragment
+        android:id="@+id/themeTestFragment"
+        android:name="com.glorykwon.kykdev.ui.themetest.ThemeTestFragment"
+        android:label="ThemeTestFragment" />
 
 
 </navigation>
