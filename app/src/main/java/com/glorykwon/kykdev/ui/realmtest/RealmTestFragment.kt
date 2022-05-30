@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.common.database.realm.dao.TodoRealmObject
+import com.glorykwon.kykdev.common.dialog.CommonDialogFragment
 import com.glorykwon.kykdev.databinding.RealmTestFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 
@@ -39,7 +40,17 @@ class RealmTestFragment : BaseFragment() {
         //어댑터 셋팅
         context?.let { context ->
             mAdapter = RealmTestListAdapter(context, mViewModel) { dto ->
-                dto.id?.let { id -> mViewModel.deleteItem(id) }
+                dto.id?.let { id ->
+                    CommonDialogFragment(
+                        title = "알림",
+                        content = "$id 삭제?",
+                        confirmText = "확인",
+                        confirmListener = { result ->
+                            if(result)
+                                mViewModel.deleteItem(id)
+                        }
+                    ).show(childFragmentManager, null)
+                }
             }
         }
         mBinding.rvTodo.adapter = mAdapter
@@ -48,6 +59,8 @@ class RealmTestFragment : BaseFragment() {
             val id = mBinding.etTest.text.toString()
             val content = "id:$id"
             mViewModel.insertItem(TodoRealmObject(id, content))
+
+            mBinding.etTest.setText("")
         }
 
     }

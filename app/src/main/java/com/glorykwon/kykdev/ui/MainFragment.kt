@@ -14,7 +14,6 @@ import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.glorykwon.kykdev.common.dynamiclink.DynamicLinkActivity
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
 import com.glorykwon.kykdev.ui.designpatterntest.DesignPatternTestActivity
-import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
 
 class MainFragment : BaseFragment() {
@@ -55,11 +54,6 @@ class MainFragment : BaseFragment() {
 
         mBinding.btnFlowTest.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_flowTestFragment)
-        }
-
-        mBinding.btnPushTest.setOnClickListener {
-            val myToken = FirebaseMessaging.getInstance().getToken().getResult()
-            Toast.makeText(context, myToken, Toast.LENGTH_SHORT).show()
         }
 
         mBinding.btnWorkManagerTest.setOnClickListener {

@@ -12,6 +12,12 @@ import com.glorykwon.kykdev.ui.designpatterntest.command.devices.AirConditioner
 import com.glorykwon.kykdev.ui.designpatterntest.command.devices.Tv
 import com.glorykwon.kykdev.util.kt.safeLet
 
+/**
+ * 실행될 기능을 캡슐화함으로써
+ * 기능 실행을 요구하는 호출자(invoker)와
+ * 기능을 실행하는 수신자(receiver)
+ * 사이의 의존성을 제거
+ */
 class DesignPatternCommandFragment : BaseFragment() {
 
     private val mBinding by lazy { DesignPatternCommandFragmentBinding.inflate(layoutInflater) }
@@ -36,8 +42,10 @@ class DesignPatternCommandFragment : BaseFragment() {
      */
     private fun initView() {
 
+        //invoker
         mViewModel.mRemoteController = RemoteController()
 
+        //receiver
         mViewModel.mTv = Tv()
         mViewModel.mAirConditioner = AirConditioner()
         mViewModel.mAirCleaner = AirCleaner()

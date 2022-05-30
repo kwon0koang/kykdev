@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.glorykwon.kykdev.databinding.ItemSimpleBinding
 
-class TemplateListAdapter(val context: Context, val viewModel: TemplateViewModel, val itemClickListener: ((RetrofitTestDto) -> Unit)? = null)
-    : ListAdapter<RetrofitTestDto, TemplateListAdapter.TestViewHolder>(diffCallback) {
+class TemplateListAdapter(
+    val context: Context,
+    val viewModel: TemplateViewModel,
+    val itemClickListener: ((RetrofitTestDto) -> Unit)? = null
+) : ListAdapter<RetrofitTestDto, TemplateListAdapter.TestViewHolder>(diffCallback) {
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<RetrofitTestDto>() {
