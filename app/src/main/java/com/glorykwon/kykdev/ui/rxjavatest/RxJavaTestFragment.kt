@@ -4,18 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.OnLifecycleEvent
 import com.glorykwon.kykdev.databinding.RxjavaTestFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 import com.glorykwon.kykdev.ui.main.RxJavaTestViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
@@ -23,6 +20,8 @@ class RxJavaTestFragment : BaseFragment() {
 
     private val mBinding by lazy { RxjavaTestFragmentBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<RxJavaTestViewModel>()
+
+    private var mTestResultText = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -59,14 +58,21 @@ class RxJavaTestFragment : BaseFragment() {
             mViewModel.mNetworkSubject03.onNext(isChecked)
         }
 
+        //subscribeOn은 여러번 호출되더라도 맨 처음의 호출만 영향을 주며 어디에 위치하든 상관없음.
+        //observeOn은 여러번 호출될 수 있으며 이후에 실행되는 연산에 영향을 주므로 위치가 중요.
         mViewModel.mTextSubject
-            .doOnNext { mBinding.txtRxjavaTest.text = "$it #1" }
-            .debounce(200, TimeUnit.MILLISECONDS)
-            .doOnNext { mBinding.txtRxjavaTest.text = "$it #2" }
-            .debounce(200, TimeUnit.MILLISECONDS)
-            .doOnError { Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show() }
+            .doOnNext { mTestResultText = "$it\n${Thread.currentThread().name} #1" }
+            .subscribeOn(Schedulers.io())
+            .doOnNext { mTestResultText += "\n${Thread.currentThread().name} #2" }
+            .observeOn(Schedulers.io())
+            .doOnNext { mTestResultText += "\n${Thread.currentThread().name} #3" }
+            .observeOn(Schedulers.computation())
+            .doOnNext { mTestResultText += "\n${Thread.currentThread().name} #4" }
+            .debounce(500, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy {
-                mBinding.txtRxjavaTest.text = "$it #3"
+                mTestResultText += "\n${Thread.currentThread().name} #5"
+                mBinding.txtRxjavaTest.text = mTestResultText
             }
 
         Observable.combineLatest(
