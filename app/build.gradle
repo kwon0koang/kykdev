@@ -11,7 +11,6 @@ plugins {
 
 android {
     compileSdkVersion rootProject.compile_sdk_version
-    buildToolsVersion rootProject.build_tools_version
 
     defaultConfig {
         applicationId "com.glorykwon.kykdev"
@@ -126,6 +125,8 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation "com.google.firebase:firebase-messaging:$firebase_messaging_version"
 
+    // Optional - APIs for SplashScreen, including compatibility helpers on devices prior Android 12
+    implementation "androidx.core:core-splashscreen:1.0.0-alpha01"
 
 
 }
