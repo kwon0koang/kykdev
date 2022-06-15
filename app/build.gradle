@@ -93,6 +93,7 @@ dependencies {
     implementation "com.facebook.stetho:stetho:$stetho_version"
     implementation "org.greenrobot:eventbus:$eventbus_version"
     implementation "androidx.biometric:biometric:$biometric_version"
+    implementation "com.facebook.shimmer:shimmer:$shimmer_version"
 
     // network
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"

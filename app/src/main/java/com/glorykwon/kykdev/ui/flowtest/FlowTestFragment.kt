@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -39,6 +40,8 @@ class FlowTestFragment : BaseFragment() {
      * 뷰 초기화
      */
     private fun initView() {
+        showSkeleton()
+
         //어댑터 셋팅
         context?.let { context ->
             mAdapter = FlowTestAdapter(context, mViewModel) { dto ->
@@ -56,6 +59,8 @@ class FlowTestFragment : BaseFragment() {
 //                }
                 if (refresh is LoadState.NotLoading) {
                     Timber.d("itemCount: ${mAdapter.itemCount}")
+                    if(mAdapter.itemCount != 0)
+                        hideSkeleton()
                 }
             }
         }
@@ -72,6 +77,19 @@ class FlowTestFragment : BaseFragment() {
                 mAdapter?.submitData(pagingDataList)
             }
         }
+    }
+
+    private fun showSkeleton() = setSkeleton(true)
+    private fun hideSkeleton() = setSkeleton(false)
+    private fun setSkeleton(isLoading: Boolean) {
+        if (isLoading) {
+            mBinding.layoutShimmer.startShimmer()
+        } else {
+            mBinding.layoutShimmer.stopShimmer()
+        }
+
+        mBinding.layoutShimmer.isVisible = isLoading
+        mBinding.rvFlowTest.isVisible = !isLoading
     }
 
 }
