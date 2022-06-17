@@ -1,10 +1,8 @@
 package com.glorykwon.kykdev
 
 import com.glorykwon.kykdev.common.api.RetrofitTestApiService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -41,6 +39,37 @@ class ExampleUnitTest {
         }.also {
             println("total time : $it")
         }
+    }
+
+    @Test
+    fun `flow test`() = runBlocking {
+        val numFlow = flow {
+            for(i in 1..5) {
+                emit(i)
+                delay(1000)
+            }
+        }
+
+        numFlow
+            .onEach {
+                println("onEach 1 / $it / ${Thread.currentThread().name}")
+                if(it == 4) throw Exception("my exception")
+            }
+            .onEach {
+                println("onEach 2 / $it / ${Thread.currentThread().name}")
+            }
+            .onCompletion { e ->
+                if(e != null)
+                    println("onCompletion / exception / $e / ${Thread.currentThread().name}")
+                else
+                    println("onCompletion / $e / ${Thread.currentThread().name}")
+            }
+            .catch { e ->
+                e.printStackTrace()
+            }
+            .collect {
+                println("collect / $it / ${Thread.currentThread().name}")
+            }
     }
 
     public inline fun <T, R> T.let2(block: (T) -> R): R {
