@@ -1,11 +1,15 @@
 package com.glorykwon.kykdev
 
 import com.glorykwon.kykdev.common.api.RetrofitTestApiService
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import java.util.concurrent.TimeUnit
 import kotlin.system.measureTimeMillis
 
 
@@ -42,27 +46,70 @@ class ExampleUnitTest {
     }
 
     @Test
+    fun `rxjava test`() = runBlocking {
+        val behaviorSubject = BehaviorSubject.create<Int>()
+
+        behaviorSubject
+            .doOnSubscribe {
+                println("0 / doOnSubscribe / ${Thread.currentThread().name}")
+            }
+            .doOnNext {
+                println("1 / doOnNext / $it / ${Thread.currentThread().name}")
+            }
+            .subscribeOn(Schedulers.io())
+            .doOnNext {
+                println("2 / doOnNext / $it / ${Thread.currentThread().name}")
+//                if(it == 4) throw Exception("my exception")
+            }
+            .debounce(1000, TimeUnit.MILLISECONDS)
+            .observeOn(Schedulers.computation())
+            .doOnComplete {
+                println("4 / doOnComplete / ${Thread.currentThread().name}")
+            }
+            .doOnError {
+                println("4 / doOnError / $it / ${Thread.currentThread().name}")
+            }
+            .subscribeBy {
+                println("3 / subscribeBy / $it / ${Thread.currentThread().name}")
+            }
+
+        for(i in 1..5) {
+            behaviorSubject.onNext(i)
+            delay(800)
+        }
+
+        delay(2000)
+    }
+
+    @Test
     fun `flow test`() = runBlocking {
-        flow {
+        val numFlow = flow {
             for(i in 1..5) {
                 emit(i)
-                delay(1000)
+                delay(800)
             }
-        }.onEach {
-            println("onEach 1 / $it / ${Thread.currentThread().name}")
-            if(it == 4) throw Exception("my exception")
-        }.onEach {
-            println("onEach 2 / $it / ${Thread.currentThread().name}")
-        }.onCompletion { e ->
-            if(e != null)
-                println("onCompletion / exception / $e / ${Thread.currentThread().name}")
-            else
-                println("onCompletion / $e / ${Thread.currentThread().name}")
-        }.catch { e ->
-            e.printStackTrace()
-        }.collect {
-            println("collect / $it / ${Thread.currentThread().name}")
         }
+
+        numFlow
+            .onEach {
+                println("1 / onEach / $it / ${Thread.currentThread().name}")
+                if(it == 4) throw Exception("my exception")
+            }
+            .onEach {
+                println("2 / onEach / $it / ${Thread.currentThread().name}")
+            }
+            .onCompletion { e ->
+                if(e != null)
+                    println("4 / onCompletion / exception / $e / ${Thread.currentThread().name}")
+                else
+                    println("4 / onCompletion / $e / ${Thread.currentThread().name}")
+            }
+            .catch { e ->
+                e.printStackTrace()
+            }
+            .collect {
+                println("3 / collect / $it / ${Thread.currentThread().name}")
+            }
     }
 
     public inline fun <T, R> T.let2(block: (T) -> R): R {
