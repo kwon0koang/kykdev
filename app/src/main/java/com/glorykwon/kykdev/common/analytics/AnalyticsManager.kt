@@ -10,7 +10,7 @@ import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
  */
 object RemoteConfigManager {
 
-    private const val FETCH_INTERVAL = 3600L
+    const val FETCH_INTERVAL = 3600L
 
     fun init() {
         Firebase.remoteConfig.setConfigSettingsAsync(
