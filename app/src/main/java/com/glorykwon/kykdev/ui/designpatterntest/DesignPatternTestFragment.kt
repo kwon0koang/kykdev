@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.glorykwon.kykdev.R
-import com.glorykwon.kykdev.common.NetworkResult
+import com.glorykwon.kykdev.common.analytics.AnalyticsEventConst
+import com.glorykwon.kykdev.common.analytics.AnalyticsManager
 import com.glorykwon.kykdev.databinding.DesignPatternTestFragmentBinding
-import com.glorykwon.kykdev.databinding.MainFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 
 class DesignPatternTestFragment : BaseFragment() {
@@ -28,6 +27,7 @@ class DesignPatternTestFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         initData()      //데이터 초기화
+        AnalyticsManager.logEvent(AnalyticsEventConst.enterDesignPatternMain)
     }
 
     /**

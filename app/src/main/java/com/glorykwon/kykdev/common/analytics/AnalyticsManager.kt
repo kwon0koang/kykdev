@@ -1,32 +1,45 @@
-package com.glorykwon.kykdev.common.remoteconfig
+package com.glorykwon.kykdev.common.analytics
 
-import com.google.firebase.ktx.BuildConfig
+import android.os.Bundle
+import com.amplitude.api.Amplitude
+import com.amplitude.api.AmplitudeClient
+import com.glorykwon.kykdev.MainApplication
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.remoteConfig
-import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 
 /**
- * remote config manager
+ * analytics manager
  */
-object RemoteConfigManager {
+object AnalyticsManager {
 
-    const val FETCH_INTERVAL = 3600L
+    private val AMPLITUDE_API_KEY = "9fe351220e1ffe034a9a0f12da574a77"
+
+    private var firebaseAnalytics: FirebaseAnalytics? = null
+    private var amplitude: AmplitudeClient? = null
 
     fun init() {
-        Firebase.remoteConfig.setConfigSettingsAsync(
-            remoteConfigSettings {
-                minimumFetchIntervalInSeconds = if(BuildConfig.DEBUG) 1 else FETCH_INTERVAL
-            }
-        )
-
-        Firebase.remoteConfig.setDefaultsAsync(mapOf<String, Any>())
-
-        Firebase.remoteConfig.fetchAndActivate()
+        MainApplication.getApplicationContext()?.let { applicationContext ->
+//            firebaseAnalytics = FirebaseAnalytics.getInstance(applicationContext)
+            firebaseAnalytics = Firebase.analytics
+            amplitude = Amplitude.getInstance().initialize(applicationContext, AMPLITUDE_API_KEY)
+        }
     }
 
-    fun getValue(remoteConfigData: RemoteConfigData<Boolean>) = Firebase.remoteConfig.getBoolean(remoteConfigData.key)
-    fun getValue(remoteConfigData: RemoteConfigData<String>) = Firebase.remoteConfig.getString(remoteConfigData.key)
-    fun getValue(remoteConfigData: RemoteConfigData<Long>) = Firebase.remoteConfig.getLong(remoteConfigData.key)
-    fun getValue(remoteConfigData: RemoteConfigData<Double>) = Firebase.remoteConfig.getDouble(remoteConfigData.key)
+    /**
+     * 로그인 후 user id 셋팅
+     */
+    fun setUserId(userId: String) {
+        firebaseAnalytics?.setUserId(userId)
+        amplitude?.userId = userId
+    }
+
+    /**
+     * send event
+     */
+    fun logEvent(analyticsData: AnalyticsData) {
+        firebaseAnalytics?.logEvent(analyticsData.eventName, Bundle())
+        amplitude?.logEvent(analyticsData.eventName)
+    }
 
 }

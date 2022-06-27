@@ -3,6 +3,7 @@ package com.glorykwon.kykdev
 import android.app.Application
 import android.content.Context
 import androidx.work.Configuration
+import com.glorykwon.kykdev.common.analytics.AnalyticsManager
 import com.glorykwon.kykdev.common.database.realm.RealmDbManager
 import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigManager
 import com.glorykwon.kykdev.ui.BaseActivity
@@ -40,7 +41,14 @@ class MainApplication: Application(), Configuration.Provider {
         //init RxJava error handler
         initRxJavaErrorHandler()
 
+        //init remote config
         RemoteConfigManager.init()
+
+        //init analytics
+        AnalyticsManager.init()
+
+        //로그인 없으니까 임시 id 셋팅
+        AnalyticsManager.setUserId("kwon0koang")
 
     }
 

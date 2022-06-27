@@ -1,20 +1,9 @@
-package com.glorykwon.kykdev.common.remoteconfig
+package com.glorykwon.kykdev.common.analytics
 
 /**
- * remote config data
+ * analytics data
  */
-sealed class RemoteConfigData<T> {
-    abstract val key: String
-    abstract val defaultValue: T
-
-    data class HelloRemoteConfigBoolean(
-        override val key: String = "hello_remote_config_boolean",
-        override val defaultValue: Boolean = false
-    ): RemoteConfigData<Boolean>()
-
-    data class HelloRemoteConfigString(
-        override val key: String = "hello_remote_config_string",
-        override val defaultValue: String = "remote config string test"
-    ): RemoteConfigData<String>()
-
-}
+data class AnalyticsData(
+    val eventName: String,
+    val param: Map<String, String>? = null
+)
