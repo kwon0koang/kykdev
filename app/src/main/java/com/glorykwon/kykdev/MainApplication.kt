@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.work.Configuration
 import com.glorykwon.kykdev.common.database.realm.RealmDbHelper
+import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigManager
 import com.glorykwon.kykdev.ui.BaseActivity
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException
 import io.reactivex.rxjava3.exceptions.UndeliverableException
@@ -38,6 +39,8 @@ class MainApplication: Application(), Configuration.Provider {
 
         //init RxJava error handler
         initRxJavaErrorHandler()
+
+        RemoteConfigManager.init()
 
     }
 

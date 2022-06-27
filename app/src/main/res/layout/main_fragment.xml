@@ -76,6 +76,12 @@
             android:layout_height="wrap_content"
             android:text="Theme test" />
 
+        <Button
+            android:id="@+id/btn_remote_config_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Remote config test" />
+
     </LinearLayout>
 
 

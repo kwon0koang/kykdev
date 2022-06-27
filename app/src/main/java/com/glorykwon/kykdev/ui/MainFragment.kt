@@ -12,6 +12,8 @@ import com.glorykwon.kykdev.R
 import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.glorykwon.kykdev.common.dynamiclink.DynamicLinkActivity
+import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigData
+import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigManager
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
 import com.glorykwon.kykdev.ui.designpatterntest.DesignPatternTestActivity
 import timber.log.Timber
@@ -81,6 +83,11 @@ class MainFragment : BaseFragment() {
             findNavController().navigate(R.id.action_mainFragment_to_themeTestFragment)
         }
 
+        mBinding.btnRemoteConfigTest.setOnClickListener {
+            val booleanValue = RemoteConfigManager.getValue(RemoteConfigData.HelloRemoteConfigBoolean())
+            val stringValue = RemoteConfigManager.getValue(RemoteConfigData.HelloRemoteConfigString())
+            Toast.makeText(context, "booleanValue:$booleanValue\nstringValue:$stringValue", Toast.LENGTH_SHORT).show()
+        }
     }
 
     /**

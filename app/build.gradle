@@ -94,6 +94,7 @@ dependencies {
     implementation "org.greenrobot:eventbus:$eventbus_version"
     implementation "androidx.biometric:biometric:$biometric_version"
     implementation "com.facebook.shimmer:shimmer:$shimmer_version"
+    implementation "com.amplitude:android-sdk:$amplitude_version"
 
     // network
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
@@ -122,12 +123,14 @@ dependencies {
     // Declare the dependencies for the Dynamic Links and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation "com.google.firebase:firebase-dynamic-links-ktx"
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation "com.google.firebase:firebase-crashlytics-ktx"
+    implementation "com.google.firebase:firebase-config-ktx"
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation "com.google.firebase:firebase-messaging:$firebase_messaging_version"
 
+    // etc
     // Optional - APIs for SplashScreen, including compatibility helpers on devices prior Android 12
-    implementation "androidx.core:core-splashscreen:1.0.0-alpha01"
+    implementation "androidx.core:core-splashscreen:$splashscreen_version"
 
 
 }
