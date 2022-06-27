@@ -9,7 +9,7 @@ import io.realm.kotlin.executeTransactionAwait
 import io.realm.kotlin.where
 import kotlinx.coroutines.Dispatchers
 
-object RealmDbHelper {
+object RealmDbManager {
 
     private val TODO_REALM_NAME = "todo_realm_test.realm"
     private lateinit var mTodoRealmConfig: RealmConfiguration

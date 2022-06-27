@@ -3,7 +3,7 @@ package com.glorykwon.kykdev
 import android.app.Application
 import android.content.Context
 import androidx.work.Configuration
-import com.glorykwon.kykdev.common.database.realm.RealmDbHelper
+import com.glorykwon.kykdev.common.database.realm.RealmDbManager
 import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigManager
 import com.glorykwon.kykdev.ui.BaseActivity
 import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException
@@ -35,7 +35,7 @@ class MainApplication: Application(), Configuration.Provider {
         mApplicationContext = applicationContext
 
         //init realm db
-        RealmDbHelper.init(this)
+        RealmDbManager.init(this)
 
         //init RxJava error handler
         initRxJavaErrorHandler()

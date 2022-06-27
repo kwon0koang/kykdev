@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.glorykwon.kykdev.common.NetworkResult
-import com.glorykwon.kykdev.common.database.realm.RealmDbHelper
+import com.glorykwon.kykdev.common.database.realm.RealmDbManager
 import com.glorykwon.kykdev.common.database.realm.dao.TodoRealmObject
 
 class RealmTestViewModel() : ViewModel() {
@@ -20,7 +20,7 @@ class RealmTestViewModel() : ViewModel() {
             emit(NetworkResult.Loading())
             try {
 
-                val allItems = RealmDbHelper.getAllItems()
+                val allItems = RealmDbManager.getAllItems()
 
                 emit(NetworkResult.Success(allItems))
 
@@ -41,7 +41,7 @@ class RealmTestViewModel() : ViewModel() {
             emit(NetworkResult.Loading())
             try {
 
-                RealmDbHelper.insertItem(it)
+                RealmDbManager.insertItem(it)
 
                 emit(NetworkResult.Success())
 
@@ -62,7 +62,7 @@ class RealmTestViewModel() : ViewModel() {
             emit(NetworkResult.Loading())
             try {
 
-                RealmDbHelper.deleteItem(id)
+                RealmDbManager.deleteItem(id)
 
                 emit(NetworkResult.Success())
 
