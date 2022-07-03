@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.glorykwon.kykdev.MainApplication
 import com.glorykwon.kykdev.ui.MainActivity
+import timber.log.Timber
 
 val NOTI_CHANNEL_ID = "kykdev_NOTI_CHANNEL_ID"          //알림받을 채널 ID
 val NOTI_CHANNEL_NAME = "kykdev_NOTI_CHANNEL_NAME"      //채널 이름
@@ -54,5 +55,16 @@ fun showNoti(title: String, content: String) {
         }
     } catch (e: Exception) {
         e.printStackTrace()
+    }
+}
+
+/**
+ * 현재 함수명 반환
+ */
+fun getCurrentMethodName(): String? {
+    return try {
+        Throwable().stackTrace[1].methodName
+    } catch(e: Exception) {
+        null
     }
 }

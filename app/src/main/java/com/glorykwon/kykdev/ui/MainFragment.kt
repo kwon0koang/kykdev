@@ -89,7 +89,7 @@ class MainFragment : BaseFragment() {
         mBinding.btnRemoteConfigTest.setOnClickListener {
             val booleanValue = RemoteConfigManager.getValue(RemoteConfigData.HelloRemoteConfigBoolean())
             val stringValue = RemoteConfigManager.getValue(RemoteConfigData.HelloRemoteConfigString())
-            Toast.makeText(context, "booleanValue:$booleanValue\nstringValue:$stringValue", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "booleanValue : $booleanValue\nstringValue : $stringValue", Toast.LENGTH_SHORT).show()
         }
     }
 

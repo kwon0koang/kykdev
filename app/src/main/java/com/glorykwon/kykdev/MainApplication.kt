@@ -46,9 +46,8 @@ class MainApplication: Application(), Configuration.Provider {
 
         //init analytics
         AnalyticsManager.init()
-
-        //로그인 없으니까 임시 id 셋팅
-        AnalyticsManager.setUserId("kwon0koang")
+        AnalyticsManager.setUserId("kwon0koang")        //로그인 없으니까 임시 user id 셋팅
+        AnalyticsManager.initFeatureFlags()             //대조군, 실험군 구분 위한 feature flag 셋팅
 
     }
 
