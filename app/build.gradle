@@ -45,6 +45,7 @@ android {
 
     testOptions {
         unitTests.returnDefaultValues = true
+        animationsDisabled = true
     }
 
     configurations.all {
@@ -89,7 +90,9 @@ dependencies {
     // android test
     androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
     androidTestImplementation "com.google.truth:truth:$truth_version"
+    androidTestImplementation "androidx.test:core-ktx:$test_core_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
     // util
     implementation "com.jakewharton.timber:timber:$timber_version"
