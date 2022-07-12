@@ -20,44 +20,19 @@
             android:id="@+id/btn_tv_on"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="tv on" />
-
-        <Button
-            android:id="@+id/btn_tv_change_channel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="tv change channel" />
+            android:text="on tv" />
 
         <Button
             android:id="@+id/btn_airconditioner_on"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="air conditioner on" />
-
-        <Button
-            android:id="@+id/btn_airconditioner_turbo_air"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="air conditioner turbo air" />
+            android:text="on air conditioner" />
 
         <Button
             android:id="@+id/btn_aircleaner_on"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="air cleaner on" />
-
-        <Button
-            android:id="@+id/btn_aircleaner_turbo_clean"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="air cleaner turbo clean" />
-
-        <Button
-            android:id="@+id/btn_execute"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="execute" />
+            android:text="on air cleaner" />
 
     </LinearLayout>
 

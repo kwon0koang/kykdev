@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.ui.designpatterntest.command.devices
+package com.glorykwon.kykdev.ui.designpatterntest.devices
 
 import android.widget.Toast
 import com.glorykwon.kykdev.MainApplication
@@ -7,11 +7,11 @@ import com.glorykwon.kykdev.ui.designpatterntest.command.Command
 class Tv: Device {
 
     override fun on() {
-        Toast.makeText(MainApplication.getActivityContext(), "Tv on", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "on Tv", Toast.LENGTH_SHORT).show()
     }
 
     override fun off() {
-        Toast.makeText(MainApplication.getActivityContext(), "Tv off", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "off Tv", Toast.LENGTH_SHORT).show()
     }
 
     fun changeChannel() {

@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.ui.designpatterntest.command.devices
+package com.glorykwon.kykdev.ui.designpatterntest.devices
 
 import android.widget.Toast
 import com.glorykwon.kykdev.MainApplication
@@ -7,11 +7,11 @@ import com.glorykwon.kykdev.ui.designpatterntest.command.Command
 class AirCleaner: Device {
 
     override fun on() {
-        Toast.makeText(MainApplication.getActivityContext(), "AirCleaner on", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "on AirCleaner", Toast.LENGTH_SHORT).show()
     }
 
     override fun off() {
-        Toast.makeText(MainApplication.getActivityContext(), "AirCleaner off", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "off AirCleaner", Toast.LENGTH_SHORT).show()
     }
 
     fun turboClean() {

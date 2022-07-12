@@ -26,6 +26,8 @@
 
         <activity android:name=".ui.designpatterntest.DesignPatternTestActivity"
             android:theme="@style/Theme.Kykdev" />
+        <activity android:name=".ui.designpatterntest.command.DPCommandActivity" />
+        <activity android:name=".ui.designpatterntest.factory.DPFactoryActivity" />
 
         <activity android:name=".ui.uitest.UiTestActivity" />
 

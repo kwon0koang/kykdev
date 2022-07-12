@@ -1,15 +1,16 @@
 package com.glorykwon.kykdev.ui.designpatterntest
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.glorykwon.kykdev.R
 import com.glorykwon.kykdev.common.analytics.AnalyticsEventConst
 import com.glorykwon.kykdev.common.analytics.AnalyticsManager
 import com.glorykwon.kykdev.databinding.DesignPatternTestFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
+import com.glorykwon.kykdev.ui.designpatterntest.command.DPCommandActivity
+import com.glorykwon.kykdev.ui.designpatterntest.factory.DPFactoryActivity
 
 class DesignPatternTestFragment : BaseFragment() {
 
@@ -36,7 +37,13 @@ class DesignPatternTestFragment : BaseFragment() {
     private fun initView() {
 
         mBinding.btnCommand.setOnClickListener {
-            findNavController().navigate(R.id.action_designPatternTestFragment_to_designPatternCommandFragment)
+            val intent = Intent(context, DPCommandActivity::class.java)
+            startActivity(intent)
+        }
+
+        mBinding.btnFactory.setOnClickListener {
+            val intent = Intent(context, DPFactoryActivity::class.java)
+            startActivity(intent)
         }
 
     }

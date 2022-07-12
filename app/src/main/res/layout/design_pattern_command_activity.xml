@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_tv_on"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="on tv" />
+
+        <Button
+            android:id="@+id/btn_tv_change_channel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="tv change channel" />
+
+        <Button
+            android:id="@+id/btn_airconditioner_on"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="on air conditioner" />
+
+        <Button
+            android:id="@+id/btn_airconditioner_turbo_air"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="air conditioner turbo air" />
+
+        <Button
+            android:id="@+id/btn_aircleaner_on"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="on air cleaner" />
+
+        <Button
+            android:id="@+id/btn_aircleaner_turbo_clean"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="air cleaner turbo clean" />
+
+        <Button
+            android:id="@+id/btn_execute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="execute" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
