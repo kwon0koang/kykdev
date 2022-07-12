@@ -1,15 +1,15 @@
-package com.glorykwon.kykdev.template
+package com.glorykwon.kykdev.ui.uitest
 
 import android.os.Bundle
-import androidx.activity.viewModels
-import com.glorykwon.kykdev.common.NetworkResult
-import com.glorykwon.kykdev.databinding.MainActivityBinding
+import com.glorykwon.kykdev.databinding.UiTestActivityBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 
-class TemplateActivity : BaseActivity() {
+/**
+ * https://developer.android.com/training/testing/ui-testing/espresso-testing?hl=ko#additional-resources-codelabs
+ */
+class UiTestActivity : BaseActivity() {
 
-    private val mBinding by lazy { MainActivityBinding.inflate(layoutInflater) }
-    private val mViewModel by viewModels<TemplateViewModel>()
+    private val mBinding by lazy { UiTestActivityBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,21 +28,15 @@ class TemplateActivity : BaseActivity() {
      * 뷰 초기화
      */
     private fun initView() {
+        mBinding.btnEdittextToTextview.setOnClickListener {
+            mBinding.txtUiTest.text = mBinding.etUiTest.text
+        }
     }
 
     /**
      * 옵저버 초기화
      */
     private fun initObserver() {
-
-        mViewModel.todo.observe(this) {
-            when(it) {
-                is NetworkResult.Loading -> {}
-                is NetworkResult.Success -> {}
-                is NetworkResult.Error -> {}
-            }
-        }
-
     }
 
     /**
