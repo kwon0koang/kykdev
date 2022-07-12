@@ -4,9 +4,11 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.DisplayMetrics
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.glorykwon.kykdev.MainApplication
@@ -68,3 +70,23 @@ fun getCurrentMethodName(): String? {
         null
     }
 }
+
+/**
+ * Pixels To DP
+ */
+fun convertPixelsToDp(context: Context, px: Float): Float = px / (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+
+/**
+ * Dp To Pixels
+ */
+fun convertDpToPixels(context: Context, dp: Float): Float  = dp * (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+
+/**
+ * Display Width
+ */
+fun getDisplayWidth(context: Context): Int = context.resources.displayMetrics.widthPixels
+
+/**
+ * Display Height
+ */
+fun getDisplayHeight(context: Context): Int = context.resources.displayMetrics.heightPixels
