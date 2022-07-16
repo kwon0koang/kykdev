@@ -3,7 +3,7 @@ package com.glorykwon.kykdev.ui.designpatterntest.factory
 import com.glorykwon.kykdev.ui.designpatterntest.devices.*
 
 /**
- * 각각의 기기를 생산하는 공장 생성
+ * 각각의 기기를 생산하는 팩토리 생성
  */
 interface DeviceFactory2 {
     fun createDevice(): Device

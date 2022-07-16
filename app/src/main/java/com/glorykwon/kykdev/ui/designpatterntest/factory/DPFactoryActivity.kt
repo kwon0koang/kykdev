@@ -51,18 +51,17 @@ class DPFactoryActivity : BaseActivity() {
             AirCleanerFactory().createDevice().on()
         }
 
-        mBinding.btnTvOn02.setOnClickListener {
+        mBinding.btnTvOn03.setOnClickListener {
             AbstractDeviceFactory(TvFactory()).createDevice().on()
         }
 
-        mBinding.btnAirconditionerOn02.setOnClickListener {
+        mBinding.btnAirconditionerOn03.setOnClickListener {
             AbstractDeviceFactory(AirConditionerFactory()).createDevice().on()
         }
 
-        mBinding.btnAircleanerOn02.setOnClickListener {
+        mBinding.btnAircleanerOn03.setOnClickListener {
             AbstractDeviceFactory(AirCleanerFactory()).createDevice().on()
         }
-
 
     }
 
