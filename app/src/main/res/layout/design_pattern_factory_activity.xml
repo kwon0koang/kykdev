@@ -53,6 +53,25 @@
             android:layout_height="wrap_content"
             android:text="on air cleaner" />
 
+        <Button
+            android:id="@+id/btn_tv_on03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="on tv (abstract factory)" />
+
+        <Button
+            android:id="@+id/btn_airconditioner_on03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="on air conditioner (abstract factory)" />
+
+        <Button
+            android:id="@+id/btn_aircleaner_on03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="on air cleaner (abstract factory)" />
+
     </LinearLayout>
 
 
