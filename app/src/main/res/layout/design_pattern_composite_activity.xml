@@ -17,28 +17,29 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/btn_command"
+            android:id="@+id/btn_tv_on"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="command" />
+            android:text="on tv" />
 
         <Button
-            android:id="@+id/btn_factory"
+            android:id="@+id/btn_airconditioner_on"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="factory" />
+            android:text="on air conditioner" />
 
         <Button
-            android:id="@+id/btn_bridge"
+            android:id="@+id/btn_aircleaner_on"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="bridge" />
+            android:text="on air cleaner" />
 
         <Button
-            android:id="@+id/btn_composite"
+            android:id="@+id/btn_all_devices_on"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="composite" />
+            android:layout_marginTop="20dp"
+            android:text="on all devices in device storage" />
 
     </LinearLayout>
 

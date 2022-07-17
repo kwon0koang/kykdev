@@ -13,16 +13,18 @@ class Tv: Device {
         this.mDisplay = mDisplay
     }
 
+    override fun getName(): String = "Tv"
+
     override fun on() {
-        Toast.makeText(MainApplication.getActivityContext(), "on Tv", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "on ${getName()}", Toast.LENGTH_SHORT).show()
     }
 
     override fun off() {
-        Toast.makeText(MainApplication.getActivityContext(), "off Tv", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "off ${getName()}", Toast.LENGTH_SHORT).show()
     }
 
     fun changeChannel() {
-        Toast.makeText(MainApplication.getActivityContext(), "Tv change channel", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "${getName()} change channel", Toast.LENGTH_SHORT).show()
     }
 
     fun getScreen() {

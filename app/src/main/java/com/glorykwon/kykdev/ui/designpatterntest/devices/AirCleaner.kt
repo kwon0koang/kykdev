@@ -6,16 +6,18 @@ import com.glorykwon.kykdev.ui.designpatterntest.command.Command
 
 class AirCleaner: Device {
 
+    override fun getName(): String = "AirCleaner"
+
     override fun on() {
-        Toast.makeText(MainApplication.getActivityContext(), "on AirCleaner", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "on ${getName()}", Toast.LENGTH_SHORT).show()
     }
 
     override fun off() {
-        Toast.makeText(MainApplication.getActivityContext(), "off AirCleaner", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "off ${getName()}", Toast.LENGTH_SHORT).show()
     }
 
     fun turboClean() {
-        Toast.makeText(MainApplication.getActivityContext(), "AirCleaner turbo clean", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "${getName()} turbo clean", Toast.LENGTH_SHORT).show()
     }
 
     class OnCommand(val device: AirCleaner) : Command {
