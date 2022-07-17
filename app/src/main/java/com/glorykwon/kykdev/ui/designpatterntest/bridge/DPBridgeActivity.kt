@@ -39,16 +39,16 @@ class DPBridgeActivity : BaseActivity() {
     private fun initView() {
 
         mBinding.btnLcdTvOn.setOnClickListener {
-            Tv(Lcd()).on()
+            Tv(Lcd()).getScreen()
         }
         mBinding.btnLedTvOn.setOnClickListener {
-            Tv(Led()).on()
+            Tv(Led()).getScreen()
         }
         mBinding.btnOledTvOn.setOnClickListener {
-            Tv(Oled()).on()
+            Tv(Oled()).getScreen()
         }
         mBinding.btnAmoledTvOn.setOnClickListener {
-            Tv(Amoled()).on()
+            Tv(Amoled()).getScreen()
         }
 
     }

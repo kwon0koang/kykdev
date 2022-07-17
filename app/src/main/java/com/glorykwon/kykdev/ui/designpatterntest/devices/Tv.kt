@@ -14,15 +14,19 @@ class Tv: Device {
     }
 
     override fun on() {
-        Toast.makeText(MainApplication.getActivityContext(), "on ${mDisplay?.getName()}Tv", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "on Tv", Toast.LENGTH_SHORT).show()
     }
 
     override fun off() {
-        Toast.makeText(MainApplication.getActivityContext(), "off ${mDisplay?.getName()}Tv", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "off Tv", Toast.LENGTH_SHORT).show()
     }
 
     fun changeChannel() {
-        Toast.makeText(MainApplication.getActivityContext(), "${mDisplay?.getName()}Tv change channel", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "Tv change channel", Toast.LENGTH_SHORT).show()
+    }
+
+    fun getScreen() {
+        Toast.makeText(MainApplication.getActivityContext(), "screen is ${mDisplay?.getName()}", Toast.LENGTH_SHORT).show()
     }
 
     class OnCommand(val device: Tv) : Command {
