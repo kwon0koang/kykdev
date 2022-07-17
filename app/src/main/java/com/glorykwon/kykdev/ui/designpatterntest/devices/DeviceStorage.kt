@@ -18,6 +18,14 @@ class DeviceStorage: Device {
     override fun off() {
         Toast.makeText(MainApplication.getActivityContext(), "off ${getName()}", Toast.LENGTH_SHORT).show()
     }
+
+    fun addDevices(devices: List<Device>) {
+        if(mDevices == null) {
+            mDevices = arrayListOf()
+        }
+
+        mDevices?.addAll(devices)
+    }
     
     fun addDevices(device: Device) {
         if(mDevices == null) {

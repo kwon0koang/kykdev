@@ -28,6 +28,7 @@
         <activity android:name=".ui.designpatterntest.factory.DPFactoryActivity"/>
         <activity android:name=".ui.designpatterntest.bridge.DPBridgeActivity"/>
         <activity android:name=".ui.designpatterntest.composite.DPCompositeActivity"/>
+        <activity android:name=".ui.designpatterntest.decorator.DPDecoratorActivity"/>
         <activity android:name=".ui.uitest.UiTestActivity"/>
         <activity
             android:name=".common.dynamiclink.DynamicLinkActivity"

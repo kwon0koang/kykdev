@@ -17,34 +17,28 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/btn_command"
+            android:id="@+id/btn_print_all_devices"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="command" />
+            android:text="print devices" />
 
         <Button
-            android:id="@+id/btn_factory"
+            android:id="@+id/btn_filtering_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="factory" />
+            android:text="print devices (filtered tv)" />
 
         <Button
-            android:id="@+id/btn_bridge"
+            android:id="@+id/btn_filtering_airconditioner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="bridge" />
+            android:text="print devices (filtered airconditioner)" />
 
         <Button
-            android:id="@+id/btn_composite"
+            android:id="@+id/btn_filtering_tv_and_airconditioner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="composite" />
-
-        <Button
-            android:id="@+id/btn_decorator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="decorator" />
+            android:text="print devices (filtered tv and airconditioner" />
 
     </LinearLayout>
 
