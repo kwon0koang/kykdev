@@ -10,17 +10,12 @@ import com.glorykwon.kykdev.ui.designpatterntest.devices.AirConditioner
 import com.glorykwon.kykdev.ui.designpatterntest.devices.Tv
 import com.glorykwon.kykdev.util.kt.safeLet
 
+/**
+ * 커맨드 패턴
+ */
 class DPCommandActivity : BaseActivity() {
 
     private val mBinding by lazy { DesignPatternCommandActivityBinding.inflate(layoutInflater) }
-
-    //invoker
-    var mRemoteController: RemoteController? = null
-
-    //receiver
-    var mTv: Tv? = null
-    var mAirConditioner: AirConditioner? = null
-    var mAirCleaner: AirCleaner? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,52 +36,40 @@ class DPCommandActivity : BaseActivity() {
      */
     private fun initView() {
 
-        //invoker
-        mRemoteController = RemoteController()
-
-        //receiver
-        mTv = Tv()
-        mAirConditioner = AirConditioner()
-        mAirCleaner = AirCleaner()
-
         mBinding.btnTvOn.setOnClickListener {
-            safeLet(mRemoteController, mTv) { remoteController, device ->
-                remoteController.setCommand(Tv.OnCommand(device))
-            }
+            RemoteController().apply {
+                setCommand(Tv.OnCommand(Tv()))
+            }.execute()
         }
 
         mBinding.btnTvChangeChannel.setOnClickListener {
-            safeLet(mRemoteController, mTv) { remoteController, device ->
-                remoteController.setCommand(Tv.ChangeChannelCommand(device))
-            }
+            RemoteController().apply {
+                setCommand(Tv.ChangeChannelCommand(Tv()))
+            }.execute()
         }
 
         mBinding.btnAirconditionerOn.setOnClickListener {
-            safeLet(mRemoteController, mAirConditioner) { remoteController, device ->
-                remoteController.setCommand(AirConditioner.OnCommand(device))
-            }
+            RemoteController().apply {
+                setCommand(AirConditioner.OnCommand(AirConditioner()))
+            }.execute()
         }
 
         mBinding.btnAirconditionerTurboAir.setOnClickListener {
-            safeLet(mRemoteController, mAirConditioner) { remoteController, device ->
-                remoteController.setCommand(AirConditioner.TurboAirCommand(device))
-            }
+            RemoteController().apply {
+                setCommand(AirConditioner.TurboAirCommand(AirConditioner()))
+            }.execute()
         }
 
         mBinding.btnAircleanerOn.setOnClickListener {
-            safeLet(mRemoteController, mAirCleaner) { remoteController, device ->
-                remoteController.setCommand(AirCleaner.OnCommand(device))
-            }
+            RemoteController().apply {
+                setCommand(AirCleaner.OnCommand(AirCleaner()))
+            }.execute()
         }
 
         mBinding.btnAircleanerTurboClean.setOnClickListener {
-            safeLet(mRemoteController, mAirCleaner) { remoteController, device ->
-                remoteController.setCommand(AirCleaner.TurboCleanCommand(device))
-            }
-        }
-
-        mBinding.btnExecute.setOnClickListener {
-            mRemoteController?.execute()
+            RemoteController().apply {
+                setCommand(AirCleaner.TurboCleanCommand(AirCleaner()))
+            }.execute()
         }
 
     }

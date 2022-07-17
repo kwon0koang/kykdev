@@ -9,6 +9,7 @@ import com.glorykwon.kykdev.common.analytics.AnalyticsEventConst
 import com.glorykwon.kykdev.common.analytics.AnalyticsManager
 import com.glorykwon.kykdev.databinding.DesignPatternTestFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
+import com.glorykwon.kykdev.ui.designpatterntest.bridge.DPBridgeActivity
 import com.glorykwon.kykdev.ui.designpatterntest.command.DPCommandActivity
 import com.glorykwon.kykdev.ui.designpatterntest.factory.DPFactoryActivity
 
@@ -43,6 +44,11 @@ class DesignPatternTestFragment : BaseFragment() {
 
         mBinding.btnFactory.setOnClickListener {
             val intent = Intent(context, DPFactoryActivity::class.java)
+            startActivity(intent)
+        }
+
+        mBinding.btnBridge.setOnClickListener {
+            val intent = Intent(context, DPBridgeActivity::class.java)
             startActivity(intent)
         }
 
