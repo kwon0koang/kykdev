@@ -38,8 +38,8 @@ class DPDecoratorActivity : BaseActivity() {
      * 뷰 초기화
      */
     private fun initView() {
-
-        mBinding.btnAllDevicesOn.setOnClickListener {
+        
+        mBinding.btnPrintAllDevices.setOnClickListener {
             val msg = mDevices.map { device -> device.getName() }.joinToString()
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
