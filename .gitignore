@@ -9,5 +9,5 @@
 .cxx
 local.properties
 
-kykkeystore.jks
-keystore.properties
+#kykkeystore.jks
+#keystore.properties
