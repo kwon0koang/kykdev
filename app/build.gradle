@@ -75,7 +75,7 @@ android {
 }
 
 dependencies {
-
+    apply from: "$project.rootDir/jacoco.gradle"
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
