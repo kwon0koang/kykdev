@@ -1,5 +1,6 @@
 /**
  * 참고
+ * https://docs.gradle.org/current/userguide/jacoco_plugin.html
  * https://medium.com/nerd-for-tech/setup-jacoco-code-coverage-with-your-multimodule-android-app-kotlin-a0f82573a1
  * https://about.codecov.io/blog/code-coverage-for-android-development-using-kotlin-jacoco-github-actions-and-codecov/
  */
