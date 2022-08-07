@@ -6,6 +6,9 @@ import com.glorykwon.kykdev.R
 import com.glorykwon.kykdev.databinding.MainActivityBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 
+/**
+ * todo
+ */
 class TemplateNavigationActivity : BaseActivity() {
 
     private val mBinding by lazy { MainActivityBinding.inflate(layoutInflater) }

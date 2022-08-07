@@ -28,7 +28,6 @@ class DPCompositeActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         initData()      //데이터 초기화
-        AnalyticsManager.logEvent(AnalyticsEventConst.enterDesignPatternCommand)
     }
 
     /**

@@ -9,6 +9,9 @@ import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 
+/**
+ * todo
+ */
 class TemplateFragment : BaseFragment() {
 
     private val mBinding by lazy { MainFragmentBinding.inflate(layoutInflater) }
