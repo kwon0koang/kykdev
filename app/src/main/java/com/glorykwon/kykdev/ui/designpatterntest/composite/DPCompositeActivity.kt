@@ -49,9 +49,9 @@ class DPCompositeActivity : BaseActivity() {
 
         mBinding.btnAllDevicesOn.setOnClickListener {
             DeviceStorage().apply {
-                addDevices(Tv())
-                addDevices(AirConditioner())
-                addDevices(AirCleaner())
+                addDevice(Tv())
+                addDevice(AirConditioner())
+                addDevice(AirCleaner())
             }.run {
                 on()
             }

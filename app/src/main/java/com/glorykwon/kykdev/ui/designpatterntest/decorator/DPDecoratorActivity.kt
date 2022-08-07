@@ -39,19 +39,19 @@ class DPDecoratorActivity : BaseActivity() {
     private fun initView() {
         
         mBinding.btnPrintAllDevices.setOnClickListener {
-            val msg = mDevices.map { device -> device.getName() }.joinToString()
+            val msg = mDevices.map { device -> device.name }.joinToString()
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
 
         mBinding.btnFilteringTv.setOnClickListener {
             var devices = TvFilteringDecorator(mDevices).getDevices() ?: emptyList()
-            val msg = devices.map { device -> device.getName() }.joinToString()
+            val msg = devices.map { device -> device.name }.joinToString()
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
 
         mBinding.btnFilteringAirconditioner.setOnClickListener {
             var devices = AirConditionerFilteringDecorator(mDevices).getDevices() ?: emptyList()
-            val msg = devices.map { device -> device.getName() }.joinToString()
+            val msg = devices.map { device -> device.name }.joinToString()
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
 
@@ -59,7 +59,7 @@ class DPDecoratorActivity : BaseActivity() {
             var devices = mDevices
             devices = TvFilteringDecorator(devices).getDevices() ?: emptyList()
             devices = AirConditionerFilteringDecorator(devices).getDevices() ?: emptyList()
-            val msg = devices.map { device -> device.getName() }.joinToString()
+            val msg = devices.map { device -> device.name }.joinToString()
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
 

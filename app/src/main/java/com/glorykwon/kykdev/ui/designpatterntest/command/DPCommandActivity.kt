@@ -12,6 +12,7 @@ import com.glorykwon.kykdev.util.kt.safeLet
 
 /**
  * 커맨드 패턴
+ * 요청을 캡슐화하여 invoker와 receiver를 분리
  */
 class DPCommandActivity : BaseActivity() {
 
@@ -42,6 +43,12 @@ class DPCommandActivity : BaseActivity() {
             }.execute()
         }
 
+        mBinding.btnTvOff.setOnClickListener {
+            RemoteController().apply {
+                setCommand(Tv.OffCommand(Tv()))
+            }.execute()
+        }
+
         mBinding.btnTvChangeChannel.setOnClickListener {
             RemoteController().apply {
                 setCommand(Tv.ChangeChannelCommand(Tv()))
@@ -54,6 +61,12 @@ class DPCommandActivity : BaseActivity() {
             }.execute()
         }
 
+        mBinding.btnAirconditionerOff.setOnClickListener {
+            RemoteController().apply {
+                setCommand(AirConditioner.OffCommand(AirConditioner()))
+            }.execute()
+        }
+
         mBinding.btnAirconditionerTurboAir.setOnClickListener {
             RemoteController().apply {
                 setCommand(AirConditioner.TurboAirCommand(AirConditioner()))
@@ -63,6 +76,12 @@ class DPCommandActivity : BaseActivity() {
         mBinding.btnAircleanerOn.setOnClickListener {
             RemoteController().apply {
                 setCommand(AirCleaner.OnCommand(AirCleaner()))
+            }.execute()
+        }
+
+        mBinding.btnAircleanerOff.setOnClickListener {
+            RemoteController().apply {
+                setCommand(AirCleaner.OffCommand(AirCleaner()))
             }.execute()
         }
 

@@ -6,23 +6,23 @@ import com.glorykwon.kykdev.ui.designpatterntest.devices.AirConditioner
 import com.glorykwon.kykdev.ui.designpatterntest.devices.Device
 import com.glorykwon.kykdev.ui.designpatterntest.devices.Tv
 
-class AirConditionerFilteringDecorator: Device {
+class AirConditionerFilteringDecorator(override var name: String? = null) : Device {
 
     private var mDevices: List<Device>? = null
     fun getDevices() = mDevices
 
-    constructor(mDevices: List<Device>) {
+    constructor(mDevices: List<Device>) : this() {
         this.mDevices = mDevices.filter { device -> device !is AirConditioner }
     }
 
-    override fun getName(): String = mDevices?.map { device -> device.getName() }?.joinToString() ?: ""
+    fun getDeviceNames() = mDevices?.map { device -> device.name }?.joinToString() ?: ""
 
     override fun on() {
-        Toast.makeText(MainApplication.getActivityContext(), "on ${getName()}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "on ${getDeviceNames()}", Toast.LENGTH_SHORT).show()
     }
 
     override fun off() {
-        Toast.makeText(MainApplication.getActivityContext(), "off ${getName()}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "off ${getDeviceNames()}", Toast.LENGTH_SHORT).show()
     }
 
 }

@@ -6,7 +6,7 @@ import timber.log.Timber
 class CreateDeviceService(nextService: CreateService? = null): CreateService(nextService) {
 
     override fun createDevice(device: Device) {
-        Timber.d("${device.getName()}을 만듭니다.")
+        Timber.d("${device.name}을 만듭니다.")
         super.createDevice(device)
     }
 

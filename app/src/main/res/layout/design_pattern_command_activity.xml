@@ -23,6 +23,12 @@
             android:text="on tv" />
 
         <Button
+            android:id="@+id/btn_tv_off"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="off tv" />
+
+        <Button
             android:id="@+id/btn_tv_change_channel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +38,14 @@
             android:id="@+id/btn_airconditioner_on"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="on air conditioner" />
+
+        <Button
+            android:id="@+id/btn_airconditioner_off"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="off air conditioner" />
 
         <Button
             android:id="@+id/btn_airconditioner_turbo_air"
@@ -44,7 +57,14 @@
             android:id="@+id/btn_aircleaner_on"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="on air cleaner" />
+
+        <Button
+            android:id="@+id/btn_aircleaner_off"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="off air cleaner" />
 
         <Button
             android:id="@+id/btn_aircleaner_turbo_clean"

@@ -4,29 +4,21 @@ import android.widget.Toast
 import com.glorykwon.kykdev.MainApplication
 import com.glorykwon.kykdev.ui.designpatterntest.devices.Device
 
-class DeviceStorage: Device {
+class DeviceStorage(override var name: String? = null) : Device {
 
     private var mDevices: ArrayList<Device>? = null
 
-    override fun getName(): String = mDevices?.map { device -> device.getName() }?.joinToString() ?: ""
+    fun getDeviceNames() = mDevices?.map { device -> device.name }?.joinToString() ?: ""
 
     override fun on() {
-        Toast.makeText(MainApplication.getActivityContext(), "on ${getName()}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "on ${getDeviceNames()}", Toast.LENGTH_SHORT).show()
     }
 
     override fun off() {
-        Toast.makeText(MainApplication.getActivityContext(), "off ${getName()}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(MainApplication.getActivityContext(), "off ${getDeviceNames()}", Toast.LENGTH_SHORT).show()
     }
 
-    fun addDevices(devices: List<Device>) {
-        if(mDevices == null) {
-            mDevices = arrayListOf()
-        }
-
-        mDevices?.addAll(devices)
-    }
-    
-    fun addDevices(device: Device) {
+    fun addDevice(device: Device) {
         if(mDevices == null) {
             mDevices = arrayListOf()
         }
