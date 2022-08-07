@@ -1,9 +1,8 @@
-package com.glorykwon.kykdev.ui.designpatterntest.devices
+package com.glorykwon.kykdev.ui.designpatterntest.composite
 
 import android.widget.Toast
 import com.glorykwon.kykdev.MainApplication
-import com.glorykwon.kykdev.ui.designpatterntest.command.Command
-import com.glorykwon.kykdev.ui.designpatterntest.devices.tv_display.Display
+import com.glorykwon.kykdev.ui.designpatterntest.devices.Device
 
 class DeviceStorage: Device {
 

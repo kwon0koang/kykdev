@@ -1,21 +1,23 @@
-package com.glorykwon.kykdev.ui.designpatterntest.composite
+package com.glorykwon.kykdev.ui.designpatterntest.proxy
 
 import android.os.Bundle
 import com.glorykwon.kykdev.common.analytics.AnalyticsEventConst
 import com.glorykwon.kykdev.common.analytics.AnalyticsManager
 import com.glorykwon.kykdev.databinding.DesignPatternCompositeActivityBinding
+import com.glorykwon.kykdev.databinding.DesignPatternProxyActivityBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 import com.glorykwon.kykdev.ui.designpatterntest.devices.AirCleaner
 import com.glorykwon.kykdev.ui.designpatterntest.devices.AirConditioner
+import com.glorykwon.kykdev.ui.designpatterntest.composite.DeviceStorage
 import com.glorykwon.kykdev.ui.designpatterntest.devices.Tv
 
 /**
- * 컴포짓 패턴
- * 그룹 전체와 개별 객체를 동일하게 처리할 수 있음
+ * 프록시 패턴
+ * 특정 객체에 대한 접근을 제어하거나 기능을 추가할 수 있음
  */
-class DPCompositeActivity : BaseActivity() {
+class DPProxyActivity : BaseActivity() {
 
-    private val mBinding by lazy { DesignPatternCompositeActivityBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { DesignPatternProxyActivityBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,26 +38,12 @@ class DPCompositeActivity : BaseActivity() {
      */
     private fun initView() {
 
-        mBinding.btnTvOn.setOnClickListener {
-            Tv().on()
-        }
+        mBinding.btnStartGame.setOnClickListener {
+            // 프록시 패턴 미사용
+            DefaultGameService().startGame()
 
-        mBinding.btnAirconditionerOn.setOnClickListener {
-            AirConditioner().on()
-        }
-
-        mBinding.btnAircleanerOn.setOnClickListener {
-            AirCleaner().on()
-        }
-
-        mBinding.btnAllDevicesOn.setOnClickListener {
-            DeviceStorage().apply {
-                addDevices(Tv())
-                addDevices(AirConditioner())
-                addDevices(AirCleaner())
-            }.run {
-                on()
-            }
+            // 프록시 패턴 사용
+            GameServiceProxy(DefaultGameService()).startGame()
         }
 
     }
