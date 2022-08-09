@@ -9,7 +9,6 @@ import com.glorykwon.kykdev.common.analytics.AnalyticsEventConst
 import com.glorykwon.kykdev.common.analytics.AnalyticsManager
 import com.glorykwon.kykdev.databinding.DesignPatternTestFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
-import com.glorykwon.kykdev.ui.designpatterntest.chainofresponsibility.DPChainOfResponsibilityActivity
 import com.glorykwon.kykdev.ui.designpatterntest.command.DPCommandActivity
 import com.glorykwon.kykdev.ui.designpatterntest.composite.DPCompositeActivity
 import com.glorykwon.kykdev.ui.designpatterntest.decorator.DPDecoratorActivity
@@ -62,11 +61,6 @@ class DesignPatternTestFragment : BaseFragment() {
 
         mBinding.btnProxy.setOnClickListener {
             val intent = Intent(context, DPProxyActivity::class.java)
-            startActivity(intent)
-        }
-
-        mBinding.btnChainOfResponsibility.setOnClickListener {
-            val intent = Intent(context, DPChainOfResponsibilityActivity::class.java)
             startActivity(intent)
         }
 

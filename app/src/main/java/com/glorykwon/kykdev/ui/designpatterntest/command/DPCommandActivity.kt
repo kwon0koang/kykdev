@@ -8,7 +8,6 @@ import com.glorykwon.kykdev.ui.BaseActivity
 import com.glorykwon.kykdev.ui.designpatterntest.devices.AirCleaner
 import com.glorykwon.kykdev.ui.designpatterntest.devices.AirConditioner
 import com.glorykwon.kykdev.ui.designpatterntest.devices.Tv
-import com.glorykwon.kykdev.util.kt.safeLet
 
 /**
  * 커맨드 패턴
