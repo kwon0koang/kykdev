@@ -1,13 +1,9 @@
 package com.glorykwon.kykdev.ui.designpatterntest.chainofresponsibility
 
 import android.os.Bundle
-import com.glorykwon.kykdev.common.analytics.AnalyticsEventConst
-import com.glorykwon.kykdev.common.analytics.AnalyticsManager
-import com.glorykwon.kykdev.databinding.DesignPatternBridgeActivityBinding
 import com.glorykwon.kykdev.databinding.DesignPatternChainOfResponsibilityActivityBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 import com.glorykwon.kykdev.ui.designpatterntest.devices.Tv
-import com.glorykwon.kykdev.ui.designpatterntest.devices.tv_display.*
 
 /**
  * 책임 연쇄 패턴

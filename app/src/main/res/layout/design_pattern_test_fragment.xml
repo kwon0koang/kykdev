@@ -29,12 +29,6 @@
             android:text="factory" />
 
         <Button
-            android:id="@+id/btn_bridge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="bridge" />
-
-        <Button
             android:id="@+id/btn_composite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

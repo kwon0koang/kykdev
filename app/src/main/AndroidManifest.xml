@@ -26,7 +26,6 @@
         <activity android:name=".ui.designpatterntest.DesignPatternTestActivity"/>
         <activity android:name=".ui.designpatterntest.command.DPCommandActivity"/>
         <activity android:name=".ui.designpatterntest.factory.DPFactoryActivity"/>
-        <activity android:name=".ui.designpatterntest.bridge.DPBridgeActivity"/>
         <activity android:name=".ui.designpatterntest.composite.DPCompositeActivity"/>
         <activity android:name=".ui.designpatterntest.decorator.DPDecoratorActivity"/>
         <activity android:name=".ui.designpatterntest.proxy.DPProxyActivity"/>
