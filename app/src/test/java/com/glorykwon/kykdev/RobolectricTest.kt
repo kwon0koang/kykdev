@@ -31,7 +31,7 @@ class RobolectricTest {
     }
 
     @Test
-    fun `robolectric intent test`() {
+    fun `화면 이동 잘 되는지 확인`() {
         // given
         val activity = Robolectric.buildActivity(MainActivity::class.java).create().resume().get()
         val mainFragment = (activity.supportFragmentManager.fragments.first() as NavHostFragment).childFragmentManager.fragments.first()
@@ -49,7 +49,7 @@ class RobolectricTest {
     }
 
     @Test
-    fun `robolectric ui test`() {
+    fun `버튼을 누르면 EditText 값이 TextView에 잘 셋팅되는지 확인`() {
         // given
         val activity = Robolectric.buildActivity(UiTestActivity::class.java).create().resume().get()
 
@@ -67,7 +67,7 @@ class RobolectricTest {
     }
 
     @Test
-    fun `robolectric ui test 02`() {
+    fun `TextView 값 잘 셋팅되는지 확인`() {
         // given
         val activityScenario = ActivityScenario.launch(UiTestActivity::class.java)
 
