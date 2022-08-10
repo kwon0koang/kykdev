@@ -10,17 +10,25 @@ import androidx.test.core.app.ActivityScenario
 import com.glorykwon.kykdev.ui.MainActivity
 import com.glorykwon.kykdev.ui.uitest.UiTestActivity
 import com.google.common.truth.Truth.assertThat
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows
+import org.robolectric.shadows.ShadowLog
 
 @RunWith(RobolectricTestRunner::class)
 class RobolectricTest {
 
     private val TEST_TEXT = "ui test !!!!!!!!!!!"
+
+    @Before
+    fun setUp() {
+        // print log
+        ShadowLog.stream = System.out
+    }
 
     @Test
     fun `robolectric intent test`() {
