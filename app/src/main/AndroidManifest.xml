@@ -23,12 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.designpatterntest.DesignPatternTestActivity"/>
-        <activity android:name=".ui.designpatterntest.command.DPCommandActivity"/>
-        <activity android:name=".ui.designpatterntest.factory.DPFactoryActivity"/>
-        <activity android:name=".ui.designpatterntest.composite.DPCompositeActivity"/>
-        <activity android:name=".ui.designpatterntest.decorator.DPDecoratorActivity"/>
-        <activity android:name=".ui.designpatterntest.proxy.DPProxyActivity"/>
         <activity android:name=".ui.uitest.UiTestActivity"/>
         <activity
             android:name=".common.dynamiclink.DynamicLinkActivity"

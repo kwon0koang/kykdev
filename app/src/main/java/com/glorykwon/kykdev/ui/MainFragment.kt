@@ -17,7 +17,6 @@ import com.glorykwon.kykdev.common.dynamiclink.DynamicLinkActivity
 import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigData
 import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigManager
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
-import com.glorykwon.kykdev.ui.designpatterntest.DesignPatternTestActivity
 import timber.log.Timber
 
 class MainFragment : BaseFragment() {
@@ -75,11 +74,6 @@ class MainFragment : BaseFragment() {
 
         mBinding.btnDynamicLinkTest.setOnClickListener {
             DynamicLinkActivity.shareDynamicLink()
-        }
-
-        mBinding.btnDesignPatternTest.setOnClickListener {
-            val intent = Intent(activity, DesignPatternTestActivity::class.java)
-            startActivity(intent)
         }
 
         mBinding.btnThemeTest.setOnClickListener {
