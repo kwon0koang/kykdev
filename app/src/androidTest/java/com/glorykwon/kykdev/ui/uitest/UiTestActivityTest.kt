@@ -1,6 +1,7 @@
 package com.glorykwon.kykdev.ui.uitest
 
 import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.*
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.*
@@ -8,6 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glorykwon.kykdev.R
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,7 +25,8 @@ class UiTestActivityTest {
 
     @Test
     fun uiTest(): Unit = runBlocking {
-        val activityScenario = ActivityScenario.launch(UiTestActivity::class.java)
+//        val activityScenario = ActivityScenario.launch(UiTestActivity::class.java)
+        val activityScenario = launchActivity<UiTestActivity>()
 
         onView(withId(R.id.et_ui_test))
             .perform(typeText(TEST_TEXT))
@@ -36,7 +39,7 @@ class UiTestActivityTest {
         onView(withId(R.id.txt_ui_test))
             .check(matches(withText(TEST_TEXT)))
 
-//        activityScenario.close()
+        activityScenario.close()
     }
 
 }
