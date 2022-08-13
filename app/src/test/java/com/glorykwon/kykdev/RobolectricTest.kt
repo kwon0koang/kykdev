@@ -3,26 +3,23 @@ package com.glorykwon.kykdev
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import androidx.fragment.app.FragmentFactory
+import androidx.fragment.app.testing.launchFragment
+import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.NavHostFragment
-import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.*
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.glorykwon.kykdev.ui.MainActivity
 import com.glorykwon.kykdev.ui.MainFragment
 import com.glorykwon.kykdev.ui.uitest.UiTestActivity
+import com.glorykwon.kykdev.ui.uitest.UiTestFragment
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -99,33 +96,37 @@ class RobolectricTest {
     }
 
     @Test
-    fun `에스프레소 테스트`() {
-        onView(withText("Hello world!")).check(matches(isDisplayed()))
+    fun `버튼을 누르면 EditText 값이 TextView에 잘 셋팅되는지 확인`() {
+        // given
+        val scenario = launchActivity<UiTestActivity>()
+
+        // when
+//        scenario.recreate()
+        onView(withId(R.id.et_ui_test)).perform(typeText(TEST_TEXT))
+        onView(withId(R.id.btn_edittext_to_textview)).perform(click())
+
+        // then
+        onView(withId(R.id.txt_ui_test)).check(matches(withText(TEST_TEXT)))
     }
 
 //    @Test
-//    fun `버튼을 누르면 EditText 값이 TextView에 잘 셋팅되는지 확인`() {
-//        val scenario = launchActivity<UiTestActivity>()
-//
-//        // when
-////        scenario.recreate()
-//        onView(withId(R.id.et_ui_test)).perform(typeText(TEST_TEXT))
-//        onView(withId(R.id.btn_edittext_to_textview)).perform(click())
-//
-//        // then
-//        onView(withId(R.id.txt_ui_test)).check(matches(withText(TEST_TEXT)))
-//    }
-
-//    @Test
 //    fun `프래그먼트 테스트 (Non-graphical fragment)`() {
-//        val fragmentFactory = FragmentFactory()
-//        val fragmentScenario = launchFragment<MainFragment>()
-//
-//        fragmentScenario.onFragment { fragment ->
-//            onView(withId(R.id.btn_ui_test))
-//                .perform(typeText(TEST_TEXT))
-//                .check(matches(withText("1234")))
+////        val fragmentFactory = FragmentFactory()
+////        val fragmentScenario = launchFragment<UiTestFragment>()
+////
+////        fragmentScenario.onFragment { fragment ->
+////            onView(withId(R.id.et_ui_test))
+////                .perform(typeText(TEST_TEXT))
+////                .check(matches(withText(TEST_TEXT)))
+////        }
+//        // The "fragmentArgs" and "factory" arguments are optional.
+//        val fragmentArgs = Bundle().apply {
+//            putInt("selectedListItem", 0)
 //        }
+//        val factory = FragmentFactory()
+//        val scenario = launchFragmentInContainer<UiTestFragment>(
+//            fragmentArgs, factory = factory)
+//        onView(withId(R.id.text)).check(matches(withText("Hello World!")))
 //    }
 
 }
