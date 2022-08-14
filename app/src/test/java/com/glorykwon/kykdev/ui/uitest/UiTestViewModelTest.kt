@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.glorykwon.kykdev.common.NetworkResult
 import com.google.common.truth.Truth
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
