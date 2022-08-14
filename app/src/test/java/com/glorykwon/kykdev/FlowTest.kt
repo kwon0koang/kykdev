@@ -14,17 +14,18 @@ class FlowTest {
 
     @Test
     fun `flow test`() = runBlocking {
-        val numFlow = flow {
-            for(i in 1..5) {
-                emit(i)
-                delay(800)
+        val testFlow = flow {
+            listOf("A", "B", "C", "D", "E").forEach {
+                emit(it)
+                delay(500)
             }
         }
 
-        numFlow
+        testFlow
+//            .take(2)        // 값을 두개만 받겠음
             .onEach {
                 println("1 / onEach / $it / ${Thread.currentThread().name}")
-                if(it == 4) throw Exception("my exception")
+                if(it == "D") throw Exception("test exception")
             }
             .onEach {
                 println("2 / onEach / $it / ${Thread.currentThread().name}")
@@ -36,10 +37,25 @@ class FlowTest {
                     println("4 / onCompletion / $e / ${Thread.currentThread().name}")
             }
             .catch { e ->
-                e.printStackTrace()
+                println("4 / catch / exception / $e / ${Thread.currentThread().name}")
             }
             .collect {
                 println("3 / collect / $it / ${Thread.currentThread().name}")
             }
     }
+
+    @Test
+    fun `flow zip and combine test`(): Unit = runBlocking {
+        val nums = (1..3).asFlow().onEach { delay(100L) }
+        val strs = flowOf("일", "이", "삼").onEach { delay(200L) }
+
+        println("zip =======================")
+        nums.zip(strs) { a, b -> "${a}은(는) $b" }
+            .collect { println(it) }
+
+        println("combine =======================")
+        nums.combine(strs) { a, b -> "${a}은(는) $b" }
+            .collect { println(it) }
+    }
+
 }
