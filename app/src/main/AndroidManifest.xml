@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.uitest.UiTestActivity" android:exported="false" />
+        <activity android:name=".ui.uitest.UiTestActivity" />
         <activity
             android:name=".common.dynamiclink.DynamicLinkActivity"
             android:launchMode="singleTask"
@@ -44,7 +44,7 @@
         </activity>
 
         <service android:name=".common.MyFirebaseMessagingService"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
@@ -54,7 +54,7 @@
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
-            android:exported="false"
+            android:exported="true"
             tools:node="remove">
         </provider>
 
