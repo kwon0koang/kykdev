@@ -53,7 +53,7 @@ class ChannelTest {
         }
     }
 
-    fun CoroutineScope.receiveNumbers(id: Int, numbers: ReceiveChannel<Int>) = launch {
+    fun CoroutineScope.consumeNumbers(id: Int, numbers: ReceiveChannel<Int>) = launch {
         numbers.consumeEach {
             println("${id}가 ${it}을 받았습니다.")
         }
@@ -89,7 +89,7 @@ class ChannelTest {
     fun `fan-out test`(): Unit = runBlocking {
         val producer = produceNumbers(interval = 100)
         repeat (5) { id ->
-            receiveNumbers(id, producer)
+            consumeNumbers(id, producer)
         }
         delay(1000L)
         producer.cancel()
@@ -109,7 +109,7 @@ class ChannelTest {
 //        }
         produceNumbers(channel, 1, 100L)
         produceNumbers(channel, 2, 150L)
-        receiveNumbers(id = 9999, channel)
+        consumeNumbers(id = 9999, channel)
 
         delay(1000L)
         coroutineContext.cancelChildren()
