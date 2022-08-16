@@ -34,7 +34,7 @@ object AnalyticsManager {
      * set user id (로그인 후)
      */
     fun setUserId(userId: String) {
-        Timber.d("${getCurrentMethodName()} / userId:$userId")
+        Timber.d("${getCurrentMethodName()} / userId : $userId")
         firebaseAnalytics?.setUserId(userId)
         amplitude?.userId = userId
     }
@@ -43,7 +43,7 @@ object AnalyticsManager {
      * set user property
      */
     fun setUserProperty(name: String, value: String) {
-        Timber.d("${getCurrentMethodName()} / name:$name / value:$value")
+        Timber.d("${getCurrentMethodName()} / name : $name / value : $value")
         firebaseAnalytics?.setUserProperty(name, value)
         amplitude?.identify(Identify().set(name, value))
     }
@@ -52,26 +52,17 @@ object AnalyticsManager {
      * 대조군, 실험군 구분 위한 feature flag 셋팅
      */
     fun initFeatureFlags() {
-//        setFeatureFlagUserPropertyKey(RemoteConfigData.HelloRemoteConfigBoolean())
-//        setFeatureFlagUserPropertyKey(RemoteConfigData.HelloRemoteConfigString())
-        RemoteConfigManager.getAllRemoteConfigs().forEach {
-            when(it.defaultValue) {
-                is Boolean  -> setFeatureFlagUserPropertyKey(it as RemoteConfigData<Boolean>)
-                is String   -> setFeatureFlagUserPropertyKey(it as RemoteConfigData<String>)
-                is Long     -> setFeatureFlagUserPropertyKey(it as RemoteConfigData<Long>)
-                is Double   -> setFeatureFlagUserPropertyKey(it as RemoteConfigData<Double>)
-            }
+        RemoteConfigData.values().forEach { remoteConfigConst ->
+            setUserProperty("feature_flag__${remoteConfigConst.key}"
+                , RemoteConfigManager.getValue(remoteConfigConst).toString())
         }
-    }
-    inline fun <reified T> setFeatureFlagUserPropertyKey(config: RemoteConfigData<T>) {
-        setUserProperty("feature_flag__${config.key}", RemoteConfigManager.getValue(config).toString())
     }
 
     /**
      * send event
      */
     fun logEvent(analyticsData: AnalyticsData) {
-        Timber.d("analyticsData:$analyticsData")
+        Timber.d("analyticsData : $analyticsData")
         firebaseAnalytics?.logEvent(analyticsData.eventName, Bundle())
         amplitude?.logEvent(analyticsData.eventName)
     }

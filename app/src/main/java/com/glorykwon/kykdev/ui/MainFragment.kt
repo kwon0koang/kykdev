@@ -82,9 +82,25 @@ class MainFragment : BaseFragment() {
         }
 
         mBinding.btnRemoteConfigTest.setOnClickListener {
-            val booleanValue = RemoteConfigManager.getValue(RemoteConfigData.HelloRemoteConfigBoolean())
-            val stringValue = RemoteConfigManager.getValue(RemoteConfigData.HelloRemoteConfigString())
-            Toast.makeText(context, "booleanValue : $booleanValue\nstringValue : $stringValue", Toast.LENGTH_SHORT).show()
+            val booleanValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_REMOTE_CONFIG_BOOLEAN)
+            val stringValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_REMOTE_CONFIG_STRING)
+            val longValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_REMOTE_CONFIG_LONG)
+            val doubleValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_REMOTE_CONFIG_DOUBLE)
+
+            println("booleanValue : $booleanValue")
+            println("stringValue : $stringValue")
+            println("longValue : $longValue")
+            println("doubleValue : $doubleValue")
+
+            val forceUpdate = RemoteConfigData.isForceUpdate()
+            val forceUpdateVersion = RemoteConfigData.getForceUpdateVersion()
+            val noticeMsg = RemoteConfigData.getNoticeMsg()
+            val marketUrl = RemoteConfigData.getMarketUrl()
+
+            println("forceUpdate : $forceUpdate")
+            println("forceUpdateVersion : $forceUpdateVersion")
+            println("noticeMsg : $noticeMsg")
+            println("marketUrl : $marketUrl")
         }
 
         mBinding.btnUiTest.setOnClickListener {
