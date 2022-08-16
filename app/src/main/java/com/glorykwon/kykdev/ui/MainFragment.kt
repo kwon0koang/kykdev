@@ -1,6 +1,7 @@
 package com.glorykwon.kykdev.ui
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +46,11 @@ class MainFragment : BaseFragment() {
      * 뷰 초기화
      */
     private fun initView() {
+
+        // A/B 테스트 버튼 색 변경
+        if(RemoteConfigManager.getValue(RemoteConfigData.COLORFUL_AB_TEST_BUTTON) == true) {
+            mBinding.btnAbTest.setBackgroundColor(Color.GREEN)
+        }
 
         mBinding.btnRetrofitTest.setOnClickListener {
             mViewModel.retrofitTest()
@@ -104,6 +110,12 @@ class MainFragment : BaseFragment() {
             println("forceUpdateVersion : $forceUpdateVersion")
             println("noticeMsg : $noticeMsg")
             println("marketUrl : $marketUrl")
+        }
+
+        mBinding.btnAbTest.setOnClickListener {
+            Toast.makeText(context, "click a/b test button", Toast.LENGTH_SHORT).show()
+
+            AnalyticsManager.logEvent(AnalyticsEventConst.clickAbTestButton)
         }
 
         mBinding.btnUiTest.setOnClickListener {

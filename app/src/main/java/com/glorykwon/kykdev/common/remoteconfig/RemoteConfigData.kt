@@ -22,6 +22,11 @@ enum class RemoteConfigData(val key: String, val defaultValue: Any) {
         key = "hello_double",
         defaultValue = 0.0),
 
+    // A/B 테스트 버튼 색 변경
+    COLORFUL_AB_TEST_BUTTON(
+        key = "colorful_ab_test_button",
+        defaultValue = false),
+
     // 강제 업데이트
     FORCE_UPDATE(
         key = "force_update",
