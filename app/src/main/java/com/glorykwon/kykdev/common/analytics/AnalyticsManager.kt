@@ -40,15 +40,6 @@ object AnalyticsManager {
     }
 
     /**
-     * set user property
-     */
-    fun setUserProperty(name: String, value: String) {
-        Timber.d("${getCurrentMethodName()} / name : $name / value : $value")
-        firebaseAnalytics?.setUserProperty(name, value)
-        amplitude?.identify(Identify().set(name, value))
-    }
-
-    /**
      * 대조군, 실험군 구분 위한 feature flag 셋팅
      */
     fun initFeatureFlags() {
@@ -56,6 +47,15 @@ object AnalyticsManager {
             setUserProperty("feature_flag__${remoteConfigConst.key}"
                 , RemoteConfigManager.getValue(remoteConfigConst).toString())
         }
+    }
+
+    /**
+     * set user property
+     */
+    fun setUserProperty(name: String, value: String) {
+        Timber.d("${getCurrentMethodName()} / name : $name / value : $value")
+        firebaseAnalytics?.setUserProperty(name, value)
+        amplitude?.identify(Identify().set(name, value))
     }
 
     /**

@@ -45,11 +45,11 @@ enum class RemoteConfigData(val key: String, val defaultValue: Any) {
         private fun getServer() = "dev"//if (isReal()) "real" else "dev"
 
         // 강제 업데이트
-        private fun getForceUpdate() = JSONObject(getJsonStr(FORCE_UPDATE))
-        fun isForceUpdate() = getForceUpdate().optJSONObject(getServer())?.optBoolean("isForceUpdate")
-        fun getForceUpdateVersion() = getForceUpdate().optJSONObject(getServer())?.optString("forceUpdateVersion")
-        fun getNoticeMsg() = getForceUpdate().optJSONObject(getServer())?.optString("noticeMsg")
-        fun getMarketUrl() = getForceUpdate().optJSONObject(getServer())?.optString("marketUrl")
+        private fun getForceUpdate() = JSONObject(getJsonStr(FORCE_UPDATE)).optJSONObject(getServer())
+        fun isForceUpdate() = getForceUpdate()?.optBoolean("isForceUpdate")
+        fun getForceUpdateVersion() = getForceUpdate()?.optString("forceUpdateVersion")
+        fun getNoticeMsg() = getForceUpdate()?.optString("noticeMsg")
+        fun getMarketUrl() = getForceUpdate()?.optString("marketUrl")
     }
 
 }
