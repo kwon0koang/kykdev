@@ -9,17 +9,17 @@ import org.json.JSONObject
 enum class RemoteConfigData(val key: String, val defaultValue: Any) {
 
     // 테스트
-    HELLO_REMOTE_CONFIG_BOOLEAN(
-        key = "hello_remote_config_boolean",
+    HELLO_BOOLEAN(
+        key = "hello_boolean",
         defaultValue = false),
-    HELLO_REMOTE_CONFIG_STRING(
-        key = "hello_remote_config_string",
+    HELLO_STRING(
+        key = "hello_string",
         defaultValue = "test string 123"),
-    HELLO_REMOTE_CONFIG_LONG(
-        key = "hello_remote_config_long",
+    HELLO_LONG(
+        key = "hello_long",
         defaultValue = 0L),
-    HELLO_REMOTE_CONFIG_DOUBLE(
-        key = "hello_remote_config_double",
+    HELLO_DOUBLE(
+        key = "hello_double",
         defaultValue = 0.0),
 
     // 강제 업데이트
