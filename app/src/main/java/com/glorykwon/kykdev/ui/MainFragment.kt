@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.glorykwon.kykdev.R
 import com.glorykwon.kykdev.common.NetworkResult
+import com.glorykwon.kykdev.common.analytics.AnalyticsData
 import com.glorykwon.kykdev.common.analytics.AnalyticsEventConst
 import com.glorykwon.kykdev.common.analytics.AnalyticsManager
 import com.glorykwon.kykdev.common.api.RetrofitTestDto
@@ -47,10 +48,12 @@ class MainFragment : BaseFragment() {
 
         mBinding.btnRetrofitTest.setOnClickListener {
             mViewModel.retrofitTest()
+            AnalyticsManager.logEvent(AnalyticsEventConst.clickRetrofitTest)
         }
 
         mBinding.btnRxpermissionTest.setOnClickListener {
             mViewModel.rxPermissionTest()
+            AnalyticsManager.logEvent(AnalyticsEventConst.clickRxPermissionTest)
         }
 
         mBinding.btnRxjavaTest.setOnClickListener {
@@ -82,10 +85,10 @@ class MainFragment : BaseFragment() {
         }
 
         mBinding.btnRemoteConfigTest.setOnClickListener {
-            val booleanValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_REMOTE_CONFIG_BOOLEAN)
-            val stringValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_REMOTE_CONFIG_STRING)
-            val longValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_REMOTE_CONFIG_LONG)
-            val doubleValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_REMOTE_CONFIG_DOUBLE)
+            val booleanValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_BOOLEAN)
+            val stringValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_STRING)
+            val longValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_LONG)
+            val doubleValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_DOUBLE)
 
             println("booleanValue : $booleanValue")
             println("stringValue : $stringValue")
@@ -123,6 +126,8 @@ class MainFragment : BaseFragment() {
                         val dtoList = it.data as List<RetrofitTestDto>
                         Toast.makeText(context, dtoList.toString(), Toast.LENGTH_SHORT).show()
                         Timber.d("retrofitTest / dtoList:$dtoList")
+
+                        AnalyticsManager.logEvent(AnalyticsEventConst.successRetrofitTest)
                     }
                     is NetworkResult.Error -> {
                         Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
@@ -139,6 +144,8 @@ class MainFragment : BaseFragment() {
                     is NetworkResult.Success -> {
                         val result = it.data
                         Toast.makeText(context, result.toString(), Toast.LENGTH_SHORT).show()
+
+                        AnalyticsManager.logEvent(AnalyticsEventConst.successRxPermissionTest)
                     }
                     is NetworkResult.Error -> {
                         Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()

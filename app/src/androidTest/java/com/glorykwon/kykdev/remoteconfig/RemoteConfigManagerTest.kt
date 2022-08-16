@@ -17,10 +17,10 @@ class RemoteConfigManagerTest {
     @Test
     fun testRemoteConfig() {
 
-        val booleanValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_REMOTE_CONFIG_BOOLEAN)
-        val stringValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_REMOTE_CONFIG_STRING)
-        val longValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_REMOTE_CONFIG_LONG)
-        val doubleValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_REMOTE_CONFIG_DOUBLE)
+        val booleanValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_BOOLEAN)
+        val stringValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_STRING)
+        val longValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_LONG)
+        val doubleValue = RemoteConfigManager.getValue(RemoteConfigData.HELLO_DOUBLE)
 
         println("booleanValue : $booleanValue")
         println("stringValue : $stringValue")

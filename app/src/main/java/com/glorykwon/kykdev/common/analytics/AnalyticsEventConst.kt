@@ -2,6 +2,10 @@ package com.glorykwon.kykdev.common.analytics
 
 /**
  * analytics data
+ *  rule
+ *      {행동/타이밍}
+ *      {행동/타이밍}__{화면}
+ *      {행동/타이밍}_{대상}__{화면}
  */
 object AnalyticsEventConst {
 
@@ -13,12 +17,28 @@ object AnalyticsEventConst {
         eventName = "enter__main"
     )
 
-    val enterDesignPatternMain = AnalyticsData(
-        eventName = "enter__design_pattern_main"
+    val clickRetrofitTest = AnalyticsData(
+        eventName = "click__retrofit_test"
     )
 
-    val enterDesignPatternCommand = AnalyticsData(
-        eventName = "enter__design_pattern_command"
+    val successRetrofitTest = AnalyticsData(
+        eventName = "success__retrofit_test"
+    )
+
+    val clickRxPermissionTest = AnalyticsData(
+        eventName = "click__rxpermission_test"
+    )
+
+    val successRxPermissionTest = AnalyticsData(
+        eventName = "success__rxpermission_test"
+    )
+
+    val enterRealmTest = AnalyticsData(
+        eventName = "enter__realm_test"
+    )
+
+    val enterRoomTest = AnalyticsData(
+        eventName = "enter__room_test"
     )
 
 }

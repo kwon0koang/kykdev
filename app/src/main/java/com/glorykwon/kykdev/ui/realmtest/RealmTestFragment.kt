@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.glorykwon.kykdev.common.NetworkResult
+import com.glorykwon.kykdev.common.analytics.AnalyticsEventConst
+import com.glorykwon.kykdev.common.analytics.AnalyticsManager
 import com.glorykwon.kykdev.common.database.realm.dao.TodoRealmObject
 import com.glorykwon.kykdev.common.dialog.CommonDialogFragment
 import com.glorykwon.kykdev.databinding.RealmTestFragmentBinding
@@ -30,6 +32,7 @@ class RealmTestFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         initData()      //데이터 초기화
+        AnalyticsManager.logEvent(AnalyticsEventConst.enterRealmTest)
     }
 
     /**
