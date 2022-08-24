@@ -71,14 +71,12 @@ buildscript {
 
         // test
         junit_version = '4.13.2'
-        truth_version = '1.0.1'
         ext_junit_version = '1.1.3'
         runner_version = '1.4.0'
-        ext_junit_version = '1.1.3'
+        truth_version = '1.0.1'
         mockito_inline_version = '4.5.0'
         test_core_version = '1.3.0'
         arch_core_version = '2.1.0'
-        test_ext_junit_version = '1.1.3'
         robolectric_version = '4.8.1'
         espresso_version = '3.4.0'
         jacoco_version = '0.8.6'

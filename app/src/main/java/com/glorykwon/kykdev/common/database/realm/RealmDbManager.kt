@@ -5,11 +5,16 @@ import com.glorykwon.kykdev.common.database.realm.dao.TodoRealmObject
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.Sort
+import io.realm.annotations.RealmModule
 import io.realm.kotlin.executeTransactionAwait
 import io.realm.kotlin.where
 import kotlinx.coroutines.Dispatchers
 
 object RealmDbManager {
+
+    @RealmModule(classes = [TodoRealmObject::class])
+    class DefaultModule {
+    }
 
     private val TODO_REALM_NAME = "todo_realm_test.realm"
     private lateinit var mTodoRealmConfig: RealmConfiguration
@@ -20,6 +25,8 @@ object RealmDbManager {
         mTodoRealmConfig = RealmConfiguration.Builder()
             .allowWritesOnUiThread(true)
             .name(TODO_REALM_NAME)
+            .schemaVersion(1)
+            .modules(DefaultModule())
             .deleteRealmIfMigrationNeeded()
             .build()
         Realm.setDefaultConfiguration(mTodoRealmConfig)

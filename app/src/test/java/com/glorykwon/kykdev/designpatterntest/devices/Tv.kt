@@ -1,9 +1,8 @@
 package com.glorykwon.kykdev.designpatterntest.devices
 
-import android.widget.Toast
-import com.glorykwon.kykdev.MainApplication
 import com.glorykwon.kykdev.designpatterntest.command.Command
 import com.glorykwon.kykdev.designpatterntest.devices.tv_display.Display
+import timber.log.Timber
 
 class Tv(
     override var name: String? = "Tv",
@@ -11,19 +10,19 @@ class Tv(
 ) : Device {
 
     override fun on() {
-        Toast.makeText(MainApplication.getActivityContext(), "on $name", Toast.LENGTH_SHORT).show()
+        Timber.d("on $name")
     }
 
     override fun off() {
-        Toast.makeText(MainApplication.getActivityContext(), "off $name", Toast.LENGTH_SHORT).show()
+        Timber.d("off $name")
     }
 
     fun changeChannel() {
-        Toast.makeText(MainApplication.getActivityContext(), "$name change channel", Toast.LENGTH_SHORT).show()
+        Timber.d("$name change channel")
     }
 
     fun getScreen() {
-        Toast.makeText(MainApplication.getActivityContext(), "screen is ${mDisplay?.getName()}", Toast.LENGTH_SHORT).show()
+        Timber.d("screen is ${mDisplay?.getName()}")
     }
 
     class OnCommand(val device: Tv) : Command {

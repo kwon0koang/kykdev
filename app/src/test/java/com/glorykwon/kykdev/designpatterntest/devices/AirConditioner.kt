@@ -1,21 +1,20 @@
 package com.glorykwon.kykdev.designpatterntest.devices
 
-import android.widget.Toast
-import com.glorykwon.kykdev.MainApplication
 import com.glorykwon.kykdev.designpatterntest.command.Command
+import timber.log.Timber
 
 class AirConditioner(override var name: String? = "AirConditioner") : Device {
 
     override fun on() {
-        Toast.makeText(MainApplication.getActivityContext(), "on $name", Toast.LENGTH_SHORT).show()
+        Timber.d("on $name")
     }
 
     override fun off() {
-        Toast.makeText(MainApplication.getActivityContext(), "off $name", Toast.LENGTH_SHORT).show()
+        Timber.d("off $name")
     }
 
     fun turboAir() {
-        Toast.makeText(MainApplication.getActivityContext(), "$name turbo air", Toast.LENGTH_SHORT).show()
+        Timber.d("$name turbo air")
     }
 
     class OnCommand(val device: AirConditioner) : Command {
