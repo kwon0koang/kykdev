@@ -79,6 +79,7 @@ buildscript {
         arch_core_version = '2.1.0'
         robolectric_version = '4.8.1'
         espresso_version = '3.4.0'
+        mockk_version = '1.9.3'
         jacoco_version = '0.8.6'
 //        junit5_version = '1.6.2.0'
 //        junit5_jupiter_version = '5.8.2'

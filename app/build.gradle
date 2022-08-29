@@ -128,6 +128,7 @@ dependencies {
     // jvm test
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.mockito:mockito-inline:$mockito_inline_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
     testImplementation "androidx.test.ext:junit-ktx:$ext_junit_version"
     testImplementation "androidx.arch.core:core-testing:$arch_core_version"
     testImplementation "org.robolectric:robolectric:$robolectric_version"
@@ -157,6 +158,7 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test:rules:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "io.mockk:mockk-android:$mockk_version"
 
     // util
     implementation "com.jakewharton.timber:timber:$timber_version"
