@@ -147,6 +147,7 @@ dependencies {
     testImplementation "com.google.truth:truth:$truth_version"
     testImplementation "androidx.test:core-ktx:$test_core_version"
     testImplementation "androidx.test:runner:$runner_version"
+    testImplementation "androidx.test:rules:$runner_version"
     testImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
     // android test
@@ -154,6 +155,7 @@ dependencies {
     androidTestImplementation "com.google.truth:truth:$truth_version"
     androidTestImplementation "androidx.test:core-ktx:$test_core_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
+    androidTestImplementation "androidx.test:rules:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
     // util

@@ -15,8 +15,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
+ * 단일 앱의 UI 테스트
  * https://developer.android.com/training/testing/ui-testing/espresso-testing?hl=ko#additional-resources-codelabs
  * https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-test-doubles?hl=ko#9
+ *
+ * 프래그먼트 테스트
+ * https://developer.android.com/guide/fragments/test?hl=ko
  */
 @RunWith(AndroidJUnit4::class)
 class UiTestActivityTest {
