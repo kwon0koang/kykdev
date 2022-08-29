@@ -11,6 +11,8 @@ import com.glorykwon.kykdev.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -27,10 +29,16 @@ class UiTestActivityTest {
 
     private val TEST_TEXT = "ui test !!!!!!!!!!!"
 
+    var mActivityScenario: ActivityScenario<UiTestActivity>? = null
+
+    @Before
+    fun setup() {
+        mActivityScenario = launchActivity()
+    }
+
     @Test
     fun uiTest(): Unit = runBlocking {
 //        val activityScenario = ActivityScenario.launch(UiTestActivity::class.java)
-        val activityScenario = launchActivity<UiTestActivity>()
 
         onView(withId(R.id.et_ui_test))
             .perform(typeText(TEST_TEXT))
@@ -42,8 +50,11 @@ class UiTestActivityTest {
 
         onView(withId(R.id.txt_ui_test))
             .check(matches(withText(TEST_TEXT)))
+    }
 
-        activityScenario.close()
+    @After
+    fun close() {
+        mActivityScenario?.close()
     }
 
 }
