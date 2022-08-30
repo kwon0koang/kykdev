@@ -24,8 +24,8 @@ class MainViewModel : ViewModel() {
     /**
      * Retrofit test
      */
-    private val _retrofitTest = MutableLiveData<Event<Any>>()
-    fun retrofitTest(){ _retrofitTest.value = Event(Any()) }
+    private val _retrofitTest = MutableLiveData<Any>()
+    fun retrofitTest(){ _retrofitTest.value = Any() }
     val retrofitTest = _retrofitTest.switchMap {
         liveData {
             emit(Event(NetworkResult.Loading()))
@@ -58,8 +58,8 @@ class MainViewModel : ViewModel() {
     /**
      * RxPermission test
      */
-    private val _rxPermissionTest = MutableLiveData<Event<Any>>()
-    fun rxPermissionTest(){ _rxPermissionTest.value = Event(Any()) }
+    private val _rxPermissionTest = MutableLiveData<Any>()
+    fun rxPermissionTest(){ _rxPermissionTest.value = Any() }
     val rxPermissionTest = _rxPermissionTest.switchMap {
         liveData {
             emit(Event(NetworkResult.Loading()))

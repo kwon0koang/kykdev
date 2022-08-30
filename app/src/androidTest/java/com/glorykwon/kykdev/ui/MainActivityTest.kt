@@ -1,6 +1,7 @@
 package com.glorykwon.kykdev.ui
 
 import android.content.Intent
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
@@ -14,7 +15,12 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.glorykwon.kykdev.R
-import com.google.common.truth.Truth
+import com.glorykwon.kykdev.common.Event
+import com.glorykwon.kykdev.common.NetworkResult
+import com.glorykwon.kykdev.common.dto.TestDto
+import com.google.common.truth.Truth.assertThat
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.core.StringContains.containsString
@@ -22,22 +28,39 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import timber.log.Timber
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class MainActivityTest {
 
-    var mActivityScenario: ActivityScenario<MainActivity>? = null
-//    @Rule
-//    var activityScenarioRule: ActivityScenarioRule<MainActivity> =
-//        ActivityScenarioRule(MainActivity::class.java)
+    private var mActivityScenario: ActivityScenario<MainActivity>? = null
+
+    private var mockViewModel: MainViewModel? = null
+
+    private var mockRetrofitTest = MutableLiveData<Event<NetworkResult>>()
+    private var mockObserver: Observer<Event<Any>>? = null
 
     @Before
     fun setup() {
         val intent = Intent(ApplicationProvider.getApplicationContext(), MainActivity::class.java).apply {
             putExtra("testName123", "testValue123")
         }
-        mActivityScenario = ActivityScenario.launch<MainActivity>(intent)
+        mActivityScenario = ActivityScenario.launch(intent)
+
+        // mock viewmodel
+        mockViewModel = mockk(relaxed = true) {
+            every { retrofitTest } returns mockRetrofitTest
+            mockObserver = Observer {
+                Timber.d("mRetrofitTest observed")
+            }
+            mActivityScenario?.onActivity {
+                // Cannot invoke observeForever on a background thread
+                mockRetrofitTest!!.observeForever(mockObserver!!)
+            }
+
+            every { retrofitTest() } returns testCallRetrofit()
+        }
     }
 
     @After
@@ -49,8 +72,8 @@ class MainActivityTest {
     fun testIntent() {
         mActivityScenario?.onActivity { activity ->
             val testValue = activity.intent.getStringExtra("testName123")
-            Truth.assertThat(testValue).isNotEqualTo("testValue11111111111")
-            Truth.assertThat(testValue).isEqualTo("testValue123")
+            assertThat(testValue).isNotEqualTo("testValue11111111111")
+            assertThat(testValue).isEqualTo("testValue123")
         }
     }
 
@@ -115,6 +138,33 @@ class MainActivityTest {
 
         delay(1000)
 
+    }
+
+    @Test
+    fun testMockBasic() {
+        val testDto = mockk<TestDto>()
+        assertThat(testDto).isNotNull()
+
+        every { testDto.value01 } returns "it is value 01"
+        every { testDto.value02 } returns "it is value 02"
+        every { testDto.value03 } returns "it is value 03"
+
+        assertThat(testDto.value01).isEqualTo("it is value 01")
+        assertThat(testDto.value02).isEqualTo("it is value 02")
+        assertThat(testDto.value03).isEqualTo("it is value 03")
+    }
+
+    @Test
+    fun testMockRetrofit() = runBlocking {
+        onView(withId(R.id.btn_retrofit_test))
+            .perform(click())
+
+        delay(3000)
+    }
+
+    fun testCallRetrofit() {
+        Timber.d("testCallRetrofit()")
+        mockRetrofitTest.postValue(Event(NetworkResult.Success()))
     }
 
 }

@@ -125,6 +125,9 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.work:work-runtime-ktx:$work_version"
 
+    /**
+     * test ==============================================================================================================================
+     */
     // jvm test
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.mockito:mockito-inline:$mockito_inline_version"
@@ -160,6 +163,9 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"       // recyclerview
     androidTestImplementation "io.mockk:mockk-android:$mockk_version"
+    /**
+     * test ==============================================================================================================================
+     */
 
     // util
     implementation "com.jakewharton.timber:timber:$timber_version"
