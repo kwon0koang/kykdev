@@ -12,7 +12,12 @@ import timber.log.Timber
 object RemoteConfigManager {
 
     private val TAG = this::class.simpleName
-    private const val FETCH_INTERVAL = 3600L
+    private const val FETCH_INTERVAL = 60*60L
+
+    private var mIsCompletedDefaultConfig   = false     // 기본 config 잘 셋팅됐는지
+    private var mIsCompletedRemoteConfig    = false     // remote config 잘 받아왔는지
+
+    private var mOnReadyListener: (() -> Unit)? = null      // remote config 준비 완료 리스너
 
     fun init() {
         // 가져오기
@@ -30,7 +35,9 @@ object RemoteConfigManager {
                 put(remoteConfigConst.key, remoteConfigConst.defaultValue)
             }
             Timber.tag(TAG).d("인앱 매개변수 기본값 설정 : ${this.toList().joinToString()}")
-        })
+        }).addOnCompleteListener {
+            mIsCompletedDefaultConfig = true
+        }
 
         // 값 가져오기 및 활성화
         Firebase.remoteConfig.fetchAndActivate()
@@ -42,15 +49,38 @@ object RemoteConfigManager {
                 } else {
                     Timber.tag(TAG).d("Fetch failed")
                 }
+
+                mIsCompletedRemoteConfig = true
+                mOnReadyListener?.invoke()
             }
     }
 
-    fun getValue(config: RemoteConfigData) = when(config.defaultValue) {
-        is Boolean -> Firebase.remoteConfig.getBoolean(config.key)
-        is String -> Firebase.remoteConfig.getString(config.key)
-        is Long -> Firebase.remoteConfig.getLong(config.key)
-        is Double -> Firebase.remoteConfig.getDouble(config.key)
-        else -> throw IllegalArgumentException("unused type")
+    /**
+     * remote config 잘 받아온 상태이면 바로 block 실행
+     * 아직 remote config 받아오기 전이라면 onReadyListener 셋팅만 하고, 실제 remote config 받기 완료했을 때 onReadyListener 실행
+     */
+    fun onReady(block: () -> Unit) {
+        if(!mIsCompletedRemoteConfig) {
+            mOnReadyListener = block
+            return
+        }
+
+        block.invoke()
+    }
+
+    fun getValue(config: RemoteConfigData): Any {
+        // config 기본값 셋팅도 안되었고, remote config 다 받아오기도 전이라면 기본값 넘기기
+        if(!mIsCompletedDefaultConfig && !mIsCompletedRemoteConfig) {
+            return config.defaultValue
+        }
+
+        return when(config.defaultValue) {
+            is Boolean -> Firebase.remoteConfig.getBoolean(config.key)
+            is String -> Firebase.remoteConfig.getString(config.key)
+            is Long -> Firebase.remoteConfig.getLong(config.key)
+            is Double -> Firebase.remoteConfig.getDouble(config.key)
+            else -> throw IllegalArgumentException("unused type")
+        }
     }
 
 }
