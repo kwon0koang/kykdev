@@ -39,7 +39,6 @@ class MainActivityTest {
     private var mockViewModel: MainViewModel? = null
 
     private var mockRetrofitTest = MutableLiveData<Event<NetworkResult>>()
-    private var mockObserver: Observer<Event<Any>>? = null
 
     @Before
     fun setup() {
@@ -51,12 +50,12 @@ class MainActivityTest {
         // mock viewmodel
         mockViewModel = mockk(relaxed = true) {
             every { retrofitTest } returns mockRetrofitTest
-            mockObserver = Observer {
-                Timber.d("mRetrofitTest observed")
-            }
+
             mActivityScenario?.onActivity {
                 // Cannot invoke observeForever on a background thread
-                mockRetrofitTest!!.observeForever(mockObserver!!)
+                mockRetrofitTest!!.observeForever {
+                    Timber.d("mRetrofitTest observed")
+                }
             }
 
             every { retrofitTest() } returns testCallRetrofit()
