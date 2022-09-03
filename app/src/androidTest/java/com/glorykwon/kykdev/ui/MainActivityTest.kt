@@ -50,16 +50,18 @@ class MainActivityTest {
         // mock viewmodel
         mockViewModel = mockk(relaxed = true) {
             every { retrofitTest } returns mockRetrofitTest
-
-            mActivityScenario?.onActivity {
-                // Cannot invoke observeForever on a background thread
-                mockRetrofitTest!!.observeForever {
-                    Timber.d("mRetrofitTest observed")
-                }
-            }
-
             every { retrofitTest() } returns testCallRetrofit()
         }
+
+        mActivityScenario?.onActivity {
+//            mockRetrofitTest!!.observeForever {
+//                Timber.d("mRetrofitTest observed")
+//            }
+            mockViewModel?.retrofitTest?.observeForever {
+                Timber.d("mRetrofitTest observed")
+            }
+        }
+
     }
 
     @After
