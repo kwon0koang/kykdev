@@ -157,8 +157,7 @@ class MainActivityTest {
 
     @Test
     fun testMockRetrofit() = runBlocking {
-        onView(withId(R.id.btn_retrofit_test))
-            .perform(click())
+        mockViewModel?.retrofitTest()
 
         delay(3000)
     }
