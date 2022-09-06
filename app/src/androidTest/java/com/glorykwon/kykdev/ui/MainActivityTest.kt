@@ -1,7 +1,9 @@
 package com.glorykwon.kykdev.ui
 
 import android.content.Intent
-import androidx.lifecycle.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingSource
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
@@ -15,12 +17,16 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.glorykwon.kykdev.R
-import com.glorykwon.kykdev.common.Event
-import com.glorykwon.kykdev.common.NetworkResult
+import com.glorykwon.kykdev.common.api.RetrofitTestApiService
+import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.glorykwon.kykdev.common.dto.TestDto
+import com.glorykwon.kykdev.repository.TestRepository
+import com.glorykwon.kykdev.util.kt.toSafeInt
 import com.google.common.truth.Truth.assertThat
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkObject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.core.StringContains.containsString
@@ -28,7 +34,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import timber.log.Timber
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -36,32 +41,12 @@ class MainActivityTest {
 
     private var mActivityScenario: ActivityScenario<MainActivity>? = null
 
-    private var mockViewModel: MainViewModel? = null
-
-    private var mockRetrofitTest = MutableLiveData<Event<NetworkResult>>()
-
     @Before
     fun setup() {
         val intent = Intent(ApplicationProvider.getApplicationContext(), MainActivity::class.java).apply {
             putExtra("testName123", "testValue123")
         }
         mActivityScenario = ActivityScenario.launch(intent)
-
-        // mock viewmodel
-        mockViewModel = mockk(relaxed = true) {
-            every { retrofitTest } returns mockRetrofitTest
-            every { retrofitTest() } returns testCallRetrofit()
-        }
-
-        mActivityScenario?.onActivity {
-//            mockRetrofitTest!!.observeForever {
-//                Timber.d("mRetrofitTest observed")
-//            }
-            mockViewModel?.retrofitTest?.observeForever {
-                Timber.d("mRetrofitTest observed")
-            }
-        }
-
     }
 
     @After
@@ -117,31 +102,6 @@ class MainActivityTest {
     }
 
     @Test
-    fun testRecyclerView(): Unit = runBlocking {
-        onView(withId(R.id.btn_flow_test))
-            .perform(click())
-
-        delay(1000)
-
-        // 100 번 아이템까지 스크롤 순회
-        (1..100).forEach { position ->
-            onView(withId(R.id.rv_flow_test))
-                .perform(
-                    RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(position))
-        }
-
-        // totam 문자 포함하는 0번째 아이템 클릭
-        onView(withId(R.id.rv_flow_test))
-            .perform(
-                RecyclerViewActions.actionOnItem<RecyclerView.ViewHolder>(
-                    hasDescendant(withText(containsString("totam"))), click()
-                ).atPosition(0))
-
-        delay(1000)
-
-    }
-
-    @Test
     fun testMockBasic() {
         val testDto = mockk<TestDto>()
         assertThat(testDto).isNotNull()
@@ -157,14 +117,69 @@ class MainActivityTest {
 
     @Test
     fun testMockRetrofit() = runBlocking {
-        mockViewModel?.retrofitTest()
+        mockkObject(RetrofitTestApiService)
+        coEvery { RetrofitTestApiService.getInstance().searchByUserId(any()) } returns mutableListOf<RetrofitTestDto>().apply {
+            add(RetrofitTestDto("aa", "", "", false))
+            add(RetrofitTestDto("bb", "", "", false))
+            add(RetrofitTestDto("cc", "", "", false))
+            add(RetrofitTestDto("dd", "", "", false))
+            add(RetrofitTestDto("ee", "", "", false))
+        }
+        onView(withId(R.id.btn_retrofit_test))
+            .perform(click())
 
         delay(3000)
     }
 
-    fun testCallRetrofit() {
-        Timber.d("testCallRetrofit()")
-        mockRetrofitTest.postValue(Event(NetworkResult.Success()))
+    @Test
+    fun testRecyclerView(): Unit = runBlocking {
+        // data mocking
+        mockkObject(TestRepository)
+        every { TestRepository.getPagingData() } returns Pager(
+            config = PagingConfig(pageSize = 100, enablePlaceholders = false)
+            , pagingSourceFactory = { object : PagingSource<String, RetrofitTestDto>() {
+                override suspend fun load(params: LoadParams<String>): LoadResult<String, RetrofitTestDto> {
+
+                    val currentKey = params.key ?: ""
+                    val nextKey = (currentKey.toSafeInt()+1).toString()
+
+                    val dataList = mutableListOf<RetrofitTestDto>().apply {
+                        add(RetrofitTestDto("aaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaa", false))
+                        add(RetrofitTestDto("bbbbbbbbbbbbbbbb", "bbbbbbbbbbbbbbbb", "bbbbbbbbbbbbbbbb", false))
+                        add(RetrofitTestDto("cccccccccccccccc", "cccccccccccccccc", "cccccccccccccccc", false))
+                        add(RetrofitTestDto("dddddddddddddddd", "dddddddddddddddd", "dddddddddddddddd", false))
+                        add(RetrofitTestDto("eeeeeeeeeeeeeeee", "eeeeeeeeeeeeeeee", "eeeeeeeeeeeeeeee", false))
+                    }
+
+                    return LoadResult.Page(
+                        data = dataList,
+                        prevKey = null,
+                        nextKey = if (nextKey.isNullOrEmpty()) null else nextKey)
+                }
+            } }
+        ).flow
+
+        onView(withId(R.id.btn_flow_test))
+            .perform(click())
+
+        delay(1000)
+
+        // 100 번 아이템까지 스크롤 순회
+        (1..100).forEach { position ->
+            onView(withId(R.id.rv_flow_test))
+                .perform(
+                    RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(position))
+        }
+
+        // bbb 문자 포함하는 0번째 아이템 클릭
+        onView(withId(R.id.rv_flow_test))
+            .perform(
+                RecyclerViewActions.actionOnItem<RecyclerView.ViewHolder>(
+                    hasDescendant(withText(containsString("bbb"))), click()
+                ).atPosition(0))
+
+        delay(1000)
+
     }
 
 }
