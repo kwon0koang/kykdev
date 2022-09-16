@@ -23,10 +23,7 @@ import com.glorykwon.kykdev.common.dto.TestDto
 import com.glorykwon.kykdev.repository.TestRepository
 import com.glorykwon.kykdev.util.kt.toSafeInt
 import com.google.common.truth.Truth.assertThat
-import io.mockk.coEvery
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.mockkObject
+import io.mockk.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.core.StringContains.containsString
@@ -50,8 +47,9 @@ class MainActivityTest {
     }
 
     @After
-    fun close() {
+    fun tearDown() {
         mActivityScenario?.close()
+        unmockkAll()
     }
 
     @Test
