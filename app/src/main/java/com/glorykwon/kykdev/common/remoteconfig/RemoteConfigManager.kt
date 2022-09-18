@@ -26,6 +26,7 @@ object RemoteConfigManager {
         Firebase.remoteConfig.setConfigSettingsAsync(
             remoteConfigSettings {
                 minimumFetchIntervalInSeconds = if(BuildConfig.DEBUG) 1 else FETCH_INTERVAL
+                fetchTimeoutInSeconds = 5
             }
         )
 
@@ -37,6 +38,8 @@ object RemoteConfigManager {
             Timber.tag(TAG).d("인앱 매개변수 기본값 설정 : ${this.toList().joinToString()}")
         }).addOnCompleteListener {
             mIsCompletedDefaultConfig = true
+        }.addOnFailureListener {
+            Timber.tag(TAG).d("Firebase.remoteConfig.setDefaultsAsync addOnFailureListener")
         }
 
         // 값 가져오기 및 활성화
@@ -52,6 +55,8 @@ object RemoteConfigManager {
 
                 mIsCompletedRemoteConfig = true
                 mOnReadyListener?.invoke()
+            }.addOnFailureListener {
+                Timber.tag(TAG).d("Firebase.remoteConfig.fetchAndActivate addOnFailureListener")
             }
     }
 
