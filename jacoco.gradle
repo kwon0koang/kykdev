@@ -94,7 +94,94 @@ def setupAndroidReporting() {
             // 버전별로 지정해야 하는 이름은 다음과 같음
             // 1.2.3 이하: testDebug
             // 1.3.0 이상: testDebugUnitTest
-            task "${testTaskName}Coverage"(type: JacocoReport, dependsOn: "$testTaskName") {
+//            task "${testTaskName}Coverage"(type: JacocoReport, dependsOn: "$testTaskName") {
+//                group = "Reporting"
+//                description = "Generate Jacoco coverage reports on the ${sourceName.capitalize()} build."
+//
+//                // sourceDirectories : 커버리지를 측정할 소스 디렉토리를 지정
+//                sourceDirectories.setFrom(files(coverageSourceDirs))
+//                additionalSourceDirs.setFrom(files(coverageSourceDirs))
+//
+//                // classDirectories : 소스 디렉토리 내 클래스를 컴파일한 결과인 *.class 파일이 있는 디렉토리를 지정
+//                // 커버리지 측정에서 제외해야 하는 클래스(R, 안드로이드 서포트 라이브러리 등)는 제외
+//                classDirectories.from = files([javaTree], [kotlinTree])
+//
+//                // executionData: 커버리지 측정 결과를 저장할 파일 이름을 지정. 플러그인 버전에 따라 다르게 지정
+//                // 1.2.3 이하: testDebug.exec
+//                // 1.3.0 이상: testDebugUnitTest.exec
+//                executionData.from = files("${project.buildDir}/jacoco/${testTaskName}.exec")
+//
+//                // reports : 커버리지 결과 리포트 형식을 지정
+//                reports {
+//                    csv.enabled false // change if needed
+//                    xml.enabled false // change if needed
+//                    html {
+//                        enabled true
+//                        destination file("${buildDir}/reports/coverage-report")
+//                    }
+//                }
+//            }
+
+//            task "${testTaskName}CoverageVerification"(type: JacocoCoverageVerification, dependsOn: "${testTaskName}Coverage") {
+//                group = "Reporting"
+//                description = "Generate Jacoco coverage reports and verification and on the ${sourceName.capitalize()} build."
+//
+//                // sourceDirectories : 커버리지를 측정할 소스 디렉토리를 지정
+//                sourceDirectories.setFrom(files(coverageSourceDirs))
+//                additionalSourceDirs.setFrom(files(coverageSourceDirs))
+//
+//                // classDirectories : 소스 디렉토리 내 클래스를 컴파일한 결과인 *.class 파일이 있는 디렉토리를 지정
+//                // 커버리지 측정에서 제외해야 하는 클래스(R, 안드로이드 서포트 라이브러리 등)는 제외
+//                classDirectories.from = files([javaTree], [kotlinTree])
+//
+//                // executionData: 커버리지 측정 결과를 저장할 파일 이름을 지정. 플러그인 버전에 따라 다르게 지정
+//                // 1.2.3 이하: testDebug.exec
+//                // 1.3.0 이상: testDebugUnitTest.exec
+//                executionData.from = files("${project.buildDir}/jacoco/${testTaskName}.exec")
+//
+//                violationRules {
+//                    failOnViolation = true
+//                    // 여러 룰 생성 가능
+//                    rule {
+//                        // 룰 on/off
+//                        enabled = true
+//
+//                        // 룰 체크할 단위는 클래스 단위
+//                        element = 'CLASS'
+//
+//                        // 브랜치 커버리지를 최소한 90% 만족시켜야 함
+//                        limit {
+//                            counter = 'BRANCH'
+//                            value = 'COVEREDRATIO'
+//                            minimum = 0.90
+//                        }
+//
+//                        // 라인 커버리지를 최소한 80% 만족시켜야 함
+//                        limit {
+//                            counter = 'LINE'
+//                            value = 'COVEREDRATIO'
+//                            minimum = 0.80
+//                        }
+//
+//                        // 빈 줄을 제외한 코드의 라인수를 최대 200라인으로 제한
+//                        limit {
+//                            counter = 'LINE'
+//                            value = 'TOTALCOUNT'
+//                            maximum = 200
+//                        }
+//
+//                        // 커버리지 체크 제외할 클래스들
+//                        excludes = [
+//                                //'*.test.*',
+//                        ]
+//                    }
+//                }
+//            }
+
+            task "test${sourceName.capitalize()}TestCoverage"(type: JacocoReport,
+                    dependsOn: ["$testTaskName",
+                                "createDevDebugCoverageReport"]
+            ){
                 group = "Reporting"
                 description = "Generate Jacoco coverage reports on the ${sourceName.capitalize()} build."
 
@@ -109,7 +196,11 @@ def setupAndroidReporting() {
                 // executionData: 커버리지 측정 결과를 저장할 파일 이름을 지정. 플러그인 버전에 따라 다르게 지정
                 // 1.2.3 이하: testDebug.exec
                 // 1.3.0 이상: testDebugUnitTest.exec
-                executionData.from = files("${project.buildDir}/jacoco/${testTaskName}.exec")
+                executionData.from = fileTree(dir: "${project.buildDir}",
+                        includes: [
+                                "**/*.exec",
+                                "**/*.ec"
+                        ])
 
                 // reports : 커버리지 결과 리포트 형식을 지정
                 reports {
@@ -118,62 +209,6 @@ def setupAndroidReporting() {
                     html {
                         enabled true
                         destination file("${buildDir}/reports/coverage-report")
-                    }
-                }
-            }
-
-            task "${testTaskName}CoverageVerification"(type: JacocoCoverageVerification, dependsOn: "${testTaskName}Coverage") {
-                group = "Reporting"
-                description = "Generate Jacoco coverage reports and verification and on the ${sourceName.capitalize()} build."
-
-                // sourceDirectories : 커버리지를 측정할 소스 디렉토리를 지정
-                sourceDirectories.setFrom(files(coverageSourceDirs))
-                additionalSourceDirs.setFrom(files(coverageSourceDirs))
-
-                // classDirectories : 소스 디렉토리 내 클래스를 컴파일한 결과인 *.class 파일이 있는 디렉토리를 지정
-                // 커버리지 측정에서 제외해야 하는 클래스(R, 안드로이드 서포트 라이브러리 등)는 제외
-                classDirectories.from = files([javaTree], [kotlinTree])
-
-                // executionData: 커버리지 측정 결과를 저장할 파일 이름을 지정. 플러그인 버전에 따라 다르게 지정
-                // 1.2.3 이하: testDebug.exec
-                // 1.3.0 이상: testDebugUnitTest.exec
-                executionData.from = files("${project.buildDir}/jacoco/${testTaskName}.exec")
-
-                violationRules {
-                    failOnViolation = true
-                    // 여러 룰 생성 가능
-                    rule {
-                        // 룰 on/off
-                        enabled = true
-
-                        // 룰 체크할 단위는 클래스 단위
-                        element = 'CLASS'
-
-                        // 브랜치 커버리지를 최소한 90% 만족시켜야 함
-                        limit {
-                            counter = 'BRANCH'
-                            value = 'COVEREDRATIO'
-                            minimum = 0.90
-                        }
-
-                        // 라인 커버리지를 최소한 80% 만족시켜야 함
-                        limit {
-                            counter = 'LINE'
-                            value = 'COVEREDRATIO'
-                            minimum = 0.80
-                        }
-
-                        // 빈 줄을 제외한 코드의 라인수를 최대 200라인으로 제한
-                        limit {
-                            counter = 'LINE'
-                            value = 'TOTALCOUNT'
-                            maximum = 200
-                        }
-
-                        // 커버리지 체크 제외할 클래스들
-                        excludes = [
-                                //'*.test.*',
-                        ]
                     }
                 }
             }

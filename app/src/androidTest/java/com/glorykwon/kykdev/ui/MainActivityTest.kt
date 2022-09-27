@@ -1,5 +1,6 @@
 package com.glorykwon.kykdev.ui
 
+import android.Manifest
 import android.content.Intent
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -16,6 +17,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.rule.GrantPermissionRule
 import com.glorykwon.kykdev.R
 import com.glorykwon.kykdev.common.api.RetrofitTestApiService
 import com.glorykwon.kykdev.common.api.RetrofitTestDto
@@ -29,12 +31,19 @@ import kotlinx.coroutines.runBlocking
 import org.hamcrest.core.StringContains.containsString
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class MainActivityTest {
+
+    @get:Rule
+    val mPermissionRule = GrantPermissionRule.grant(
+        Manifest.permission.INTERNET,
+        Manifest.permission.CAMERA
+    )
 
     private var mActivityScenario: ActivityScenario<MainActivity>? = null
 

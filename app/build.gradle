@@ -86,7 +86,7 @@ android {
         animationsDisabled = true
         unitTests {
             returnDefaultValues = true
-            includeAndroidResources = true
+            includeAndroidResources = true      // Robolectric
         }
 
 //        unitTests.all {
@@ -97,6 +97,7 @@ android {
     configurations.all {
         resolutionStrategy {
             force 'com.android.support:support-annotations:23.3.0'
+            force 'org.objenesis:objenesis:2.6'
         }
     }
 }
