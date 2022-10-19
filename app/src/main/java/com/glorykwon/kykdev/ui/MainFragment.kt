@@ -20,6 +20,7 @@ import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigData
 import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigManager
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
 import com.glorykwon.kykdev.ui.uitest.UiTestActivity
+import com.glorykwon.kykdev.ui.webviewtest.WebViewTestActivity
 import timber.log.Timber
 
 class MainFragment : BaseFragment() {
@@ -122,6 +123,12 @@ class MainFragment : BaseFragment() {
             val intent = Intent(context, UiTestActivity::class.java)
             startActivity(intent)
         }
+
+        mBinding.btnWebviewTest.setOnClickListener {
+            val intent = Intent(context, WebViewTestActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     /**
