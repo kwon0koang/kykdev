@@ -10,7 +10,9 @@ import retrofit2.http.Query
 
 interface RetrofitTestApiService {
     companion object {
-        private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
+//        private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
+        private var BASE_URL = "https://jsonplaceholder.typicode.com/"
+
 //        private const val TOKEN = "SDFJAEOICJXVAUIFHJWENILKVJDVASDUOJFELJFNKLDNVZKLDGJSIDROLGKXFNGJKLFGSRKLSRLEIGN"       //헤더 토큰
 
         @Volatile
@@ -31,6 +33,13 @@ interface RetrofitTestApiService {
                 .build()
                 .create(RetrofitTestApiService::class.java)
                 .apply { _INSTANCE = this }
+        }
+
+        /**
+         * for test
+         */
+        fun setTestBaseUrl(url: String) {
+            BASE_URL = url
         }
     }
 
