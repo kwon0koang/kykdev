@@ -94,6 +94,12 @@
             android:layout_height="wrap_content"
             android:text="webview test" />
 
+        <Button
+            android:id="@+id/btn_bottom_sheet_fragment_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="bottom sheet fragment test" />
+
     </LinearLayout>
 
 

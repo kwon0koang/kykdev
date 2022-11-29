@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.glorykwon.kykdev.R
 import com.glorykwon.kykdev.common.NetworkResult
-import com.glorykwon.kykdev.common.analytics.AnalyticsData
 import com.glorykwon.kykdev.common.analytics.AnalyticsEventConst
 import com.glorykwon.kykdev.common.analytics.AnalyticsManager
 import com.glorykwon.kykdev.common.api.RetrofitTestDto
@@ -19,6 +18,7 @@ import com.glorykwon.kykdev.common.dynamiclink.DynamicLinkActivity
 import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigData
 import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigManager
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
+import com.glorykwon.kykdev.template.TemplateBSFragment
 import com.glorykwon.kykdev.ui.uitest.UiTestActivity
 import com.glorykwon.kykdev.ui.webviewtest.WebViewTestActivity
 import timber.log.Timber
@@ -127,6 +127,13 @@ class MainFragment : BaseFragment() {
         mBinding.btnWebviewTest.setOnClickListener {
             val intent = Intent(context, WebViewTestActivity::class.java)
             startActivity(intent)
+        }
+
+        mBinding.btnBottomSheetFragmentTest.setOnClickListener {
+            TemplateBSFragment(
+                mTextTitle = "제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목",
+                mTextContent = "내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용"
+            ).show(childFragmentManager, null)
         }
 
     }
