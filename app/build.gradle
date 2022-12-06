@@ -212,4 +212,7 @@ dependencies {
     // Optional - APIs for SplashScreen, including compatibility helpers on devices prior Android 12
     implementation "androidx.core:core-splashscreen:$splashscreen_version"
 
+    // Vertical seekbar
+    implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:1.0.0'
+
 }

@@ -30,6 +30,7 @@
         </activity>
         <activity android:name=".ui.uitest.UiTestActivity" />
         <activity android:name=".ui.webviewtest.WebViewTestActivity" />
+        <activity android:name=".ui.verticalseekbartest.VerticalSeekbarTestActivity" />
         <activity
             android:name=".common.dynamiclink.DynamicLinkActivity"
             android:launchMode="singleTask"

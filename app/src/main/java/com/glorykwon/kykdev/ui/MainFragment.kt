@@ -20,6 +20,7 @@ import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigManager
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
 import com.glorykwon.kykdev.template.TemplateBSFragment
 import com.glorykwon.kykdev.ui.uitest.UiTestActivity
+import com.glorykwon.kykdev.ui.verticalseekbartest.VerticalSeekbarTestActivity
 import com.glorykwon.kykdev.ui.webviewtest.WebViewTestActivity
 import timber.log.Timber
 
@@ -134,6 +135,11 @@ class MainFragment : BaseFragment() {
                 mTextTitle = "제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목",
                 mTextContent = "내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용"
             ).show(childFragmentManager, null)
+        }
+
+        mBinding.btnVerticalSeekbarTest.setOnClickListener {
+            val intent = Intent(context, VerticalSeekbarTestActivity::class.java)
+            startActivity(intent)
         }
 
     }
