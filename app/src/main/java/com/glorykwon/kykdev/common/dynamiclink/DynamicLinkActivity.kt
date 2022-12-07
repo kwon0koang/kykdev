@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.glorykwon.kykdev.MainApplication
+import com.glorykwon.kykdev.ui.MainActivity
 import com.google.firebase.dynamiclinks.ktx.*
 import com.google.firebase.ktx.Firebase
 import timber.log.Timber
@@ -23,8 +24,9 @@ class DynamicLinkActivity : Activity() {
     companion object {
         val TAG = this::class.simpleName
 
-        const val KYK_DEV_SCHEME = "kykdevapp"
-        const val KYK_HOST = "kykdev.com"
+        const val KYK_DEV_DOMAIN_URI_PREFIX = "https://kykdev.page.link"
+        const val KYK_DEV_SCHEME = "kykdev"
+        const val KYK_HOST = "https://0koang.tistory.com"
         const val KYK_SEGMENT_EVENT = "kyksegmentevent"
         const val KYK_EVENT_CODE = "kykeventcode"
 
@@ -32,10 +34,10 @@ class DynamicLinkActivity : Activity() {
             Firebase.dynamicLinks.dynamicLink {
                 val testEventCode = "testEventCode123"
 
-                link = Uri.parse("https://$KYK_HOST/$KYK_SEGMENT_EVENT?$KYK_EVENT_CODE=$testEventCode")
+                link = Uri.parse("$KYK_HOST/$KYK_SEGMENT_EVENT?$KYK_EVENT_CODE=$testEventCode")
                 Timber.tag(TAG).d("link:${link}")
 
-                domainUriPrefix = "https://kykdevapp.page.link"
+                domainUriPrefix = KYK_DEV_DOMAIN_URI_PREFIX
 
                 androidParameters {
                     minimumVersion = 1
@@ -81,13 +83,13 @@ class DynamicLinkActivity : Activity() {
         when(scheme) {
             //커스텀 스키마
             KYK_DEV_SCHEME -> {
-                //kykdevapp://action
+                //kykdev://action
                 showDialog("uri : $uri")
             }
             else -> {
                 Firebase.dynamicLinks.getDynamicLink(intent)
                     .addOnSuccessListener { pendingDynamicLinkData ->
-                        //https://kykdev.com/kyksegmentevent?kykeventcode=testEventCode123
+                        //https://0koang.tistory.com/kyksegmentevent?kykeventcode=testEventCode123
                         val deepLink = pendingDynamicLinkData.link
                         val scheme = deepLink?.scheme
                         val host = deepLink?.host
@@ -99,6 +101,10 @@ class DynamicLinkActivity : Activity() {
                             KYK_SEGMENT_EVENT -> {
                                 val eventCode = deepLink.getQueryParameter(KYK_EVENT_CODE)
                                 showDialog("event code : $eventCode")
+                            }
+                            else -> {
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
                             }
                         }
                     }
@@ -113,6 +119,10 @@ class DynamicLinkActivity : Activity() {
         AlertDialog.Builder(this)
             .setMessage(msg)
             .setPositiveButton("Confirm", null)
+            .setOnDismissListener {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
             .create()
             .show()
     }

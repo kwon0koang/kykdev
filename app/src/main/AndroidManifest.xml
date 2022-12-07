@@ -40,9 +40,9 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http" android:host="kykdevapp.page.link" />
-                <data android:scheme="https" android:host="kykdevapp.page.link" />
-                <data android:scheme="kykdevapp" android:host="action" />
+                <data android:scheme="http" android:host="0koang.tistory.com" />
+                <data android:scheme="https" android:host="0koang.tistory.com" />
+                <data android:scheme="kykdev" android:host="action" />
             </intent-filter>
         </activity>
 
