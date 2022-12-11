@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * todo
@@ -42,11 +45,16 @@ class TemplateFragment : BaseFragment() {
      */
     private fun initObserver() {
 
-        mViewModel.todo.observe(viewLifecycleOwner) {
+        mViewModel.todoLiveData.observe(viewLifecycleOwner) {
             when(it) {
                 is NetworkResult.Loading -> {}
                 is NetworkResult.Success -> {}
                 is NetworkResult.Error -> {}
+            }
+        }
+
+        lifecycleScope.launch {
+            mViewModel.todoFlow.collect {
             }
         }
 

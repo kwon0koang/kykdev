@@ -2,9 +2,12 @@ package com.glorykwon.kykdev.template
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.databinding.MainActivityBinding
 import com.glorykwon.kykdev.ui.BaseActivity
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * todo
@@ -38,11 +41,16 @@ class TemplateActivity : BaseActivity() {
      */
     private fun initObserver() {
 
-        mViewModel.todo.observe(this) {
+        mViewModel.todoLiveData.observe(this) {
             when(it) {
                 is NetworkResult.Loading -> {}
                 is NetworkResult.Success -> {}
                 is NetworkResult.Error -> {}
+            }
+        }
+
+        lifecycleScope.launch {
+            mViewModel.todoFlow.collect {
             }
         }
 
