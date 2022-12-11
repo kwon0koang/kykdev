@@ -51,6 +51,11 @@ class TemplateActivity : BaseActivity() {
 
         lifecycleScope.launch {
             mViewModel.todoFlow.collect {
+                when(it) {
+                    is NetworkResult.Loading -> {}
+                    is NetworkResult.Success -> {}
+                    is NetworkResult.Error -> {}
+                }
             }
         }
 

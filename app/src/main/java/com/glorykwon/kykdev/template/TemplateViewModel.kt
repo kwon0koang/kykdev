@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.glorykwon.kykdev.common.NetworkResult
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
@@ -18,11 +19,8 @@ class TemplateViewModel : ViewModel() {
         liveData {
             emit(NetworkResult.Loading())
             try {
-
                 var result = false
-
                 emit(NetworkResult.Success(result))
-
             } catch (e: Exception) {
                 e.printStackTrace()
                 emit(NetworkResult.Error(e))
@@ -35,7 +33,16 @@ class TemplateViewModel : ViewModel() {
         _todoFlow.emit(Any())
     }
     val todoFlow = _todoFlow.flatMapLatest {
-        flowOf(it)
+        flow {
+            emit(NetworkResult.Loading())
+            try {
+                var result = false
+                emit(NetworkResult.Success(result))
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emit(NetworkResult.Error(e))
+            }
+        }
     }
 
 }
