@@ -2,12 +2,11 @@ package com.glorykwon.kykdev.template
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.databinding.MainActivityBinding
 import com.glorykwon.kykdev.ui.BaseActivity
+import com.glorykwon.kykdev.util.kt.launchRepeatOnStarted
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 /**
  * todo
@@ -49,7 +48,7 @@ class TemplateActivity : BaseActivity() {
             }
         }
 
-        lifecycleScope.launch {
+        launchRepeatOnStarted {
             mViewModel.todoFlow.collect {
                 when(it) {
                     is NetworkResult.Loading -> {}
@@ -58,7 +57,6 @@ class TemplateActivity : BaseActivity() {
                 }
             }
         }
-
     }
 
     /**

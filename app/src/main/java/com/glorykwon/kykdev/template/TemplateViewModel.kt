@@ -3,9 +3,7 @@ package com.glorykwon.kykdev.template
 import androidx.lifecycle.*
 import com.glorykwon.kykdev.common.NetworkResult
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class TemplateViewModel : ViewModel() {
@@ -28,12 +26,10 @@ class TemplateViewModel : ViewModel() {
         }
     }
 
-    private val _todoFlow = MutableSharedFlow<Any>()
+    private val _todoFlow = MutableSharedFlow<NetworkResult>()
+    val todoFlow = _todoFlow.asSharedFlow()
     fun todoFlow() = viewModelScope.launch {
-        _todoFlow.emit(Any())
-    }
-    val todoFlow = _todoFlow.flatMapLatest {
-        flow {
+        with(_todoFlow) {
             emit(NetworkResult.Loading())
             try {
                 var result = false
@@ -44,5 +40,16 @@ class TemplateViewModel : ViewModel() {
             }
         }
     }
+//    val todoFlow = _todoFlow.flatMapLatest {
+//        flow {
+//            emit(NetworkResult.Loading())
+//            try {
+//                var result = false
+//                emit(NetworkResult.Success(result))
+//            } catch (e: Exception) {
+//                emit(NetworkResult.Error(e))
+//            }
+//        }
+//    }
 
 }

@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.databinding.MainFragmentBinding
 import com.glorykwon.kykdev.ui.BaseFragment
+import com.glorykwon.kykdev.util.kt.launchRepeatOnStarted
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * todo
@@ -55,7 +52,7 @@ class TemplateFragment : BaseFragment() {
             }
         }
 
-        lifecycleScope.launch {
+        launchRepeatOnStarted {
             mViewModel.todoFlow.collect {
                 when(it) {
                     is NetworkResult.Loading -> {}
