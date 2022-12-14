@@ -33,7 +33,7 @@
                 android:layout_height="0dp"
                 android:max="100"
                 android:progress="0"
-                android:progressDrawable="@drawable/bg_cake_remittance_seekbar"
+                android:progressDrawable="@drawable/bg_seekbar"
                 android:splitTrack="false"
                 android:thumb="@drawable/seekbar_handler"
                 app:seekBarRotation="CW270" /> <!-- Rotation: CW90 or CW270 -->
