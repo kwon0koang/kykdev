@@ -28,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.flowtest.FlowTestActivity" />
         <activity android:name=".ui.uitest.UiTestActivity" />
         <activity android:name=".ui.webviewtest.WebViewTestActivity" />
         <activity android:name=".ui.verticalseekbartest.VerticalSeekbarTestActivity" />

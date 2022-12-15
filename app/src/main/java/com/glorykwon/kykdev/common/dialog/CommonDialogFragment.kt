@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.glorykwon.kykdev.databinding.CommonDialogFragmentBinding
+import com.glorykwon.kykdev.databinding.FragmentCommonDialogBinding
 
 class CommonDialogFragment(
     val title: String? = null,
@@ -14,7 +14,7 @@ class CommonDialogFragment(
     val confirmListener: (Boolean) -> Any
 ) : DialogFragment() {
 
-    private val mBinding by lazy { CommonDialogFragmentBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { FragmentCommonDialogBinding.inflate(layoutInflater) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {

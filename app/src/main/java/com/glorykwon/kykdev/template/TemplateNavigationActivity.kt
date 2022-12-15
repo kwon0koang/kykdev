@@ -3,7 +3,7 @@ package com.glorykwon.kykdev.template
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import com.glorykwon.kykdev.R
-import com.glorykwon.kykdev.databinding.MainActivityBinding
+import com.glorykwon.kykdev.databinding.ActivityMainBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 
 /**
@@ -11,7 +11,7 @@ import com.glorykwon.kykdev.ui.BaseActivity
  */
 class TemplateNavigationActivity : BaseActivity() {
 
-    private val mBinding by lazy { MainActivityBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var mNavHostFragment: NavHostFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,7 +1,7 @@
 package com.glorykwon.kykdev.ui.uitest
 
 import android.os.Bundle
-import com.glorykwon.kykdev.databinding.UiTestActivityBinding
+import com.glorykwon.kykdev.databinding.ActivityUiTestBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 
 /**
@@ -9,7 +9,7 @@ import com.glorykwon.kykdev.ui.BaseActivity
  */
 class UiTestActivity : BaseActivity() {
 
-    private val mBinding by lazy { UiTestActivityBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { ActivityUiTestBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

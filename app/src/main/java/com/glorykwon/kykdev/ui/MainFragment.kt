@@ -17,8 +17,9 @@ import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.glorykwon.kykdev.common.dynamiclink.DynamicLinkActivity
 import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigData
 import com.glorykwon.kykdev.common.remoteconfig.RemoteConfigManager
-import com.glorykwon.kykdev.databinding.MainFragmentBinding
+import com.glorykwon.kykdev.databinding.FragmentMainBinding
 import com.glorykwon.kykdev.template.TemplateBSFragment
+import com.glorykwon.kykdev.ui.flowtest.FlowTestActivity
 import com.glorykwon.kykdev.ui.uitest.UiTestActivity
 import com.glorykwon.kykdev.ui.verticalseekbartest.VerticalSeekbarTestActivity
 import com.glorykwon.kykdev.ui.webviewtest.WebViewTestActivity
@@ -26,7 +27,7 @@ import timber.log.Timber
 
 class MainFragment : BaseFragment() {
 
-    private val mBinding by lazy { MainFragmentBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { FragmentMainBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<MainViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -69,7 +70,12 @@ class MainFragment : BaseFragment() {
         }
 
         mBinding.btnFlowTest.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_flowTestFragment)
+            val intent = Intent(context, FlowTestActivity::class.java)
+            startActivity(intent)
+        }
+
+        mBinding.btnPagingTest.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_pagingTestFragment)
         }
 
         mBinding.btnWorkManagerTest.setOnClickListener {

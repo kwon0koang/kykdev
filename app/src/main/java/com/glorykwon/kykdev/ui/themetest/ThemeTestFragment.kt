@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.common.ThemeManager
-import com.glorykwon.kykdev.databinding.ThemeTestFragmentBinding
+import com.glorykwon.kykdev.databinding.FragmentThemeTestBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 
 class ThemeTestFragment : BaseFragment() {
 
-    private val mBinding by lazy { ThemeTestFragmentBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { FragmentThemeTestBinding.inflate(layoutInflater) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {

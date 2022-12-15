@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.ui.flowtest
+package com.glorykwon.kykdev.ui.pagingtest
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.glorykwon.kykdev.databinding.ItemSimpleBinding
 
-class FlowTestAdapter(val context: Context, val viewModel: FlowTestViewModel, val itemClickListener: ((RetrofitTestDto) -> Unit)? = null)
-    : PagingDataAdapter<RetrofitTestDto, FlowTestAdapter.FlowTestViewHolder>(diffCallback) {
+class PagingTestAdapter(val context: Context, val viewModel: PagingTestViewModel, val itemClickListener: ((RetrofitTestDto) -> Unit)? = null)
+    : PagingDataAdapter<RetrofitTestDto, PagingTestAdapter.FlowTestViewHolder>(diffCallback) {
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<RetrofitTestDto>() {

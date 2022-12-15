@@ -10,12 +10,12 @@ import com.glorykwon.kykdev.common.analytics.AnalyticsEventConst
 import com.glorykwon.kykdev.common.analytics.AnalyticsManager
 import com.glorykwon.kykdev.common.database.room.entity.TodoRoomEntity
 import com.glorykwon.kykdev.common.dialog.CommonDialogFragment
-import com.glorykwon.kykdev.databinding.RoomTestFragmentBinding
+import com.glorykwon.kykdev.databinding.FragmentRoomTestBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 
 class RoomTestFragment : BaseFragment() {
 
-    private val mBinding by lazy { RoomTestFragmentBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { FragmentRoomTestBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<RoomTestViewModel>()
 
     private lateinit var mAdapter: RoomTestListAdapter

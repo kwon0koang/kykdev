@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.ui.flowtest
+package com.glorykwon.kykdev.ui.pagingtest
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,22 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import com.glorykwon.kykdev.databinding.FlowTestFragmentBinding
+import com.glorykwon.kykdev.databinding.FragmentPagingTestBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class FlowTestFragment : BaseFragment() {
+class PagingTestFragment : BaseFragment() {
 
-    private val mBinding by lazy { FlowTestFragmentBinding.inflate(layoutInflater) }
-    private val mViewModel by viewModels<FlowTestViewModel>()
+    private val mBinding by lazy { FragmentPagingTestBinding.inflate(layoutInflater) }
+    private val mViewModel by viewModels<PagingTestViewModel>()
 
-    private lateinit var mAdapter: FlowTestAdapter
+    private lateinit var mAdapter: PagingTestAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -44,7 +43,7 @@ class FlowTestFragment : BaseFragment() {
 
         //어댑터 셋팅
         context?.let { context ->
-            mAdapter = FlowTestAdapter(context, mViewModel) { dto ->
+            mAdapter = PagingTestAdapter(context, mViewModel) { dto ->
                 Toast.makeText(context, dto.title, Toast.LENGTH_SHORT).show()
             }
         }

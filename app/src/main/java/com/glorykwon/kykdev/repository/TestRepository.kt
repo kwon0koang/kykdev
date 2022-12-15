@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.glorykwon.kykdev.common.api.RetrofitTestDto
-import com.glorykwon.kykdev.ui.flowtest.TestDataPagingSource
+import com.glorykwon.kykdev.ui.pagingtest.TestDataPagingSource
 import kotlinx.coroutines.flow.Flow
 
 object TestRepository {

@@ -8,11 +8,11 @@ import androidx.core.animation.doOnEnd
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
 import com.glorykwon.kykdev.R
-import com.glorykwon.kykdev.databinding.MainActivityBinding
+import com.glorykwon.kykdev.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity() {
 
-    private val mBinding by lazy { MainActivityBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var mNavHostFragment: NavHostFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

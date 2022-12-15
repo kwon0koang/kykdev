@@ -10,7 +10,7 @@ import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import com.glorykwon.kykdev.common.TestCoroutineWorker
 import com.glorykwon.kykdev.common.TestWorker
-import com.glorykwon.kykdev.databinding.WorkmanagerTestFragmentBinding
+import com.glorykwon.kykdev.databinding.FragmentWorkmanagerTestBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 
 /**
@@ -18,7 +18,7 @@ import com.glorykwon.kykdev.ui.BaseFragment
  */
 class WorkManagerTestFragment : BaseFragment() {
 
-    private val mBinding by lazy { WorkmanagerTestFragmentBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { FragmentWorkmanagerTestBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<WorkManagerTestViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

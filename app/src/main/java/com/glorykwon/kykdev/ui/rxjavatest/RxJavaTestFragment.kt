@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import com.glorykwon.kykdev.databinding.RxjavaTestFragmentBinding
+import com.glorykwon.kykdev.databinding.FragmentRxjavaTestBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 import com.glorykwon.kykdev.ui.main.RxJavaTestViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 
 class RxJavaTestFragment : BaseFragment() {
 
-    private val mBinding by lazy { RxjavaTestFragmentBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { FragmentRxjavaTestBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<RxJavaTestViewModel>()
 
     private var mTestResultText = ""

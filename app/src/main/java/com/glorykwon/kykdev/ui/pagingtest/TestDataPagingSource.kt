@@ -1,4 +1,4 @@
-package com.glorykwon.kykdev.ui.flowtest
+package com.glorykwon.kykdev.ui.pagingtest
 
 import androidx.paging.PagingSource
 import com.glorykwon.kykdev.common.api.RetrofitTestApiService

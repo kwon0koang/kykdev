@@ -3,7 +3,7 @@ package com.glorykwon.kykdev.template
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.glorykwon.kykdev.common.NetworkResult
-import com.glorykwon.kykdev.databinding.MainActivityBinding
+import com.glorykwon.kykdev.databinding.ActivityMainBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 import com.glorykwon.kykdev.util.kt.launchRepeatOnStarted
 import kotlinx.coroutines.flow.catch
@@ -17,7 +17,7 @@ import timber.log.Timber
  */
 class TemplateActivity : BaseActivity() {
 
-    private val mBinding by lazy { MainActivityBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<TemplateViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -10,12 +10,12 @@ import com.glorykwon.kykdev.common.analytics.AnalyticsEventConst
 import com.glorykwon.kykdev.common.analytics.AnalyticsManager
 import com.glorykwon.kykdev.common.database.realm.dao.TodoRealmObject
 import com.glorykwon.kykdev.common.dialog.CommonDialogFragment
-import com.glorykwon.kykdev.databinding.RealmTestFragmentBinding
+import com.glorykwon.kykdev.databinding.FragmentRealmTestBinding
 import com.glorykwon.kykdev.ui.BaseFragment
 
 class RealmTestFragment : BaseFragment() {
 
-    private val mBinding by lazy { RealmTestFragmentBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { FragmentRealmTestBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<RealmTestViewModel>()
 
     private lateinit var mAdapter: RealmTestListAdapter

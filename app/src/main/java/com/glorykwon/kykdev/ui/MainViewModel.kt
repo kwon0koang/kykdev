@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.glorykwon.kykdev.MainApplication
-import com.glorykwon.kykdev.common.api.RetrofitTestApiService
-import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.glorykwon.kykdev.common.Event
 import com.glorykwon.kykdev.common.NetworkResult
+import com.glorykwon.kykdev.common.api.RetrofitTestApiService
+import com.glorykwon.kykdev.common.api.RetrofitTestDto
 import com.tbruyelle.rxpermissions3.RxPermissions
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.coroutines.Dispatchers

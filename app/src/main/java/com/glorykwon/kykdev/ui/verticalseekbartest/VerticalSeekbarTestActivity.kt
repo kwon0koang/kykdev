@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.constraintlayout.widget.ConstraintSet
-import com.glorykwon.kykdev.databinding.VerticalSeekbarTestActivityBinding
+import com.glorykwon.kykdev.databinding.ActivityVerticalSeekbarTestBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 
 /**
@@ -12,7 +12,7 @@ import com.glorykwon.kykdev.ui.BaseActivity
  */
 class VerticalSeekbarTestActivity : BaseActivity() {
 
-    private val mBinding by lazy { VerticalSeekbarTestActivityBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { ActivityVerticalSeekbarTestBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

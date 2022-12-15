@@ -1,13 +1,11 @@
-package com.glorykwon.kykdev.template
+package com.glorykwon.kykdev.ui.flowtest
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.activity.viewModels
 import com.glorykwon.kykdev.common.NetworkResult
-import com.glorykwon.kykdev.databinding.FragmentMainBinding
-import com.glorykwon.kykdev.ui.BaseFragment
+import com.glorykwon.kykdev.databinding.ActivityFlowTestBinding
+import com.glorykwon.kykdev.databinding.ActivityMainBinding
+import com.glorykwon.kykdev.ui.BaseActivity
 import com.glorykwon.kykdev.util.kt.launchRepeatOnStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -18,18 +16,17 @@ import timber.log.Timber
 /**
  * todo
  */
-class TemplateFragment : BaseFragment() {
+class FlowTestActivity : BaseActivity() {
 
-    private val mBinding by lazy { FragmentMainBinding.inflate(layoutInflater) }
-    private val mViewModel by viewModels<TemplateViewModel>()
+    private val mBinding by lazy { ActivityFlowTestBinding.inflate(layoutInflater) }
+    private val mViewModel by viewModels<FlowTestViewModel>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(mBinding.root)
 
         initView()      //뷰 초기화
         initObserver()  //옵저버 초기화
-
-        return mBinding.root
     }
 
     override fun onResume() {
@@ -48,7 +45,7 @@ class TemplateFragment : BaseFragment() {
      */
     private fun initObserver() {
 
-        mViewModel.todoLiveData.observe(viewLifecycleOwner) {
+        mViewModel.todoLiveData.observe(this) {
             when(it) {
                 is NetworkResult.Loading -> {}
                 is NetworkResult.Success -> {}

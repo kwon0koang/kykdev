@@ -4,12 +4,12 @@ import android.os.Build
 import android.os.Bundle
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
-import com.glorykwon.kykdev.databinding.WebviewTestActivityBinding
+import com.glorykwon.kykdev.databinding.ActivityWebviewTestBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 
 class WebViewTestActivity : BaseActivity() {
 
-    private val mBinding by lazy { WebviewTestActivityBinding.inflate(layoutInflater) }
+    private val mBinding by lazy { ActivityWebviewTestBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
