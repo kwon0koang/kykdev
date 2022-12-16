@@ -7,9 +7,15 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btn_flow_test"
+        android:id="@+id/btn_start_count_livedata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Flow test" />
+        android:text="Start count livedata" />
+
+    <Button
+        android:id="@+id/btn_start_count_flow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start count flow" />
 
 </LinearLayout>

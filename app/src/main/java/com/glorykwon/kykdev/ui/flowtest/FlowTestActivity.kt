@@ -2,9 +2,7 @@ package com.glorykwon.kykdev.ui.flowtest
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.glorykwon.kykdev.common.NetworkResult
 import com.glorykwon.kykdev.databinding.ActivityFlowTestBinding
-import com.glorykwon.kykdev.databinding.ActivityMainBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 import com.glorykwon.kykdev.util.kt.launchRepeatOnStarted
 import kotlinx.coroutines.flow.catch
@@ -38,6 +36,12 @@ class FlowTestActivity : BaseActivity() {
      * 뷰 초기화
      */
     private fun initView() {
+        mBinding.btnStartCountLivedata.setOnClickListener {
+            mViewModel.startCountLiveData()
+        }
+        mBinding.btnStartCountFlow.setOnClickListener {
+            mViewModel.startCountFlow()
+        }
     }
 
     /**
@@ -45,27 +49,24 @@ class FlowTestActivity : BaseActivity() {
      */
     private fun initObserver() {
 
-        mViewModel.todoLiveData.observe(this) {
-            when(it) {
-                is NetworkResult.Loading -> {}
-                is NetworkResult.Success -> {}
-                is NetworkResult.Error -> {}
-            }
+        mViewModel.countLiveData.observe(this) {
+            val text = "Start count livedata : ${it}"
+            mBinding.btnStartCountLivedata.text = text
+            println(text)
         }
 
         launchRepeatOnStarted {
-            mViewModel.todoFlow
-                .onEach { networkResult ->
-                    when(networkResult) {
-                        is NetworkResult.Loading -> {}
-                        is NetworkResult.Success -> {}
-                        is NetworkResult.Error -> {}
-                    }
+            mViewModel.countFlow
+                .onEach {
+                    val text = "Start count flow : ${it}"
+                    mBinding.btnStartCountFlow.text = text
+                    println(text)
                 }
                 .onCompletion { cause -> if (cause == null) "Done" else "Failed" }
                 .catch { cause -> Timber.e("$cause") }
                 .collect()
         }
+
     }
 
     /**

@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
+import kotlin.system.measureTimeMillis
 
 class FlowTest {
 
@@ -13,7 +14,7 @@ class FlowTest {
     }
 
     @Test
-    fun `flow test`() = runBlocking {
+    fun `test flow`() = runBlocking {
         val testFlow = flow {
             listOf("A", "B", "C", "D", "E").forEach {
                 emit(it)
@@ -45,17 +46,38 @@ class FlowTest {
     }
 
     @Test
-    fun `flow zip and combine test`(): Unit = runBlocking {
-        val nums = (1..3).asFlow().onEach { delay(100L) }
-        val strs = flowOf("일", "이", "삼").onEach { delay(200L) }
+    fun `test flow zip and combine`(): Unit = runBlocking {
+        val nums = (1..3).asFlow().onEach { delay(90L) }
+        val strs = flowOf("A", "B", "C").onEach { delay(110L) }
 
         println("zip =======================")
-        nums.zip(strs) { a, b -> "${a}은(는) $b" }
+        nums.zip(strs) { a, b -> "${a} - $b" }
             .collect { println(it) }
 
         println("combine =======================")
-        nums.combine(strs) { a, b -> "${a}은(는) $b" }
+        nums.combine(strs) { a, b -> "${a} - $b" }
             .collect { println(it) }
+    }
+
+    @Test
+    fun `tset flatMap`(): Unit = runBlocking {
+        val nums = (1..3).asFlow().onEach { delay(90L) }
+        val strs = flowOf("A", "B", "C").onEach { delay(110L) }
+
+        println("flatMapConcat =======================")
+        nums.flatMapConcat { num ->
+            strs.map { str -> "$num - $str" }
+        }.onEach { println(it) }.collect()
+
+        println("flatMapMerge =======================")
+        nums.flatMapMerge { num ->
+            strs.map { str -> "$num - $str" }
+        }.onEach { println(it) }.collect()
+
+        println("flatMapLatest =======================")
+        nums.flatMapLatest { num ->
+            strs.map { str -> "$num - $str" }
+        }.onEach { println(it) }.collect()
     }
 
 }
