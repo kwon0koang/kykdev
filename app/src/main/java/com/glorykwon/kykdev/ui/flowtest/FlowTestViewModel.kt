@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class FlowTestViewModel : ViewModel() {
 
@@ -35,14 +36,15 @@ class FlowTestViewModel : ViewModel() {
     private val _status1 = MutableStateFlow("")
     val status1 = _status1.asStateFlow()
     fun updateStatus1(value: String) = viewModelScope.launch {
+        Timber.d("emit status1 : $value")
         _status1.emit(value)
     }
 
     private val _status2 = MutableStateFlow("")
     val status2 = _status2.asStateFlow()
     fun updateStatus2(value: String) = viewModelScope.launch {
+        Timber.d("emit status2 : $value")
         _status2.emit(value)
     }
-
 
 }

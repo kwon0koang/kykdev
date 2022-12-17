@@ -43,6 +43,19 @@ class FlowTest {
             .collect {
                 println("3 / collect / $it / ${Thread.currentThread().name}")
             }
+
+//        1 / onEach / A / Test worker @coroutine#1
+//        2 / onEach / A / Test worker @coroutine#1
+//        3 / collect / A / Test worker @coroutine#1
+//        1 / onEach / B / Test worker @coroutine#1
+//        2 / onEach / B / Test worker @coroutine#1
+//        3 / collect / B / Test worker @coroutine#1
+//        1 / onEach / C / Test worker @coroutine#1
+//        2 / onEach / C / Test worker @coroutine#1
+//        3 / collect / C / Test worker @coroutine#1
+//        1 / onEach / D / Test worker @coroutine#1
+//        4 / onCompletion / exception / java.lang.Exception: test exception / Test worker @coroutine#1
+//        4 / catch / exception / java.lang.Exception: test exception / Test worker @coroutine#1
     }
 
     @Test
@@ -57,6 +70,17 @@ class FlowTest {
         println("combine =======================")
         nums.combine(strs) { a, b -> "${a} - $b" }
             .collect { println(it) }
+
+//        zip =======================
+//        1 - A
+//        2 - B
+//        3 - C
+//        combine =======================
+//        1 - A
+//        2 - A
+//        2 - B
+//        3 - B
+//        3 - C
     }
 
     @Test
@@ -78,6 +102,31 @@ class FlowTest {
         nums.flatMapLatest { num ->
             strs.map { str -> "$num - $str" }
         }.onEach { println(it) }.collect()
+
+//        flatMapConcat =======================
+//        1 - A
+//        1 - B
+//        1 - C
+//        2 - A
+//        2 - B
+//        2 - C
+//        3 - A
+//        3 - B
+//        3 - C
+//        flatMapMerge =======================
+//        1 - A
+//        2 - A
+//        1 - B
+//        3 - A
+//        2 - B
+//        1 - C
+//        3 - B
+//        2 - C
+//        3 - C
+//        flatMapLatest =======================
+//        3 - A
+//        3 - B
+//        3 - C
     }
 
 }
