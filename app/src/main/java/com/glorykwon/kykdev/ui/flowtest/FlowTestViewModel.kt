@@ -3,7 +3,9 @@ package com.glorykwon.kykdev.ui.flowtest
 import androidx.lifecycle.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class FlowTestViewModel : ViewModel() {
@@ -29,16 +31,18 @@ class FlowTestViewModel : ViewModel() {
             }
         }
     }
-//    val todoFlow = _todoFlow.flatMapLatest {
-//        flow {
-//            emit(NetworkResult.Loading())
-//            try {
-//                var result = false
-//                emit(NetworkResult.Success(result))
-//            } catch (e: Exception) {
-//                emit(NetworkResult.Error(e))
-//            }
-//        }
-//    }
+
+    private val _status1 = MutableStateFlow("")
+    val status1 = _status1.asStateFlow()
+    fun updateStatus1(value: String) = viewModelScope.launch {
+        _status1.emit(value)
+    }
+
+    private val _status2 = MutableStateFlow("")
+    val status2 = _status2.asStateFlow()
+    fun updateStatus2(value: String) = viewModelScope.launch {
+        _status2.emit(value)
+    }
+
 
 }

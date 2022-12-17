@@ -1,18 +1,18 @@
 package com.glorykwon.kykdev.ui.flowtest
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import com.glorykwon.kykdev.databinding.ActivityFlowTestBinding
 import com.glorykwon.kykdev.ui.BaseActivity
+import com.glorykwon.kykdev.ui.webviewtest.WebViewTestActivity
 import com.glorykwon.kykdev.util.kt.launchRepeatOnStarted
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import timber.log.Timber
 
 /**
- * todo
+ * Test flow
  */
 class FlowTestActivity : BaseActivity() {
 
@@ -36,12 +36,27 @@ class FlowTestActivity : BaseActivity() {
      * 뷰 초기화
      */
     private fun initView() {
+
+        mBinding.etStatus1.addTextChangedListener {
+            mViewModel.updateStatus1(it.toString())
+        }
+
+        mBinding.etStatus2.addTextChangedListener {
+            mViewModel.updateStatus2(it.toString())
+        }
+
         mBinding.btnStartCountLivedata.setOnClickListener {
             mViewModel.startCountLiveData()
         }
+
         mBinding.btnStartCountFlow.setOnClickListener {
             mViewModel.startCountFlow()
         }
+        mBinding.btnCallActivity.setOnClickListener {
+            val intent = Intent(this, WebViewTestActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     /**
@@ -50,19 +65,39 @@ class FlowTestActivity : BaseActivity() {
     private fun initObserver() {
 
         mViewModel.countLiveData.observe(this) {
-            val text = "Start count livedata : ${it}"
-            mBinding.btnStartCountLivedata.text = text
-            println(text)
+            Timber.d("mViewModel.countLiveData.observe / $it")
+            mBinding.btnStartCountLivedata.text = "Start count livedata : ${it}"
         }
 
         launchRepeatOnStarted {
             mViewModel.countFlow
                 .onEach {
-                    val text = "Start count flow : ${it}"
-                    mBinding.btnStartCountFlow.text = text
-                    println(text)
+                    Timber.d("mViewModel.countFlow.onEach / $it")
+                    mBinding.btnStartCountFlow.text = "Start count flow : ${it}"
                 }
                 .onCompletion { cause -> if (cause == null) "Done" else "Failed" }
+                .catch { cause -> Timber.e("$cause") }
+                .collect()
+        }
+
+        launchRepeatOnStarted {
+            mViewModel.status1
+                .debounce(1000)
+                .onEach {
+                    Timber.d("mViewModel.status1.onEach / $it")
+                    mBinding.txtStatus1.text = it
+                }
+                .catch { cause -> Timber.e("$cause") }
+                .collect()
+        }
+
+        launchRepeatOnStarted {
+            mViewModel.status2
+                .debounce(1000)
+                .onEach {
+                    Timber.d("mViewModel.status2.onEach / $it")
+                    mBinding.txtStatus2.text = it
+                }
                 .catch { cause -> Timber.e("$cause") }
                 .collect()
         }
