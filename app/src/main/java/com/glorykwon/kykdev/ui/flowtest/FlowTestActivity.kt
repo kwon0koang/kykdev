@@ -3,6 +3,7 @@ package com.glorykwon.kykdev.ui.flowtest
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.glorykwon.kykdev.databinding.ActivityFlowTestBinding
 import com.glorykwon.kykdev.ui.BaseActivity
@@ -118,6 +119,14 @@ class FlowTestActivity : BaseActivity() {
                 .collect()
         }
 
+        launchRepeatOnStarted {
+            mViewModel.isLoading
+                .onEach {
+                    mBinding.progressBar.isVisible = it
+                }
+                .catch { cause -> Timber.e("$cause") }
+                .collect()
+        }
 
     }
 

@@ -51,11 +51,15 @@ class FlowTestViewModel : ViewModel() {
     private val _networkProcessValue = MutableStateFlow("default value")
     val networkProcessValue = _networkProcessValue.asStateFlow()
     fun callNetworkProcess() = viewModelScope.launch {
+        _isLoading.emit(true)
         delay(1000)
         Timber.d("emit networkProcessValue : ${mockNetworkProcessValue}")
         _networkProcessValue.emit("networkProcessValue : ${mockNetworkProcessValue++}")
+        _isLoading.emit(false)
     }
     var mockNetworkProcessValue = 1
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
 
 }
