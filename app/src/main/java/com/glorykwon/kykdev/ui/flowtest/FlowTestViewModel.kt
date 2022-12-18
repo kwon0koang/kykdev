@@ -2,10 +2,7 @@ package com.glorykwon.kykdev.ui.flowtest
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -33,18 +30,32 @@ class FlowTestViewModel : ViewModel() {
         }
     }
 
-    private val _status1 = MutableStateFlow("")
+    private val _status1 = MutableStateFlow("default status 1")
     val status1 = _status1.asStateFlow()
-    fun updateStatus1(value: String) = viewModelScope.launch {
-        Timber.d("emit status1 : $value")
-        _status1.emit(value)
+    fun updateStatus1(status: String) = viewModelScope.launch {
+        delay(1000)
+        val result = "emit status1 : $status"
+        Timber.d(result)
+        _status1.emit(result)
     }
 
-    private val _status2 = MutableStateFlow("")
+    private val _status2 = MutableStateFlow("default status 2")
     val status2 = _status2.asStateFlow()
-    fun updateStatus2(value: String) = viewModelScope.launch {
-        Timber.d("emit status2 : $value")
-        _status2.emit(value)
+    fun updateStatus2(status: String) = viewModelScope.launch {
+        delay(1000)
+        val result = "emit status2 : $status"
+        Timber.d(result)
+        _status2.emit(result)
     }
+
+    private val _networkProcessValue = MutableStateFlow("default value")
+    val networkProcessValue = _networkProcessValue.asStateFlow()
+    fun callNetworkProcess() = viewModelScope.launch {
+        delay(1000)
+        Timber.d("emit networkProcessValue : ${mockNetworkProcessValue}")
+        _networkProcessValue.emit("networkProcessValue : ${mockNetworkProcessValue++}")
+    }
+    var mockNetworkProcessValue = 1
+
 
 }

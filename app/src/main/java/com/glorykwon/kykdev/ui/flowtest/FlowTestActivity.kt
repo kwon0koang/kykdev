@@ -8,7 +8,10 @@ import com.glorykwon.kykdev.databinding.ActivityFlowTestBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 import com.glorykwon.kykdev.ui.webviewtest.WebViewTestActivity
 import com.glorykwon.kykdev.util.kt.launchRepeatOnStarted
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 /**
@@ -52,6 +55,11 @@ class FlowTestActivity : BaseActivity() {
         mBinding.btnStartCountFlow.setOnClickListener {
             mViewModel.startCountFlow()
         }
+
+        mBinding.btnCallNetworkProcess.setOnClickListener {
+            mViewModel.callNetworkProcess()
+        }
+
         mBinding.btnCallActivity.setOnClickListener {
             val intent = Intent(this, WebViewTestActivity::class.java)
             startActivity(intent)
@@ -82,7 +90,6 @@ class FlowTestActivity : BaseActivity() {
 
         launchRepeatOnStarted {
             mViewModel.status1
-                .debounce(1000)
                 .onEach {
                     Timber.d("mViewModel.status1.onEach / $it")
                     mBinding.txtStatus1.text = it
@@ -93,7 +100,6 @@ class FlowTestActivity : BaseActivity() {
 
         launchRepeatOnStarted {
             mViewModel.status2
-                .debounce(1000)
                 .onEach {
                     Timber.d("mViewModel.status2.onEach / $it")
                     mBinding.txtStatus2.text = it
@@ -101,6 +107,17 @@ class FlowTestActivity : BaseActivity() {
                 .catch { cause -> Timber.e("$cause") }
                 .collect()
         }
+
+        launchRepeatOnStarted {
+            mViewModel.networkProcessValue
+                .onEach {
+                    Timber.d("mViewModel.networkProcessValue.onEach / $it")
+                    mBinding.txtNetworkProcessValue.text = it
+                }
+                .catch { cause -> Timber.e("$cause") }
+                .collect()
+        }
+
 
     }
 
