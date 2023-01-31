@@ -36,7 +36,8 @@
             android:name=".common.dynamiclink.DynamicLinkActivity"
             android:launchMode="singleTask"
             android:noHistory="true"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
