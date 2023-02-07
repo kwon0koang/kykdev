@@ -59,7 +59,7 @@ class FlowTestViewModel : ViewModel() {
     }
     var mockNetworkProcessValue = 1
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading = _isLoading.asStateFlow()
+    private val _isLoading = MutableSharedFlow<Boolean>()
+    val isLoading = _isLoading.asSharedFlow()
 
 }
