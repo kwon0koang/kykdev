@@ -1,10 +1,13 @@
 package com.glorykwon.kykdev.ui.flowtest
 
 import androidx.lifecycle.*
+import com.glorykwon.kykdev.common.NetworkResult
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.lang.Exception
+import kotlin.random.Random
 
 class FlowTestViewModel : ViewModel() {
 
@@ -48,18 +51,39 @@ class FlowTestViewModel : ViewModel() {
         _status2.emit(result)
     }
 
-    private val _networkProcessValue = MutableStateFlow("default value")
-    val networkProcessValue = _networkProcessValue.asStateFlow()
+    /**
+     * ==============================================================================================================================================================================================================================================
+     */
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
+
+    private val _errorFlow = MutableSharedFlow<String?>()
+    val errorFlow = _errorFlow.asSharedFlow()
+
+    //    private val _eventFlow = MutableSharedFlow<NetworkResult>()
+//    val eventFlow = _eventFlow.asSharedFlow()
+
+    private val _networkProcessValue01 = MutableStateFlow("value 01")
+    val networkProcessValue01 = _networkProcessValue01.asStateFlow()
+    private val _networkProcessValue02 = MutableStateFlow("value 02")
+    val networkProcessValue02 = _networkProcessValue02.asStateFlow()
+    private val _networkProcessValue03 = MutableStateFlow("value 03")
+    val networkProcessValue03 = _networkProcessValue03.asStateFlow()
+
     fun callNetworkProcess() = viewModelScope.launch {
         _isLoading.emit(true)
-        delay(1000)
-        Timber.d("emit networkProcessValue : ${mockNetworkProcessValue}")
-        _networkProcessValue.emit("networkProcessValue : ${mockNetworkProcessValue++}")
+        try {
+            _networkProcessValue01.emit("value 01 : ${Random.nextInt(1, 1001)}")
+            delay(1000)
+            _networkProcessValue02.emit("value 02 : ${Random.nextInt(1, 1001)}")
+            delay(1000)
+            _networkProcessValue03.emit("value 03 : ${Random.nextInt(1, 1001)}")
+        } catch (e: Exception) {
+            _errorFlow.emit(e.message)
+        }
         _isLoading.emit(false)
     }
-    var mockNetworkProcessValue = 1
 
-    private val _isLoading = MutableSharedFlow<Boolean>()
-    val isLoading = _isLoading.asSharedFlow()
 
 }

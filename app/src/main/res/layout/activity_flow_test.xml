@@ -21,9 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/et_status1"
@@ -43,9 +41,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/et_status2"
@@ -74,12 +70,34 @@
             android:layout_weight="1"
             android:text="Call network process" />
 
-        <TextView
-            android:id="@+id/txt_network_process_value"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            tools:text="Network process value" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_network_process_value01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="value 01" />
+
+            <TextView
+                android:id="@+id/txt_network_process_value02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="value 02" />
+
+            <TextView
+                android:id="@+id/txt_network_process_value03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="value 03" />
+
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/progressBar"

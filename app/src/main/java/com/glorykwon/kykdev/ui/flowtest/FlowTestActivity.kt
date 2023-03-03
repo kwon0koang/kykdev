@@ -5,13 +5,13 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import com.glorykwon.kykdev.common.dialog.CommonDialogFragment
 import com.glorykwon.kykdev.databinding.ActivityFlowTestBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 import com.glorykwon.kykdev.ui.webviewtest.WebViewTestActivity
 import com.glorykwon.kykdev.util.kt.launchRepeatOnStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
@@ -79,53 +79,58 @@ class FlowTestActivity : BaseActivity() {
         }
 
         launchRepeatOnStarted {
-            mViewModel.countFlow
-                .onEach {
-                    Timber.d("mViewModel.countFlow.onEach / $it")
-                    mBinding.btnStartCountFlow.text = "Start count flow : ${it}"
-                }
-                .onCompletion { cause -> if (cause == null) "Done" else "Failed" }
-                .catch { cause -> Timber.e("$cause") }
-                .collect()
+            mViewModel.countFlow.onEach {
+                Timber.d("mViewModel.countFlow.onEach / $it")
+                mBinding.btnStartCountFlow.text = "Start count flow : ${it}"
+            }.catch { cause -> Timber.e("$cause") }.collect()
         }
 
         launchRepeatOnStarted {
-            mViewModel.status1
-                .onEach {
-                    Timber.d("mViewModel.status1.onEach / $it")
-                    mBinding.txtStatus1.text = it
-                }
-                .catch { cause -> Timber.e("$cause") }
-                .collect()
+            mViewModel.status1.onEach {
+                Timber.d("mViewModel.status1.onEach / $it")
+                mBinding.txtStatus1.text = it
+            }.catch { cause -> Timber.e("$cause") }.collect()
         }
 
         launchRepeatOnStarted {
-            mViewModel.status2
-                .onEach {
-                    Timber.d("mViewModel.status2.onEach / $it")
-                    mBinding.txtStatus2.text = it
-                }
-                .catch { cause -> Timber.e("$cause") }
-                .collect()
+            mViewModel.status2.onEach {
+                Timber.d("mViewModel.status2.onEach / $it")
+                mBinding.txtStatus2.text = it
+            }.catch { cause -> Timber.e("$cause") }.collect()
         }
 
         launchRepeatOnStarted {
-            mViewModel.networkProcessValue
-                .onEach {
-                    Timber.d("mViewModel.networkProcessValue.onEach / $it")
-                    mBinding.txtNetworkProcessValue.text = it
-                }
-                .catch { cause -> Timber.e("$cause") }
-                .collect()
+            mViewModel.networkProcessValue01.onEach {
+                mBinding.txtNetworkProcessValue01.text = it
+            }.catch { cause -> Timber.e("$cause") }.collect()
         }
 
         launchRepeatOnStarted {
-            mViewModel.isLoading
-                .onEach {
-                    mBinding.progressBar.isVisible = it
-                }
-                .catch { cause -> Timber.e("$cause") }
-                .collect()
+            mViewModel.networkProcessValue02.onEach {
+                mBinding.txtNetworkProcessValue02.text = it
+            }.catch { cause -> Timber.e("$cause") }.collect()
+        }
+
+        launchRepeatOnStarted {
+            mViewModel.networkProcessValue03.onEach {
+                mBinding.txtNetworkProcessValue03.text = it
+            }.catch { cause -> Timber.e("$cause") }.collect()
+        }
+
+        launchRepeatOnStarted {
+            mViewModel.isLoading.onEach {
+                mBinding.progressBar.isVisible = it
+            }.catch { cause -> Timber.e("$cause") }.collect()
+        }
+
+        launchRepeatOnStarted {
+            mViewModel.errorFlow.onEach { msg ->
+                if (msg.isNullOrEmpty()) return@onEach
+                CommonDialogFragment(
+                    content = msg,
+                    confirmText = "확인",
+                ).show(supportFragmentManager, null)
+            }.catch { cause -> Timber.e("$cause") }.collect()
         }
 
     }

@@ -11,7 +11,7 @@ class CommonDialogFragment(
     val title: String? = null,
     val content: String? = null,
     val confirmText: String? = "확인",
-    val confirmListener: (Boolean) -> Any
+    val confirmListener: ((Boolean) -> Any)? = null
 ) : DialogFragment() {
 
     private val mBinding by lazy { FragmentCommonDialogBinding.inflate(layoutInflater) }
