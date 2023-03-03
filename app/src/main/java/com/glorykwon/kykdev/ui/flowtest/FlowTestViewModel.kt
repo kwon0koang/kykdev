@@ -1,15 +1,20 @@
 package com.glorykwon.kykdev.ui.flowtest
 
-import androidx.lifecycle.*
-import com.glorykwon.kykdev.common.NetworkResult
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
+import com.glorykwon.kykdev.ui.BaseViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.lang.Exception
 import kotlin.random.Random
 
-class FlowTestViewModel : ViewModel() {
+class FlowTestViewModel : BaseViewModel() {
 
     private val _countLiveData = MutableLiveData<Any>()
     fun startCountLiveData(){ _countLiveData.value = Any() }
@@ -54,13 +59,6 @@ class FlowTestViewModel : ViewModel() {
     /**
      * ==============================================================================================================================================================================================================================================
      */
-
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading = _isLoading.asStateFlow()
-
-    private val _errorFlow = MutableSharedFlow<String?>()
-    val errorFlow = _errorFlow.asSharedFlow()
-
     //    private val _eventFlow = MutableSharedFlow<NetworkResult>()
 //    val eventFlow = _eventFlow.asSharedFlow()
 
@@ -72,7 +70,7 @@ class FlowTestViewModel : ViewModel() {
     val networkProcessValue03 = _networkProcessValue03.asStateFlow()
 
     fun callNetworkProcess() = viewModelScope.launch {
-        _isLoading.emit(true)
+        loading()
         try {
             _networkProcessValue01.emit("value 01 : ${Random.nextInt(1, 1001)}")
             delay(1000)
@@ -82,8 +80,27 @@ class FlowTestViewModel : ViewModel() {
         } catch (e: Exception) {
             _errorFlow.emit(e.message)
         }
-        _isLoading.emit(false)
+        finished()
     }
 
+    fun funcDelay3000() = viewModelScope.launch {
+//        _isLoading.emit(true)
+//        delay(3000)
+//        _isLoading.emit(false)
+        loading()
+        delay(3000)
+        finished()
+        Timber.d("Finished funcDelay3000")
+    }
+
+    fun funcDelay1000() = viewModelScope.launch {
+//        _isLoading.emit(true)
+//        delay(1000)
+//        _isLoading.emit(false)
+        loading()
+        delay(1000)
+        finished()
+        Timber.d("Finished funcDelay1000")
+    }
 
 }

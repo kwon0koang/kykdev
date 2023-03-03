@@ -66,6 +66,11 @@ class FlowTestActivity : BaseActivity() {
             startActivity(intent)
         }
 
+        mBinding.btnTestLoading.setOnClickListener {
+            mViewModel.funcDelay3000()
+            mViewModel.funcDelay1000()
+        }
+
     }
 
     /**
@@ -119,7 +124,7 @@ class FlowTestActivity : BaseActivity() {
 
         launchRepeatOnStarted {
             mViewModel.isLoading.onEach {
-                mBinding.progressBar.isVisible = it
+                mBinding.progressBar.isVisible = it > 0
             }.catch { cause -> Timber.e("$cause") }.collect()
         }
 
@@ -132,7 +137,6 @@ class FlowTestActivity : BaseActivity() {
                 ).show(supportFragmentManager, null)
             }.catch { cause -> Timber.e("$cause") }.collect()
         }
-
     }
 
     /**
