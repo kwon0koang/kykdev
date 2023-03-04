@@ -12,6 +12,7 @@ import com.glorykwon.kykdev.ui.webviewtest.WebViewTestActivity
 import com.glorykwon.kykdev.util.kt.launchRepeatOnStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
@@ -123,8 +124,8 @@ class FlowTestActivity : BaseActivity() {
         }
 
         launchRepeatOnStarted {
-            mViewModel.isLoading.onEach {
-                mBinding.progressBar.isVisible = it > 0
+            mViewModel.isShowProgress.onEach {
+                mBinding.progressBar.isVisible = it
             }.catch { cause -> Timber.e("$cause") }.collect()
         }
 

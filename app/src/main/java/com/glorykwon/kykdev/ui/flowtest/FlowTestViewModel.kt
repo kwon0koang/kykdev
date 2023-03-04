@@ -84,23 +84,15 @@ class FlowTestViewModel : BaseViewModel() {
     }
 
     fun funcDelay3000() = viewModelScope.launch {
-//        _isLoading.emit(true)
-//        delay(3000)
-//        _isLoading.emit(false)
         loading()
         delay(3000)
         finished()
-        Timber.d("Finished funcDelay3000")
     }
 
     fun funcDelay1000() = viewModelScope.launch {
-//        _isLoading.emit(true)
-//        delay(1000)
-//        _isLoading.emit(false)
         loading()
         delay(1000)
         finished()
-        Timber.d("Finished funcDelay1000")
     }
 
 }
