@@ -14,7 +14,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 /**
  * repeatOnLifecycle : OnStart()/onStop() 에서 collect/cancel 할 필요없이 Lifecycle에 맞게 알아서 collect/cancel을 반복
  */
-fun <T> Flow<T>.collectLatestRepeatOnStarted(
+fun <T> Flow<T>.collectLatestWithLifeCycle(
     lifecycleOwner: LifecycleOwner,
     dispatcher: CoroutineContext = EmptyCoroutineContext,
     block: suspend (T) -> Unit

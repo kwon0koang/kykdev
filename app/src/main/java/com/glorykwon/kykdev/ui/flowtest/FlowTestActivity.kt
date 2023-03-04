@@ -8,7 +8,7 @@ import com.glorykwon.kykdev.common.dialog.CommonDialogFragment
 import com.glorykwon.kykdev.databinding.ActivityFlowTestBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 import com.glorykwon.kykdev.ui.webviewtest.WebViewTestActivity
-import com.glorykwon.kykdev.util.kt.collectLatestRepeatOnStarted
+import com.glorykwon.kykdev.util.kt.collectLatestWithLifeCycle
 import timber.log.Timber
 
 /**
@@ -65,7 +65,7 @@ class FlowTestActivity : BaseActivity() {
             mBinding.btnStartCountLivedata.text = "Start count livedata : ${it}"
         }
 
-        mViewModel.countFlow.collectLatestRepeatOnStarted(this) {
+        mViewModel.countFlow.collectLatestWithLifeCycle(this) {
             Timber.d("mViewModel.countFlow.onEach / $it")
             mBinding.btnStartCountFlow.text = "Start count flow : ${it}"
         }
@@ -74,24 +74,24 @@ class FlowTestActivity : BaseActivity() {
          * ========================================================================================
          */
 
-        mViewModel.networkProcessValue01.collectLatestRepeatOnStarted(this) {
+        mViewModel.networkProcessValue01.collectLatestWithLifeCycle(this) {
             mBinding.txtNetworkProcessValue01.text = it
         }
 
-        mViewModel.networkProcessValue02.collectLatestRepeatOnStarted(this) {
+        mViewModel.networkProcessValue02.collectLatestWithLifeCycle(this) {
             mBinding.txtNetworkProcessValue02.text = it
         }
 
-        mViewModel.networkProcessValue03.collectLatestRepeatOnStarted(this) {
+        mViewModel.networkProcessValue03.collectLatestWithLifeCycle(this) {
             mBinding.txtNetworkProcessValue03.text = it
         }
 
-        mViewModel.isShowProgress.collectLatestRepeatOnStarted(this) {
+        mViewModel.isShowProgress.collectLatestWithLifeCycle(this) {
             mBinding.progressBar.isVisible = it
         }
 
-        mViewModel.errorFlow.collectLatestRepeatOnStarted(this) {
-            if (it.isNullOrEmpty()) return@collectLatestRepeatOnStarted
+        mViewModel.errorFlow.collectLatestWithLifeCycle(this) {
+            if (it.isNullOrEmpty()) return@collectLatestWithLifeCycle
             CommonDialogFragment(
                 content = it,
                 confirmText = "확인",
