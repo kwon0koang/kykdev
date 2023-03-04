@@ -39,24 +39,6 @@ class FlowTestViewModel : BaseViewModel() {
         }
     }
 
-    private val _status1 = MutableStateFlow("default status 1")
-    val status1 = _status1.asStateFlow()
-    fun updateStatus1(status: String) = viewModelScope.launch {
-        delay(1000)
-        val result = "emit status1 : $status"
-        Timber.d(result)
-        _status1.emit(result)
-    }
-
-    private val _status2 = MutableStateFlow("default status 2")
-    val status2 = _status2.asStateFlow()
-    fun updateStatus2(status: String) = viewModelScope.launch {
-        delay(1000)
-        val result = "emit status2 : $status"
-        Timber.d(result)
-        _status2.emit(result)
-    }
-
     /**
      * ==============================================================================================================================================================================================================================================
      */

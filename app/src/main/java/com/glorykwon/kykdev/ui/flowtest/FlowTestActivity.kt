@@ -4,16 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import com.glorykwon.kykdev.common.dialog.CommonDialogFragment
 import com.glorykwon.kykdev.databinding.ActivityFlowTestBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 import com.glorykwon.kykdev.ui.webviewtest.WebViewTestActivity
-import com.glorykwon.kykdev.util.kt.launchRepeatOnStarted
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onEach
+import com.glorykwon.kykdev.util.kt.collectLatestRepeatOnStarted
 import timber.log.Timber
 
 /**
@@ -41,14 +36,6 @@ class FlowTestActivity : BaseActivity() {
      * 뷰 초기화
      */
     private fun initView() {
-
-        mBinding.etStatus1.addTextChangedListener {
-            mViewModel.updateStatus1(it.toString())
-        }
-
-        mBinding.etStatus2.addTextChangedListener {
-            mViewModel.updateStatus2(it.toString())
-        }
 
         mBinding.btnStartCountLivedata.setOnClickListener {
             mViewModel.startCountLiveData()
@@ -78,59 +65,37 @@ class FlowTestActivity : BaseActivity() {
             mBinding.btnStartCountLivedata.text = "Start count livedata : ${it}"
         }
 
-        launchRepeatOnStarted {
-            mViewModel.countFlow.onEach {
-                Timber.d("mViewModel.countFlow.onEach / $it")
-                mBinding.btnStartCountFlow.text = "Start count flow : ${it}"
-            }.catch { cause -> Timber.e("$cause") }.collect()
+        mViewModel.countFlow.collectLatestRepeatOnStarted(this) {
+            Timber.d("mViewModel.countFlow.onEach / $it")
+            mBinding.btnStartCountFlow.text = "Start count flow : ${it}"
         }
 
-        launchRepeatOnStarted {
-            mViewModel.status1.onEach {
-                Timber.d("mViewModel.status1.onEach / $it")
-                mBinding.txtStatus1.text = it
-            }.catch { cause -> Timber.e("$cause") }.collect()
+        /**
+         * ========================================================================================
+         */
+
+        mViewModel.networkProcessValue01.collectLatestRepeatOnStarted(this) {
+            mBinding.txtNetworkProcessValue01.text = it
         }
 
-        launchRepeatOnStarted {
-            mViewModel.status2.onEach {
-                Timber.d("mViewModel.status2.onEach / $it")
-                mBinding.txtStatus2.text = it
-            }.catch { cause -> Timber.e("$cause") }.collect()
+        mViewModel.networkProcessValue02.collectLatestRepeatOnStarted(this) {
+            mBinding.txtNetworkProcessValue02.text = it
         }
 
-        launchRepeatOnStarted {
-            mViewModel.networkProcessValue01.onEach {
-                mBinding.txtNetworkProcessValue01.text = it
-            }.catch { cause -> Timber.e("$cause") }.collect()
+        mViewModel.networkProcessValue03.collectLatestRepeatOnStarted(this) {
+            mBinding.txtNetworkProcessValue03.text = it
         }
 
-        launchRepeatOnStarted {
-            mViewModel.networkProcessValue02.onEach {
-                mBinding.txtNetworkProcessValue02.text = it
-            }.catch { cause -> Timber.e("$cause") }.collect()
+        mViewModel.isShowProgress.collectLatestRepeatOnStarted(this) {
+            mBinding.progressBar.isVisible = it
         }
 
-        launchRepeatOnStarted {
-            mViewModel.networkProcessValue03.onEach {
-                mBinding.txtNetworkProcessValue03.text = it
-            }.catch { cause -> Timber.e("$cause") }.collect()
-        }
-
-        launchRepeatOnStarted {
-            mViewModel.isShowProgress.onEach {
-                mBinding.progressBar.isVisible = it
-            }.catch { cause -> Timber.e("$cause") }.collect()
-        }
-
-        launchRepeatOnStarted {
-            mViewModel.errorFlow.onEach { msg ->
-                if (msg.isNullOrEmpty()) return@onEach
-                CommonDialogFragment(
-                    content = msg,
-                    confirmText = "확인",
-                ).show(supportFragmentManager, null)
-            }.catch { cause -> Timber.e("$cause") }.collect()
+        mViewModel.errorFlow.collectLatestRepeatOnStarted(this) {
+            if (it.isNullOrEmpty()) return@collectLatestRepeatOnStarted
+            CommonDialogFragment(
+                content = it,
+                confirmText = "확인",
+            ).show(supportFragmentManager, null)
         }
     }
 
