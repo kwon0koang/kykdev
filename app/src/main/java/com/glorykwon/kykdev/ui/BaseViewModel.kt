@@ -2,6 +2,7 @@ package com.glorykwon.kykdev.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -17,11 +18,39 @@ open class BaseViewModel : ViewModel() {
     protected val _errorFlow = MutableSharedFlow<String?>()
     val errorFlow = _errorFlow.asSharedFlow()
 
-    fun loading() = viewModelScope.launch {
+    /**
+     * API 로딩 중
+     */
+    protected fun loading() = viewModelScope.launch {
         _loadingCnt.emit(++_loadingCnt.value)
     }
-    fun finished() = viewModelScope.launch {
+
+    /**
+     * API 끝
+     */
+    protected fun finished() = viewModelScope.launch {
+        if (_loadingCnt.value <= 0) return@launch
         _loadingCnt.emit(--_loadingCnt.value)
     }
 
+    protected fun Job?.myLaunch(block: suspend () -> Unit) = this.myLaunchWithProgress(isShowProgress = false, block)
+    protected fun Job?.myLaunchWithProgress(isShowProgress: Boolean = true, block: suspend () -> Unit): Job {
+        this?.cancel()      // 기존 Job cancel
+        finished()          // 기존 Job cancel
+        return viewModelScope.launch {
+            if (isShowProgress) {
+                loading()
+            }
+
+            try {
+                block()
+            } catch (e: Exception) {
+                _errorFlow.emit(e.message)
+            }
+
+            if (isShowProgress) {
+                finished()
+            }
+        }
+    }
 }

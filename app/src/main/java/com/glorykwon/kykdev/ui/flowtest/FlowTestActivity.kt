@@ -66,12 +66,6 @@ class FlowTestActivity : BaseActivity() {
             val intent = Intent(this, WebViewTestActivity::class.java)
             startActivity(intent)
         }
-
-        mBinding.btnTestLoading.setOnClickListener {
-            mViewModel.funcDelay3000()
-            mViewModel.funcDelay1000()
-        }
-
     }
 
     /**

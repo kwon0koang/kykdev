@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.glorykwon.kykdev.ui.BaseViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -59,9 +60,6 @@ class FlowTestViewModel : BaseViewModel() {
     /**
      * ==============================================================================================================================================================================================================================================
      */
-    //    private val _eventFlow = MutableSharedFlow<NetworkResult>()
-//    val eventFlow = _eventFlow.asSharedFlow()
-
     private val _networkProcessValue01 = MutableStateFlow("value 01")
     val networkProcessValue01 = _networkProcessValue01.asStateFlow()
     private val _networkProcessValue02 = MutableStateFlow("value 02")
@@ -69,30 +67,15 @@ class FlowTestViewModel : BaseViewModel() {
     private val _networkProcessValue03 = MutableStateFlow("value 03")
     val networkProcessValue03 = _networkProcessValue03.asStateFlow()
 
-    fun callNetworkProcess() = viewModelScope.launch {
-        loading()
-        try {
+    private var callNetworkProcessJob: Job? = null
+    fun callNetworkProcess() {
+        callNetworkProcessJob = callNetworkProcessJob.myLaunchWithProgress {
             _networkProcessValue01.emit("value 01 : ${Random.nextInt(1, 1001)}")
             delay(1000)
             _networkProcessValue02.emit("value 02 : ${Random.nextInt(1, 1001)}")
             delay(1000)
             _networkProcessValue03.emit("value 03 : ${Random.nextInt(1, 1001)}")
-        } catch (e: Exception) {
-            _errorFlow.emit(e.message)
         }
-        finished()
-    }
-
-    fun funcDelay3000() = viewModelScope.launch {
-        loading()
-        delay(3000)
-        finished()
-    }
-
-    fun funcDelay1000() = viewModelScope.launch {
-        loading()
-        delay(1000)
-        finished()
     }
 
 }
