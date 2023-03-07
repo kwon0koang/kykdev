@@ -49,14 +49,17 @@ class FlowTestViewModel : BaseViewModel() {
     private val _networkProcessValue03 = MutableStateFlow("value 03")
     val networkProcessValue03 = _networkProcessValue03.asStateFlow()
 
-    private var callNetworkProcessJob: Job? = null
+    private var _callNetworkProcessJob: Job? = null
     fun callNetworkProcess() {
-        callNetworkProcessJob = callNetworkProcessJob.myLaunchWithProgress {
+        _callNetworkProcessJob = _callNetworkProcessJob.myLaunchWithProgress {
             _networkProcessValue01.emit("value 01 : ${Random.nextInt(1, 1001)}")
+            Timber.d("emit value 01")
             delay(1000)
             _networkProcessValue02.emit("value 02 : ${Random.nextInt(1, 1001)}")
+            Timber.d("emit value 02")
             delay(1000)
             _networkProcessValue03.emit("value 03 : ${Random.nextInt(1, 1001)}")
+            Timber.d("emit value 03")
         }
     }
 

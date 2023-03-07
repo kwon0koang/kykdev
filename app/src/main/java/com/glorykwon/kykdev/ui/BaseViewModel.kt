@@ -45,6 +45,7 @@ open class BaseViewModel : ViewModel() {
             try {
                 block()
             } catch (e: Exception) {
+                finished()
                 _errorFlow.emit(e.message)
             }
 
