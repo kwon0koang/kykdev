@@ -15,20 +15,20 @@ open class BaseViewModel : ViewModel() {
         }
     }
 
-    protected val _errorFlow = MutableSharedFlow<String?>()
+    private val _errorFlow = MutableSharedFlow<String?>()
     val errorFlow = _errorFlow.asSharedFlow()
 
     /**
      * API 로딩 중
      */
-    protected fun loading() = viewModelScope.launch {
+    private fun loading() = viewModelScope.launch {
         _loadingCnt.emit(++_loadingCnt.value)
     }
 
     /**
      * API 끝
      */
-    protected fun finished() = viewModelScope.launch {
+    private fun finished() = viewModelScope.launch {
         if (_loadingCnt.value <= 0) return@launch
         _loadingCnt.emit(--_loadingCnt.value)
     }
