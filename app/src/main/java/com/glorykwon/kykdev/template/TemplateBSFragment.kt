@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -88,6 +89,24 @@ class TemplateBSFragment(
         mBinding.btnConfirm.clicks().subscribeBy {
             mConfirmListener?.invoke(true)
             dismiss()
+        }
+
+        mBinding.txtContent.setOnTouchListener { v, event ->
+            when(event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    val bottomSheet = dialog?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
+                    bottomSheet?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.transparent)) // 백그라운드 투명
+                    val behavior = BottomSheetBehavior.from(bottomSheet!!)
+                    behavior.isDraggable = false     // 내려서 닫기 X
+                }
+                MotionEvent.ACTION_UP -> {
+                    val bottomSheet = dialog?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
+                    bottomSheet?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.transparent)) // 백그라운드 투명
+                    val behavior = BottomSheetBehavior.from(bottomSheet!!)
+                    behavior.isDraggable = true     // 내려서 닫기 X
+                }
+            }
+            return@setOnTouchListener true
         }
 
     }
