@@ -16,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding4.view.clicks
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import timber.log.Timber
 
 class TemplateBSFragment(
     val mTextTitle: String? = null,             // 제목
@@ -38,7 +39,7 @@ class TemplateBSFragment(
             behavior.state = BottomSheetBehavior.STATE_EXPANDED // Expanded 상태로 오픈
             behavior.isHideable = true      // Drag를 통한 숨김 처리
             behavior.skipCollapsed = true   // 중간 Collapsed 단계 생략
-            behavior.isDraggable = true     // 내려서 닫기 X
+            behavior.isDraggable = true
         }
         return dialog
     }
@@ -91,23 +92,10 @@ class TemplateBSFragment(
             dismiss()
         }
 
-        mBinding.txtContent.setOnTouchListener { v, event ->
-            when(event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    val bottomSheet = dialog?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
-                    bottomSheet?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.transparent)) // 백그라운드 투명
-                    val behavior = BottomSheetBehavior.from(bottomSheet!!)
-                    behavior.isDraggable = false     // 내려서 닫기 X
-                }
-                MotionEvent.ACTION_UP -> {
-                    val bottomSheet = dialog?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
-                    bottomSheet?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.transparent)) // 백그라운드 투명
-                    val behavior = BottomSheetBehavior.from(bottomSheet!!)
-                    behavior.isDraggable = true     // 내려서 닫기 X
-                }
-            }
-            return@setOnTouchListener true
-        }
+        mBinding.layoutContent.setOnTouchListener(preventDragTouchListener)
+        mBinding.txtContent.setOnTouchListener(preventDragTouchListener)
+        mBinding.btnCancel.setOnTouchListener(preventDragTouchListener)
+        mBinding.btnConfirm.setOnTouchListener(preventDragTouchListener)
 
     }
 
@@ -132,6 +120,42 @@ class TemplateBSFragment(
     override fun onDetach() {
         super.onDetach()
         callback.remove()
+    }
+
+    /**
+     * 드래그 막기 위함
+     */
+    private var dragCnt = 0             // ACTION_MOVE 에서 증가
+    fun isClicked() = dragCnt <= 5      // 5 이하이면 클릭으로 판단
+    private val preventDragTouchListener = View.OnTouchListener { v, event ->
+        Timber.d("preventDragTouchListener / ${event.action}")
+        when(event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                dragCnt = 0
+                dialog?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)?.let { bottomSheet ->
+                    bottomSheet.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.transparent)) // 백그라운드 투명
+                    val behavior = BottomSheetBehavior.from(bottomSheet)
+                    behavior.isDraggable = false
+                }
+            }
+            MotionEvent.ACTION_UP -> {
+                Timber.d("preventDragTouchListener / isClicked:${isClicked()} / dragCnt:$dragCnt")
+                if (isClicked()) {
+                    v.performClick()
+                }
+
+                dragCnt = 0
+                dialog?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)?.let { bottomSheet ->
+                    bottomSheet.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.transparent)) // 백그라운드 투명
+                    val behavior = BottomSheetBehavior.from(bottomSheet)
+                    behavior.isDraggable = true
+                }
+            }
+            MotionEvent.ACTION_MOVE -> {
+                dragCnt++
+            }
+        }
+        true
     }
 
 }
