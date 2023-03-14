@@ -1,9 +1,6 @@
 package com.glorykwon.kykdev.util.kt
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
@@ -13,6 +10,8 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.glorykwon.kykdev.MainApplication
 import com.glorykwon.kykdev.ui.MainActivity
+import timber.log.Timber
+
 
 val NOTI_CHANNEL_ID = "kykdev_NOTI_CHANNEL_ID"          //알림받을 채널 ID
 val NOTI_CHANNEL_NAME = "kykdev_NOTI_CHANNEL_NAME"      //채널 이름
@@ -89,3 +88,25 @@ fun getDisplayWidth(context: Context): Int = context.resources.displayMetrics.wi
  * Display Height
  */
 fun getDisplayHeight(context: Context): Int = context.resources.displayMetrics.heightPixels
+
+/**
+ * 현재 액티비티명 반환
+ *      Ex) com.glorykwon.kykdev.ui.MainActivity
+ */
+fun getTopActivityName(context: Context): String = try {
+    val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    var className = ""
+    className = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        manager.appTasks[0].taskInfo.topActivity!!.className
+    } else {
+        val info = manager.getRunningTasks(1)
+        val componentName = info[0].topActivity
+        componentName!!.className
+    }
+
+    // 리턴 반환 데이터 삽입 실시
+    className
+} catch (e: Exception) {
+    Timber.e(e)
+    ""
+}
