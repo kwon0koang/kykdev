@@ -3,12 +3,15 @@ package com.glorykwon.kykdev.ui.flowtest
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.glorykwon.kykdev.common.dialog.CommonDialogFragment
+import com.glorykwon.kykdev.common.dialog.ProgressDialog
 import com.glorykwon.kykdev.databinding.ActivityFlowTestBinding
 import com.glorykwon.kykdev.ui.BaseActivity
 import com.glorykwon.kykdev.ui.webviewtest.WebViewTestActivity
 import com.glorykwon.kykdev.util.kt.collectLatestWithLifeCycle
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -18,6 +21,8 @@ class FlowTestActivity : BaseActivity() {
 
     private val mBinding by lazy { ActivityFlowTestBinding.inflate(layoutInflater) }
     private val mViewModel by viewModels<FlowTestViewModel>()
+
+    private val mProgress by lazy { ProgressDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +41,6 @@ class FlowTestActivity : BaseActivity() {
      * 뷰 초기화
      */
     private fun initView() {
-
         mBinding.btnStartCountLivedata.setOnClickListener {
             mViewModel.startCountLiveData()
         }
@@ -45,14 +49,30 @@ class FlowTestActivity : BaseActivity() {
             mViewModel.startCountFlow()
         }
 
-        mBinding.btnCallNetworkProcess.setOnClickListener {
-            mViewModel.callNetworkProcess()
+        mBinding.btnCallApi.setOnClickListener {
+            mViewModel.callApi()
+        }
+
+        mBinding.btnCallApi.setOnLongClickListener {
+            lifecycleScope.launch {
+                mViewModel.callApi()
+                delay(1500)
+                mViewModel.callApi()
+                delay(1500)
+                mViewModel.callApi()
+            }
+            true
+        }
+
+        mBinding.btnCallApiWithoutProgress.setOnClickListener {
+            mViewModel.callApi(isLoading = false)
         }
 
         mBinding.btnCallActivity.setOnClickListener {
             val intent = Intent(this, WebViewTestActivity::class.java)
             startActivity(intent)
         }
+
     }
 
     /**
@@ -73,6 +93,20 @@ class FlowTestActivity : BaseActivity() {
         /**
          * ========================================================================================
          */
+        mViewModel.loadingFlow.collectLatestWithLifeCycle(this) { loading ->
+            if (loading) {
+                mProgress.show()
+            } else {
+                mProgress.hide()
+            }
+        }
+
+        mViewModel.errorFlow.collectLatestWithLifeCycle(this) { error ->
+            CommonDialogFragment(
+                content = error.message,
+                confirmText = "확인",
+            ).show(supportFragmentManager, null)
+        }
 
         mViewModel.networkProcessValue01.collectLatestWithLifeCycle(this) {
             mBinding.txtNetworkProcessValue01.text = it
@@ -84,18 +118,6 @@ class FlowTestActivity : BaseActivity() {
 
         mViewModel.networkProcessValue03.collectLatestWithLifeCycle(this) {
             mBinding.txtNetworkProcessValue03.text = it
-        }
-
-        mViewModel.isShowProgress.collectLatestWithLifeCycle(this) {
-            mBinding.progressBar.isVisible = it
-        }
-
-        mViewModel.errorFlow.collectLatestWithLifeCycle(this) {
-            if (it.isNullOrEmpty()) return@collectLatestWithLifeCycle
-            CommonDialogFragment(
-                content = it,
-                confirmText = "확인",
-            ).show(supportFragmentManager, null)
         }
     }
 

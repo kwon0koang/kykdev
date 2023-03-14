@@ -13,7 +13,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.glorykwon.kykdev.MainApplication
 import com.glorykwon.kykdev.ui.MainActivity
-import timber.log.Timber
 
 val NOTI_CHANNEL_ID = "kykdev_NOTI_CHANNEL_ID"          //알림받을 채널 ID
 val NOTI_CHANNEL_NAME = "kykdev_NOTI_CHANNEL_NAME"      //채널 이름

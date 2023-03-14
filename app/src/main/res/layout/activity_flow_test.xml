@@ -23,17 +23,33 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_call_network_process"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Call network process" />
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_call_api"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Call API" />
+
+            <Button
+                android:id="@+id/btn_call_api_without_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Call API without progress" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:orientation="vertical">
 
@@ -67,6 +83,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Call activity" />
+
+    <Button
+        android:id="@+id/btn_call_api_in_fragments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Call api in fragments" />
+
+    <FrameLayout
+        android:id="@+id/layout_test_flow01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:id="@+id/layout_test_flow02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:id="@+id/layout_test_flow03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <ProgressBar
         android:id="@+id/progressBar"
