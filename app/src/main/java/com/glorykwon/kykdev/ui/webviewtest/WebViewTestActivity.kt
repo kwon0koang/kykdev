@@ -58,7 +58,13 @@ class WebViewTestActivity : BaseActivity() {
                 settings.allowUniversalAccessFromFileURLs = true
             }
 
-            webViewClient = WebViewClient()
+            webViewClient = BaseWebViewClient().apply {
+                setOnWebVieClientListener(
+                    onPageStartedListener = null,
+                    onPageFinishedListener = null,
+                    shouldOverrideUrlLoadingListener = null,
+                )
+            }
 
             loadUrl("https://www.naver.com")
 
